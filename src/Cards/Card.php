@@ -44,8 +44,6 @@ class Card
      *
      * @since  {nextRelease}
      *
-     * @author Artur Alves <artur.ze.alves@gmail.com>
-     *
      * @return string The Card represented as a string
      */
     public function __toString()
