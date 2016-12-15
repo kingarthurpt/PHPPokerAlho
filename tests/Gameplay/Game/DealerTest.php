@@ -2,11 +2,11 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Cards\Deck;
-use PHPPokerAlho\Cards\StandardDeck;
-use PHPPokerAlho\Game\Dealer;
-use PHPPokerAlho\Game\Table;
-use PHPPokerAlho\Game\Player;
+use PHPPokerAlho\Gameplay\Cards\Deck;
+use PHPPokerAlho\Gameplay\Cards\StandardDeck;
+use PHPPokerAlho\Gameplay\Game\Dealer;
+use PHPPokerAlho\Gameplay\Game\Table;
+use PHPPokerAlho\Gameplay\Game\Player;
 
 /**
  * @since  {nextRelease}
@@ -16,7 +16,7 @@ use PHPPokerAlho\Game\Player;
 class DealerTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::__construct
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::__construct
      *
      * @since  nextRelease
      */
@@ -30,7 +30,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::__construct
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::__construct
      *
      * @since  nextRelease
      */
@@ -41,7 +41,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::getDeck
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getDeck
      *
      * @depends testConstruct
      *
@@ -58,7 +58,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::setDeck
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::setDeck
      *
      * @depends testConstruct
      *
@@ -77,7 +77,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::getTable
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getTable
      *
      * @depends testConstruct
      *
@@ -94,7 +94,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::setTable
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::setTable
      *
      * @depends testConstruct
      *
@@ -113,7 +113,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::hasDeck
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::hasDeck
      *
      * @since  nextRelease
      */
@@ -127,7 +127,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::hasTable
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::hasTable
      *
      * @since  nextRelease
      */
@@ -141,7 +141,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::deal
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
      *
      * @since  nextRelease
      */
@@ -152,7 +152,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::deal
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
      *
      * @since  nextRelease
      */
@@ -170,7 +170,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::deal
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
      *
      * @since  nextRelease
      */
@@ -198,7 +198,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Dealer::update
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::update
      *
      * @depends testConstruct
      *

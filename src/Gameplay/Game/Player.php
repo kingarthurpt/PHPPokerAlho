@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPPokerAlho\Game;
+namespace PHPPokerAlho\Gameplay\Game;
 
-use PHPPokerAlho\Game\GameObserver;
-use PHPPokerAlho\Game\GameSubject;
+use PHPPokerAlho\Gameplay\Game\GameObserver;
+use PHPPokerAlho\Gameplay\Game\GameSubject;
 
 /**
  * @since  {nextRelease}

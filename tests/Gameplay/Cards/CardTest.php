@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Cards\Suit;
-use PHPPokerAlho\Cards\Card;
+use PHPPokerAlho\Gameplay\Cards\Suit;
+use PHPPokerAlho\Gameplay\Cards\Card;
 
 /**
  * @since  {nextRelease}
@@ -13,7 +13,7 @@ use PHPPokerAlho\Cards\Card;
 class CardTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Cards\Card::__construct
+     * @covers \PHPPokerAlho\Gameplay\Cards\Card::__construct
      *
      * @since  nextRelease
      */
@@ -28,7 +28,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Card::__construct
+     * @covers \PHPPokerAlho\Gameplay\Cards\Card::__construct
      *
      * @since  nextRelease
      */
@@ -41,7 +41,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Card::__construct
+     * @covers \PHPPokerAlho\Gameplay\Cards\Card::__construct
      *
      * @since  nextRelease
      */
@@ -53,7 +53,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Card::__toString
+     * @covers \PHPPokerAlho\Gameplay\Cards\Card::__toString
      *
      * @since  nextRelease
      */
@@ -64,7 +64,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Card::getValue
+     * @covers \PHPPokerAlho\Gameplay\Cards\Card::getValue
      *
      * @depends testConstructWithBothArgs
      *
@@ -81,7 +81,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Card::setValue
+     * @covers \PHPPokerAlho\Gameplay\Cards\Card::setValue
      *
      * @depends testConstructWithBothArgs
      *
@@ -99,7 +99,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Card::getSuit
+     * @covers \PHPPokerAlho\Gameplay\Cards\Card::getSuit
      *
      * @depends testConstructWithBothArgs
      *
@@ -116,7 +116,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Card::setSuit
+     * @covers \PHPPokerAlho\Gameplay\Cards\Card::setSuit
      *
      * @depends testConstructWithBothArgs
      *

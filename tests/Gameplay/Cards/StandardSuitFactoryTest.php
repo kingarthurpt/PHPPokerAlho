@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Cards\StandardSuitFactory;
+use PHPPokerAlho\Gameplay\Cards\StandardSuitFactory;
 
 /**
  * @since  {nextRelease}
@@ -12,7 +12,7 @@ use PHPPokerAlho\Cards\StandardSuitFactory;
 class StandardSuitFactoryTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Cards\StandardSuitFactory::create
+     * @covers \PHPPokerAlho\Gameplay\Cards\StandardSuitFactory::create
      *
      * @since  nextRelease
      */

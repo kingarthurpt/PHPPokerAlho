@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Cards\Suit;
+use PHPPokerAlho\Gameplay\Cards\Suit;
 
 /**
  * @since  {nextRelease}
@@ -12,7 +12,7 @@ use PHPPokerAlho\Cards\Suit;
 class SuitTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::__construct
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
      *
      * @since  nextRelease
      */
@@ -25,7 +25,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::__construct
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
      *
      * @since  nextRelease
      */
@@ -36,7 +36,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::__construct
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
      *
      * @since  nextRelease
      */
@@ -48,7 +48,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::__construct
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
      *
      * @since  nextRelease
      */
@@ -60,7 +60,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::__toString
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__toString
      *
      * @since  nextRelease
      */
@@ -71,7 +71,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::getName
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getName
      *
      * @depends testConstruct
      *
@@ -88,7 +88,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::setName
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setName
      *
      * @depends testConstruct
      *
@@ -106,7 +106,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::getSymbol
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getSymbol
      *
      * @depends testConstruct
      *
@@ -123,7 +123,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Suit::setSymbol
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setSymbol
      *
      * @depends testConstruct
      *

@@ -2,11 +2,11 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Game\Table;
-use PHPPokerAlho\Game\Dealer;
-use PHPPokerAlho\Game\Player;
-use PHPPokerAlho\Cards\Card;
-use PHPPokerAlho\Cards\Suit;
+use PHPPokerAlho\Gameplay\Game\Table;
+use PHPPokerAlho\Gameplay\Game\Dealer;
+use PHPPokerAlho\Gameplay\Game\Player;
+use PHPPokerAlho\Gameplay\Cards\Card;
+use PHPPokerAlho\Gameplay\Cards\Suit;
 
 /**
  * @since  {nextRelease}
@@ -16,7 +16,7 @@ use PHPPokerAlho\Cards\Suit;
 class TableTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Game\Table::__construct
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::__construct
      *
      * @since  nextRelease
      */
@@ -32,7 +32,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::__construct
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::__construct
      *
      * @since  nextRelease
      */
@@ -44,7 +44,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::__toString
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::__toString
      *
      * @depends testConstruct
      *
@@ -61,7 +61,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getName
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getName
      *
      * @depends testConstruct
      *
@@ -78,7 +78,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::setName
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::setName
      *
      * @depends testConstruct
      *
@@ -96,7 +96,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getSeatsCount
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getSeatsCount
      *
      * @depends testConstruct
      *
@@ -113,7 +113,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::setSeatsCount
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::setSeatsCount
      *
      * @depends testConstruct
      *
@@ -131,7 +131,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getDealer
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getDealer
      *
      * @depends testConstruct
      *
@@ -148,7 +148,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::setDealer
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::setDealer
      *
      * @depends testConstruct
      *
@@ -167,7 +167,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::addPlayer
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::addPlayer
      *
      * @depends testConstruct
      *
@@ -185,7 +185,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::addPlayer
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::addPlayer
      *
      * @since  nextRelease
      */
@@ -200,7 +200,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::removePlayer
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::removePlayer
      *
      * @since  nextRelease
      */
@@ -223,7 +223,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::addPlayer
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::addPlayer
      *
      * @since  nextRelease
      */
@@ -236,7 +236,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getPlayerCount
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getPlayerCount
      *
      * @depends testConstruct
      *
@@ -253,7 +253,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getPlayers
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getPlayers
      *
      * @depends testConstruct
      *
@@ -270,7 +270,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::muckCard
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::muckCard
      *
      * @depends testConstruct
      *
@@ -287,7 +287,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getMuck
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getMuck
      *
      * @depends testConstruct
      *
@@ -305,7 +305,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getFlop
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getFlop
      *
      * @depends testConstruct
      *
@@ -322,7 +322,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::setFlop
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::setFlop
      *
      * @depends testConstruct
      *
@@ -348,7 +348,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getTurn
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getTurn
      *
      * @depends testConstruct
      *
@@ -365,7 +365,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::setTurn
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::setTurn
      *
      * @depends testConstruct
      *
@@ -385,7 +385,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::getRiver
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getRiver
      *
      * @depends testConstruct
      *
@@ -402,7 +402,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Table::setRiver
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::setRiver
      *
      * @depends testConstruct
      *

@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Cards\Deck;
-use PHPPokerAlho\Cards\Card;
-use PHPPokerAlho\Cards\Suit;
+use PHPPokerAlho\Gameplay\Cards\Deck;
+use PHPPokerAlho\Gameplay\Cards\Card;
+use PHPPokerAlho\Gameplay\Cards\Suit;
 
 /**
  * @since  {nextRelease}
@@ -14,7 +14,7 @@ use PHPPokerAlho\Cards\Suit;
 class DeckTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::__construct
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::__construct
      *
      * @since  nextRelease
      */
@@ -27,7 +27,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::addCard
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::addCard
      *
      * @depends testConstruct
      *
@@ -51,7 +51,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::addCards
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::addCards
      *
      * @depends testConstruct
      *
@@ -86,7 +86,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::getSize
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::getSize
      *
      * @depends testConstruct
      *
@@ -103,7 +103,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::shuffle
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::shuffle
      *
      * @depends testConstruct
      *
@@ -131,7 +131,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::drawRandomCard
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawRandomCard
      *
      * @depends testConstruct
      *
@@ -154,7 +154,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::drawRandomCard
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawRandomCard
      *
      * @depends testConstruct
      *
@@ -174,7 +174,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::drawCard
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCard
      *
      * @depends testConstruct
      *
@@ -201,7 +201,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::drawFromTop
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawFromTop
      *
      * @depends testConstruct
      *
@@ -241,7 +241,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::drawCard
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCard
      *
      * @depends testConstruct
      *
@@ -262,7 +262,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::drawCard
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCard
      *
      * @depends testConstruct
      *
@@ -285,7 +285,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::drawCardAt
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCardAt
      *
      * @depends testConstruct
      *
@@ -309,7 +309,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Cards\Deck::drawCardAt
+     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCardAt
      *
      * @depends testConstruct
      *

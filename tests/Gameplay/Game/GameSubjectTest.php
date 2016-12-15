@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Game\GameSubject;
-use PHPPokerAlho\Game\GameObserver;
+use PHPPokerAlho\Gameplay\Game\GameSubject;
+use PHPPokerAlho\Gameplay\Game\GameObserver;
 
 /**
  * @since  {nextRelease}
@@ -13,7 +13,7 @@ use PHPPokerAlho\Game\GameObserver;
 class GameSubjectTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Game\GameSubject::__construct
+     * @covers \PHPPokerAlho\Gameplay\Game\GameSubject::__construct
      *
      * @since  nextRelease
      */
@@ -29,7 +29,7 @@ class GameSubjectTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\GameSubject::attach
+     * @covers \PHPPokerAlho\Gameplay\Game\GameSubject::attach
      *
      * @since  nextRelease
      */
@@ -42,7 +42,7 @@ class GameSubjectTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\GameSubject::detach
+     * @covers \PHPPokerAlho\Gameplay\Game\GameSubject::detach
      *
      * @since  nextRelease
      */
@@ -59,7 +59,7 @@ class GameSubjectTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\GameSubject::notify
+     * @covers \PHPPokerAlho\Gameplay\Game\GameSubject::notify
      *
      * @since  nextRelease
      */

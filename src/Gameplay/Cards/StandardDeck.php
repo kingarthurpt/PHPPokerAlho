@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPPokerAlho\Cards;
+namespace PHPPokerAlho\Gameplay\Cards;
 
-use PHPPokerAlho\Cards\StandardSuitFactory;
+use PHPPokerAlho\Gameplay\Cards\StandardSuitFactory;
 
 /**
  * @since  {nextRelease}

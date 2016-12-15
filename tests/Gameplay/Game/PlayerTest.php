@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Game\Player;
-use PHPPokerAlho\Game\Table;
-use PHPPokerAlho\Cards\Card;
-use PHPPokerAlho\Cards\Suit;
+use PHPPokerAlho\Gameplay\Game\Player;
+use PHPPokerAlho\Gameplay\Game\Table;
+use PHPPokerAlho\Gameplay\Cards\Card;
+use PHPPokerAlho\Gameplay\Cards\Suit;
 
 /**
  * @since  {nextRelease}
@@ -15,7 +15,7 @@ use PHPPokerAlho\Cards\Suit;
 class PlayerTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Game\Player::__construct
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::__construct
      *
      * @since  nextRelease
      */
@@ -28,7 +28,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Player::__toString
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::__toString
      *
      * @depends testConstruct
      *
@@ -45,7 +45,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Player::getName
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::getName
      *
      * @depends testConstruct
      *
@@ -62,7 +62,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Player::setName
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::setName
      *
      * @depends testConstruct
      *
@@ -80,7 +80,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Player::getHand
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::getHand
      *
      * @depends testConstruct
      *
@@ -97,7 +97,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Player::setHand
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::setHand
      *
      * @depends testConstruct
      *
@@ -119,7 +119,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Player::hasButton
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::hasButton
      *
      * @depends testConstruct
      *
@@ -136,7 +136,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Player::setButton
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::setButton
      *
      * @depends testConstruct
      *
@@ -153,7 +153,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Game\Player::update
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::update
      *
      * @depends testConstruct
      *

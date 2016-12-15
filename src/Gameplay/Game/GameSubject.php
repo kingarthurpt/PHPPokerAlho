@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPPokerAlho\Game;
+namespace PHPPokerAlho\Gameplay\Game;
 
 /**
  * @since  {nextRelease}
