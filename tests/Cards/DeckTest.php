@@ -51,6 +51,41 @@ class DeckTest extends BaseTestCase
     }
 
     /**
+     * @covers \PHPPokerAlho\Cards\Deck::addCards
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Deck $deck The Deck
+     */
+    public function testAddCards(Deck $deck)
+    {
+        $this->assertFalse($deck->addCards(array()));
+
+        $cards = array(
+            0 => new Card(4, new Suit("Clubs")),
+            1 => new Card(5, new Suit("Diamonds"))
+        );
+
+        foreach ($cards as $card) {
+            $this->assertNotContains(
+                $card,
+                $this->getPropertyValue($deck, 'cards')
+            );
+        }
+
+        $this->assertTrue($deck->addCards($cards));
+
+        foreach ($cards as $card) {
+            $this->assertContains(
+                $card,
+                $this->getPropertyValue($deck, 'cards')
+            );
+        }
+    }
+
+    /**
      * @covers \PHPPokerAlho\Cards\Deck::getSize
      *
      * @depends testConstruct
@@ -106,6 +141,7 @@ class DeckTest extends BaseTestCase
      */
     public function testDrawRandomCard(Deck $deck)
     {
+        $deck->addCard(new Card(5, new Suit('Hearts')));
         $initialSize = $deck->getSize();
 
         $card = $deck->drawRandomCard();
@@ -128,11 +164,167 @@ class DeckTest extends BaseTestCase
      */
     public function testDrawRandomCardWithEmptyDeck(Deck $deck)
     {
+        // Remove all cards from deck
         while ($deck->getSize() > 0) {
             $card = $deck->drawRandomCard();
             $this->assertInstanceOf(Card::class, $card);
         }
 
         $this->assertNull($deck->drawRandomCard());
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Cards\Deck::drawCard
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Deck $deck The Deck
+     */
+    public function testDrawCard(Deck $deck)
+    {
+        $card = new Card(9, new Suit("Clubs"));
+        $initialSize = $deck->getSize();
+        $deck->addCard($card);
+
+        $this->assertEquals(
+            $initialSize + 1,
+            $deck->getSize()
+        );
+
+        $this->assertTrue($deck->drawCard($card));
+        $this->assertEquals(
+            $initialSize,
+            $deck->getSize()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Cards\Deck::drawFromTop
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Deck $deck The Deck
+     */
+    public function testDrawFromTop(Deck $deck)
+    {
+        // Remove all cards from deck
+        while ($deck->getSize() > 0) {
+            $card = $deck->drawRandomCard();
+            $this->assertInstanceOf(Card::class, $card);
+        }
+
+        $cards = array(
+            0 => new Card(4, new Suit("Clubs")),
+            1 => new Card(5, new Suit("Diamonds"))
+        );
+
+        $deck->addCards($cards);
+        $this->assertEquals(2, $deck->getSize());
+
+        $result = $deck->drawFromTop(1);
+        $this->assertContains($cards[0], $result);
+        $this->assertEquals(1, $deck->getSize());
+
+        $deck->addCards($cards);
+        $this->assertEquals(3, $deck->getSize());
+
+        $result = $deck->drawFromTop(2);
+        $this->assertContains($cards[0], $result);
+        $this->assertContains($cards[1], $result);
+        $this->assertEquals(1, $deck->getSize());
+
+        $this->assertEmpty($deck->drawFromTop(2));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Cards\Deck::drawCard
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Deck $deck The Deck
+     */
+    public function testDrawCardWithEmptyDeck(Deck $deck)
+    {
+        // Remove all cards from deck
+        while ($deck->getSize() > 0) {
+            $card = $deck->drawRandomCard();
+            $this->assertInstanceOf(Card::class, $card);
+        }
+
+        $card = new Card(9, new Suit("Clubs"));
+        $this->assertFalse($deck->drawCard($card));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Cards\Deck::drawCard
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Deck $deck The Deck
+     */
+    public function testDrawCardNotInDeck(Deck $deck)
+    {
+        // Remove all cards from deck
+        while ($deck->getSize() > 0) {
+            $card = $deck->drawRandomCard();
+            $this->assertInstanceOf(Card::class, $card);
+        }
+
+        $card1 = new Card(2, new Suit("Clubs"));
+        $deck->addCard($card1);
+        $card2 = new Card(7, new Suit("Clubs"));
+        $this->assertFalse($deck->drawCard($card2));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Cards\Deck::drawCardAt
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Deck $deck The Deck
+     */
+    public function testDrawCardAt(Deck $deck)
+    {
+        $deck->addCard(new Card(5, new Suit('Hearts')));
+        $initialSize = $deck->getSize();
+
+        $this->assertInstanceOf(
+            Card::class,
+            $this->invokeMethod($deck, "drawCardAt", array(0))
+        );
+        $this->assertEquals(
+            $initialSize - 1,
+            $deck->getSize()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Cards\Deck::drawCardAt
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Deck $deck The Deck
+     */
+    public function testDrawCardAtInvalidIndex(Deck $deck)
+    {
+        $this->assertNull(
+            $this->invokeMethod(
+                $deck,
+                "drawCardAt",
+                array($deck->getSize() + 1)
+            )
+        );
     }
 }

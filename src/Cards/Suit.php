@@ -29,6 +29,7 @@ class Suit
      * @since  {nextRelease}
      *
      * @param  string $name The Suit's name
+     * @param  string $symbol The Suit's symbol
      */
     public function __construct($name = null, $symbol = null)
     {

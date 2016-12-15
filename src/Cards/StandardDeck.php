@@ -2,6 +2,8 @@
 
 namespace PHPPokerAlho\Cards;
 
+use PHPPokerAlho\Cards\StandardSuitFactory;
+
 /**
  * @since  {nextRelease}
  *
@@ -18,9 +20,16 @@ class StandardDeck extends Deck
     {
         parent::__construct();
 
-        $suits = array("Clubs", "Diamons", "Hearts", "Spades");
+        $suits = array(
+            StandardSuitFactory::STD_CLUBS,
+            StandardSuitFactory::STD_DIAMONS,
+            StandardSuitFactory::STD_HEARTS,
+            StandardSuitFactory::STD_SPADES
+        );
+
+        $suitFactory = new StandardSuitFactory();
         foreach ($suits as $suitName) {
-            $suit = new Suit($suitName);
+            $suit = $suitFactory->create($suitName);
 
             for ($i = 1; $i <= 13; $i++) {
                 $this->addCard(new Card($i, $suit));

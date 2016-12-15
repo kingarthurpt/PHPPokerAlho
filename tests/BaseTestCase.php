@@ -11,10 +11,6 @@ use PHPUnit\Framework\TestCase;
  */
 class BaseTestCase extends TestCase
 {
-    public function __construct()
-    {
-    }
-
     /**
      * Allow access to protected or private functions of an object
      *

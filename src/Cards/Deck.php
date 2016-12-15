@@ -14,7 +14,7 @@ class Deck
      *
      * @var array
      */
-    private $cards;
+    protected $cards;
 
     /**
      * Constructor
@@ -39,6 +39,33 @@ class Deck
     }
 
     /**
+     * Add an array of Cards to the Deck
+     *
+     * @since  {nextRelease}
+     *
+     * @author Artur Alves <artur.alves@gatewit.com>
+     *
+     * @param  array $cards The Cards to add
+     *
+     * @return bool TRUE on success, FALSE on failure
+     */
+    public function addCards(array $cards)
+    {
+        if (empty($cards)) {
+            return false;
+        }
+
+        foreach ($cards as $key => $value) {
+            if (!$value instanceof Card) {
+                unset($cards[$key]);
+            }
+        }
+
+        $this->cards = array_merge($this->cards, $cards);
+        return true;
+    }
+
+    /**
      * Get the Deck's size
      *
      * @since  {nextRelease}
@@ -55,7 +82,7 @@ class Deck
      *
      * @since  {nextRelease}
      *
-     * @return TRUE on success or FALSE on failure
+     * @return bool TRUE on success or FALSE on failure
      */
     public function shuffle()
     {
@@ -75,7 +102,69 @@ class Deck
             return null;
         }
         $index = array_rand($this->cards, 1);
+        return $this->drawCardAt($index);
+    }
+
+    /**
+     * Draw a Card from the Deck
+     *
+     * @since  {nextRelease}
+     *
+     * @param  Card $card The Card to be drawn from the Deck
+     *
+     * @return bool TRUE in success, FALSE if there was an error
+     */
+    public function drawCard(Card $card)
+    {
+        if ($this->getSize() == 0) {
+            return false;
+        }
+
+        foreach ($this->cards as $key => $value) {
+            if ($value == $card) {
+                $card = $this->drawCardAt($key);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Draw the first $amount of Cards
+     *
+     * @since  {nextRelease}
+     *
+     * @param  int $amount The Card's index
+     *
+     * @return array An array of Cards or an empty array if deck size < $amount
+     */
+    public function drawFromTop(int $amount)
+    {
+        if ($this->getSize() < $amount) {
+            return array();
+        }
+
+        $result = array_splice($this->cards, 0, $amount);
+        return $result;
+    }
+
+    /**
+     * Draw the Card at the given index
+     *
+     * @since  {nextRelease}
+     *
+     * @param  int $index The Card's index
+     *
+     * @return Card|null The Card at the given index or null in case of error
+     */
+    private function drawCardAt(int $index)
+    {
+        if (!isset($this->cards[$index])) {
+            return null;
+        }
+
         $result = array_splice($this->cards, $index, 1);
-        return reset($result);
+        return is_array($result) ? reset($result) : $result;
     }
 }

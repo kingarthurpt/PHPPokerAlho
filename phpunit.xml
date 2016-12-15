@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="vendor/autoload.php">
+<phpunit
+    colors="true"
+    bootstrap="vendor/autoload.php"
+    processIsolation="true"
+    coverage-html="coverage"
+    coverage-text="coverage/coverage.txt">
     <testsuites>
         <testsuite name="PHPPokerAlho Test Suite">
             <directory
@@ -13,4 +18,10 @@
             <directory suffix=".php">src/</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-html" target="coverage" lowUpperBound="35"
+           highLowerBound="70"/>
+        <log type="coverage-text" target="coverage/coverage.txt"
+            showUncoveredFiles="true"/>
+    </logging>
 </phpunit>

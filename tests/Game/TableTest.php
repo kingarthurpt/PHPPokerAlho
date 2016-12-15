@@ -5,6 +5,8 @@ namespace Tests;
 use PHPPokerAlho\Game\Table;
 use PHPPokerAlho\Game\Dealer;
 use PHPPokerAlho\Game\Player;
+use PHPPokerAlho\Cards\Card;
+use PHPPokerAlho\Cards\Suit;
 
 /**
  * @since  {nextRelease}
@@ -23,6 +25,8 @@ class TableTest extends BaseTestCase
         $table = new Table('Table1', 6);
         $this->assertEquals('Table1', $this->getPropertyValue($table, 'name'));
         $this->assertEquals(6, $this->getPropertyValue($table, 'seats'));
+        $this->assertEquals(array(), $this->getPropertyValue($table, 'players'));
+        $this->assertEquals(array(), $this->getPropertyValue($table, 'muck'));
 
         return $table;
     }
@@ -36,7 +40,7 @@ class TableTest extends BaseTestCase
     {
         $table = new Table('Table2');
         $this->assertEquals('Table2', $this->getPropertyValue($table, 'name'));
-        $this->assertEquals(null, $this->getPropertyValue($table, 'seats'));
+        $this->assertEquals(0, $this->getPropertyValue($table, 'seats'));
     }
 
     /**
@@ -183,31 +187,51 @@ class TableTest extends BaseTestCase
     /**
      * @covers \PHPPokerAlho\Game\Table::addPlayer
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  Table $table The Table
      */
-    public function testAddPlayer(Table $table)
+    public function testAddPlayer()
     {
+        $table = new Table('Table1', 6);
         $player = new Player("Player1");
         $table->setSeatsCount(10);
+
         $this->assertInstanceOf(Table::class, $table->addPlayer($player));
+        $this->assertEquals(1, $table->getPlayerCount());
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::removePlayer
+     *
+     * @since  nextRelease
+     */
+    public function testRemovePlayer()
+    {
+        $table = new Table('Table1', 6);
+        $player1 = new Player("Player1");
+        $player2 = new Player("Player2");
+        $table->setSeatsCount(10);
+
+        $this->assertFalse($table->removePlayer($player1));
+
+        $table->addPlayer($player1);
+        $this->assertFalse($table->removePlayer($player2));
+
+        $this->assertEquals(1, $table->getPlayerCount());
+        $this->assertTrue($table->removePlayer($player1));
+        $this->assertEquals(0, $table->getPlayerCount());
+
     }
 
     /**
      * @covers \PHPPokerAlho\Game\Table::addPlayer
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  Table $table The Table
      */
-    public function testAddPlayerAlreadySeated(Table $table)
+    public function testAddPlayerAlreadySeated()
     {
+        $table = new Table('Table1', 6);
         $player = new Player("Player1");
+        $this->assertInstanceOf(Table::class, $table->addPlayer($player));
         $this->assertNull($table->addPlayer($player));
     }
 
@@ -225,6 +249,175 @@ class TableTest extends BaseTestCase
         $this->assertEquals(
             count($this->getPropertyValue($table, 'players')),
             $table->getPlayerCount()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::getPlayers
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testGetPlayers(Table $table)
+    {
+        $this->assertEquals(
+            $this->getPropertyValue($table, 'players'),
+            $table->getPlayers()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::muckCard
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testMuckCard(Table $table)
+    {
+        $card = new Card(3, new Suit("Diamons"));
+
+        $this->assertInstanceOf(Table::class, $table->muckCard($card));
+        $this->assertNull($table->muckCard($card));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::getMuck
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testGetMuck(Table $table)
+    {
+        $card = new Card(4, new Suit("Diamons"));
+
+        $this->assertInstanceOf(Table::class, $table->muckCard($card));
+        $this->assertContains($card, $table->getMuck());
+        $this->assertEquals(array(), $this->getPropertyValue($table, 'muck'));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::getFlop
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testGetFlop(Table $table)
+    {
+        $this->assertEquals(
+            $this->getPropertyValue($table, 'flop'),
+            $table->getFlop()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::setFlop
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testSetFlop(Table $table)
+    {
+        $flop = array(
+            0 => new Card(1, new Suit("Clubs")),
+            1 => new Card(10, new Suit("Clubs")),
+            2 => new Card(13, new Suit("Clubs"))
+        );
+        $this->assertTrue($table->setFlop($flop));
+        $this->assertEquals(
+            $flop,
+            $this->getPropertyValue($table, 'flop')
+        );
+
+        unset($flop[2]);
+        $this->assertFalse($table->setFlop($flop));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::getTurn
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testGetTurn(Table $table)
+    {
+        $this->assertEquals(
+            $this->getPropertyValue($table, 'turn'),
+            $table->getTurn()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::setTurn
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testSetTurn(Table $table)
+    {
+        $turn = new Card(1, new Suit("Clubs"));
+
+        $table->setTurn($turn);
+        $this->assertEquals(
+            $turn,
+            $this->getPropertyValue($table, 'turn')
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::getRiver
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testGetRiver(Table $table)
+    {
+        $this->assertEquals(
+            $this->getPropertyValue($table, 'river'),
+            $table->getRiver()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Game\Table::setRiver
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testSetRiver(Table $table)
+    {
+        $river = new Card(1, new Suit("Clubs"));
+
+        $table->setRiver($river);
+        $this->assertEquals(
+            $river,
+            $this->getPropertyValue($table, 'river')
         );
     }
 }
