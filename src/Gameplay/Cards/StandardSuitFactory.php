@@ -17,11 +17,11 @@ class StandardSuitFactory extends Suit
     const STD_CLUBS = array("Clubs", "♣");
 
     /**
-     * Standard Suit Diamons ♦
+     * Standard Suit Diamonds ♦
      *
      * @var string
      */
-    const STD_DIAMONS = array("Diamons", "♦");
+    const STD_DIAMONDS = array("Diamonds", "♦");
 
     /**
      * Standard Suit Hearts ♥

@@ -14,14 +14,14 @@ class Card
      *
      * @var int
      */
-    private $value;
+    protected $value;
 
     /**
      * The card's Suit
      *
      * @var Suit
      */
-    private $suit;
+    protected $suit;
 
     /**
      * Constructor

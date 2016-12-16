@@ -22,7 +22,7 @@ class StandardDeck extends Deck
 
         $suits = array(
             StandardSuitFactory::STD_CLUBS,
-            StandardSuitFactory::STD_DIAMONS,
+            StandardSuitFactory::STD_DIAMONDS,
             StandardSuitFactory::STD_HEARTS,
             StandardSuitFactory::STD_SPADES
         );
@@ -32,7 +32,7 @@ class StandardDeck extends Deck
             $suit = $suitFactory->create($suitName);
 
             for ($i = 1; $i <= 13; $i++) {
-                $this->addCard(new Card($i, $suit));
+                $this->addCard(new StandardCard($i, $suit));
             }
         }
     }

@@ -280,7 +280,7 @@ class TableTest extends BaseTestCase
      */
     public function testMuckCard(Table $table)
     {
-        $card = new Card(3, new Suit("Diamons"));
+        $card = new Card(3, new Suit("Diamonds"));
 
         $this->assertInstanceOf(Table::class, $table->muckCard($card));
         $this->assertNull($table->muckCard($card));
@@ -297,7 +297,7 @@ class TableTest extends BaseTestCase
      */
     public function testGetMuck(Table $table)
     {
-        $card = new Card(4, new Suit("Diamons"));
+        $card = new Card(4, new Suit("Diamonds"));
 
         $this->assertInstanceOf(Table::class, $table->muckCard($card));
         $this->assertContains($card, $table->getMuck());

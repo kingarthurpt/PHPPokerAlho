@@ -93,6 +93,7 @@ class Dealer extends GameObserver
     public function setTable(Table $table)
     {
         $this->table = $table;
+        $table->setDealer($this);
         return $this;
     }
 
@@ -109,6 +110,13 @@ class Dealer extends GameObserver
         return true;
     }
 
+    /**
+     * Deal cards to each Player seated at the Table
+     *
+     * @since  {nextRelease}
+     *
+     * @return bool TRUE on success, FALSE on failure
+     */
     public function deal()
     {
         if (!$this->hasDeck() || !$this->hasTable()) {
@@ -119,6 +127,7 @@ class Dealer extends GameObserver
         $table = $this->getTable();
         $players = $table->getPlayers();
 
+        $deck->addCards($table->getMuck());
         $deck->shuffle();
 
         foreach ($players as $player) {

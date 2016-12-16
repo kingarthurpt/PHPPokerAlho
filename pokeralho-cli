@@ -8,6 +8,6 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 
 // ... register commands
-// $application->add(new \PHPPokerAlho\Command\SampleCommand());
+$application->add(new \PHPPokerAlho\Command\GenerateHoleCardsCommand());
 
 $application->run();

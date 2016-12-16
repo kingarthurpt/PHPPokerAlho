@@ -18,21 +18,29 @@ class StandardCard extends Card
      */
     public function __toString()
     {
-        switch ($this->value) {
-            case 1:
-                $this->value = "A";
-                break;
-            case 11:
-                $this->value = "J";
-                break;
-            case 12:
-                $this->value = "Q";
-                break;
-            case 13:
-                $this->value = "K";
-                break;
+        return '[' . $this->getFaceValue() . $this->suit->__toString() . ']';
+    }
+
+    /**
+     * Return a string representation of the Card, formated with CLI colors
+     *
+     * @since  {nextRelease}
+     *
+     * @return string The Card represented as a string
+     */
+    public function toCliOutput()
+    {
+        $symbol = $this->suit->getSymbol();
+        if ($symbol == StandardSuitFactory::STD_CLUBS[1]
+            || $symbol == StandardSuitFactory::STD_SPADES[1]
+        ) {
+            $suit = '<bg=white;fg=black>' . $this->suit . "</>";
+        } elseif ($symbol == StandardSuitFactory::STD_HEARTS[1]
+            || $symbol == StandardSuitFactory::STD_DIAMONDS[1]
+        ) {
+            $suit = '<bg=white;fg=red>' . $this->suit . "</>";
         }
-        return parent::__toString();
+        return '<bg=white;fg=black>[' . $this->getFaceValue() . $suit . ']</>';
     }
 
     /**
@@ -52,5 +60,38 @@ class StandardCard extends Card
         }
 
         return parent::setValue($value);
+    }
+
+    /**
+     * Converts the Card's value to their corresponding face value
+     *
+     * @since  {nextRelease}
+     *
+     * @author Artur Alves <artur.alves@gatewit.com>
+     *
+     * @return string The Card's face value
+     */
+    public function getFaceValue()
+    {
+        switch ($this->value) {
+            case 1:
+                $value = "A";
+                break;
+            case 10:
+                $value = "T";
+                break;
+            case 11:
+                $value = "J";
+                break;
+            case 12:
+                $value = "Q";
+                break;
+            case 13:
+                $value = "K";
+                break;
+            default:
+                $value = $this->value;
+        }
+        return $value;
     }
 }

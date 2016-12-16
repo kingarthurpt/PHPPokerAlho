@@ -108,7 +108,7 @@ class PlayerTest extends BaseTestCase
     public function testSetHand(Player $player)
     {
         $holeCards = array(
-            0 => new Card(1, new Suit("Diamons")),
+            0 => new Card(1, new Suit("Diamonds")),
             1 => new Card(1, new Suit("Hearts"))
         );
         $player->setHand($holeCards);
