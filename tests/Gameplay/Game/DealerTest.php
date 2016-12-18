@@ -7,6 +7,7 @@ use PHPPokerAlho\Gameplay\Cards\StandardDeck;
 use PHPPokerAlho\Gameplay\Game\Dealer;
 use PHPPokerAlho\Gameplay\Game\Table;
 use PHPPokerAlho\Gameplay\Game\Player;
+use PHPPokerAlho\Gameplay\Game\TableEvent;
 
 /**
  * @since  {nextRelease}
@@ -209,6 +210,7 @@ class DealerTest extends BaseTestCase
     public function testUpdate(Dealer $dealer)
     {
         $table = new Table("Table1", 10);
-        $this->assertTrue($dealer->update($table));
+        $event = new TableEvent(1, "some message");
+        $this->assertTrue($dealer->update($table, $event));
     }
 }

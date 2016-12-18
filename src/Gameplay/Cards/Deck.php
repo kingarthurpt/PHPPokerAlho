@@ -3,6 +3,8 @@
 namespace PHPPokerAlho\Gameplay\Cards;
 
 /**
+ * A collection of Cards
+ *
  * @since  {nextRelease}
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>

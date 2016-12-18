@@ -2,7 +2,7 @@
 
 namespace PHPPokerAlho\Gameplay\Game;
 
-use PHPPokerAlho\Gameplay\Game\GameSubject;
+use PHPPokerAlho\Gameplay\Game\TableSubject;
 use PHPPokerAlho\Gameplay\Cards\Card;
 
 /**
@@ -10,7 +10,7 @@ use PHPPokerAlho\Gameplay\Cards\Card;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class Table extends GameSubject
+class Table extends TableSubject
 {
     /**
      * The Table's name
@@ -208,8 +208,11 @@ class Table extends GameSubject
 
         $this->players[] = $player;
 
-        // Notifies all GameObservers that a new Player has joined the Table
-        $this->notify();
+        // Notifies all TableObservers that a new Player has joined the Table
+        $this->notify(new TableEvent(
+            TableEvent::PLAYER_JOINS,
+            $player->getName() . " has joined the table."
+        ));
 
         return $this;
     }
@@ -232,6 +235,12 @@ class Table extends GameSubject
         foreach ($this->players as $key => $value) {
             if ($value == $player) {
                 unset($this->players[$key]);
+
+                $this->notify(new TableEvent(
+                    TableEvent::PLAYER_LEAVES,
+                    $player->getName() . " has left the table."
+                ));
+
                 return true;
             }
         }

@@ -5,11 +5,13 @@ namespace PHPPokerAlho\Gameplay\Game;
 use PHPPokerAlho\Gameplay\Cards\Deck;
 
 /**
+ * A Poker Dealer
+ *
  * @since  {nextRelease}
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class Dealer extends GameObserver
+class Dealer extends TableObserver
 {
     /**
      * The Dealers's deck
@@ -98,15 +100,15 @@ class Dealer extends GameObserver
     }
 
     /**
-     * Get a notification about changes in the GameSubject
+     * Get a notification about changes in the TableSubject
      *
      * @since  {nextRelease}
      *
-     * @param  GameSubject $subject
+     * @param  TableSubject $subject
+     * @param  TableEvent $event The Event being fired
      */
-    public function update(GameSubject $subject)
+    public function update(TableSubject $subject, TableEvent $event)
     {
-        // @todo implement later
         return true;
     }
 
@@ -126,6 +128,11 @@ class Dealer extends GameObserver
         $deck = $this->getDeck();
         $table = $this->getTable();
         $players = $table->getPlayers();
+
+        // Return each player's hands back into the deck
+        foreach ($players as $player) {
+            $deck->addCards($player->returnHand());
+        }
 
         $deck->addCards($table->getMuck());
         $deck->shuffle();

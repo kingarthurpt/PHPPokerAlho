@@ -7,10 +7,10 @@ namespace PHPPokerAlho\Gameplay\Game;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-abstract class GameSubject
+abstract class TableSubject
 {
     /**
-     * Array of GameObservers
+     * Array of TableObservers
      *
      * @var array
      */
@@ -27,15 +27,15 @@ abstract class GameSubject
     }
 
     /**
-     * Registers a GameObserver
+     * Registers a TableObserver
      *
      * @since  {nextRelease}
      *
-     * @param  GameObserver $observer
+     * @param  TableObserver $observer
      *
      * @return bool TRUE on success, FALSE on failure
      */
-    public function attach(GameObserver $observer)
+    public function attach(TableObserver $observer)
     {
         if (in_array($observer, $this->observers)) {
             return false;
@@ -46,15 +46,15 @@ abstract class GameSubject
     }
 
     /**
-     * Unregisters a GameObserver
+     * Unregisters a TableObserver
      *
      * @since  {nextRelease}
      *
-     * @param  GameObserver $observer
+     * @param  TableObserver $observer
      *
      * @return bool TRUE on success, FALSE on failure
      */
-    public function detach(GameObserver $observer)
+    public function detach(TableObserver $observer)
     {
         foreach ($this->observers as $key => $value) {
             if ($value == $observer) {
@@ -67,20 +67,22 @@ abstract class GameSubject
     }
 
     /**
-     * Notifies all GameObservers about changes in the GameSubject
+     * Notifies all TableObservers about changes in the TableSubject
      *
      * @since  {nextRelease}
      *
+     * @param TableEvent $event The Event being fired
+     *
      * @return bool TRUE on success, FALSE on failure
      */
-    public function notify()
+    public function notify(TableEvent $event)
     {
         if (empty($this->observers)) {
             return false;
         }
 
         foreach ($this->observers as $observer) {
-            $observer->update($this);
+            $observer->update($this, $event);
         }
 
         return true;

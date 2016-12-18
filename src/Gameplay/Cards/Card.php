@@ -3,6 +3,8 @@
 namespace PHPPokerAlho\Gameplay\Cards;
 
 /**
+ * A Card with a face value and a Suit
+ *
  * @since  {nextRelease}
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>

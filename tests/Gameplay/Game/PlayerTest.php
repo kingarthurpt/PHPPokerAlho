@@ -4,6 +4,7 @@ namespace Tests;
 
 use PHPPokerAlho\Gameplay\Game\Player;
 use PHPPokerAlho\Gameplay\Game\Table;
+use PHPPokerAlho\Gameplay\Game\TableEvent;
 use PHPPokerAlho\Gameplay\Cards\Card;
 use PHPPokerAlho\Gameplay\Cards\Suit;
 
@@ -164,6 +165,27 @@ class PlayerTest extends BaseTestCase
     public function testUpdate(Player $player)
     {
         $table = new Table("Table1", 10);
-        $this->assertTrue($player->update($table));
+        $event = new TableEvent(1, "message");
+        $this->assertTrue($player->update($table, $event));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Game\Player::returnHand
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Player $player The Player
+     */
+    public function testReturnHand(Player $player)
+    {
+        $holeCards = array(
+            0 => new Card(1, new Suit("Diamonds")),
+            1 => new Card(1, new Suit("Hearts"))
+        );
+        $player->setHand($holeCards);
+        $this->assertEquals($holeCards, $player->returnHand());
+        $this->assertEmpty($player->getHand());
     }
 }

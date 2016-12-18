@@ -3,6 +3,8 @@
 namespace PHPPokerAlho\Gameplay\Cards;
 
 /**
+ * A Suit with a name and a symbol
+ *
  * @since  {nextRelease}
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>

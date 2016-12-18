@@ -3,6 +3,8 @@
 namespace PHPPokerAlho\Gameplay\Cards;
 
 /**
+ * A Factory that creates all standard Poker Suits
+ *
  * @since  {nextRelease}
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>

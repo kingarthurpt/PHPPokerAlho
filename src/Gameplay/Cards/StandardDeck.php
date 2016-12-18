@@ -5,6 +5,8 @@ namespace PHPPokerAlho\Gameplay\Cards;
 use PHPPokerAlho\Gameplay\Cards\StandardSuitFactory;
 
 /**
+ * A standard Poker Deck
+ *
  * @since  {nextRelease}
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>

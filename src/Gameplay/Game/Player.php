@@ -2,15 +2,15 @@
 
 namespace PHPPokerAlho\Gameplay\Game;
 
-use PHPPokerAlho\Gameplay\Game\GameObserver;
-use PHPPokerAlho\Gameplay\Game\GameSubject;
+use PHPPokerAlho\Gameplay\Game\TableObserver;
+use PHPPokerAlho\Gameplay\Game\TableSubject;
 
 /**
  * @since  {nextRelease}
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class Player extends GameObserver
+class Player extends TableObserver
 {
     /**
      * The Players's name
@@ -112,15 +112,15 @@ class Player extends GameObserver
     }
 
     /**
-     * Get a notification about changes in the GameSubject
+     * Get a notification about changes in the TableSubject
      *
      * @since  {nextRelease}
      *
-     * @param  GameSubject $subject
+     * @param  TableSubject $subject
+     * @param  TableEvent $event The Event being fired
      */
-    public function update(GameSubject $subject)
+    public function update(TableSubject $subject, TableEvent $event)
     {
-        // @todo implement later
         return true;
     }
 
@@ -149,5 +149,19 @@ class Player extends GameObserver
     {
         $this->button = $value;
         return $this;
+    }
+
+    /**
+     * Obtain the Player's hand
+     *
+     * @since  {nextRelease}
+     *
+     * @return array The Player's hand
+     */
+    public function returnHand()
+    {
+        $hand = $this->getHand();
+        $this->hand = array();
+        return $hand;
     }
 }
