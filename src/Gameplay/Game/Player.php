@@ -2,8 +2,7 @@
 
 namespace PHPPokerAlho\Gameplay\Game;
 
-use PHPPokerAlho\Gameplay\Game\TableObserver;
-use PHPPokerAlho\Gameplay\Game\TableSubject;
+use PHPPokerAlho\Gameplay\Cards\CardCollection;
 
 /**
  * @since  {nextRelease}
@@ -22,9 +21,9 @@ class Player extends TableObserver
     /**
      * The Players's cards
      *
-     * @var array
+     * @var CardCollection
      */
-    private $hand = array();
+    private $hand = null;
 
     /**
      * Whether or not the Player has the button
@@ -89,7 +88,7 @@ class Player extends TableObserver
      *
      * @since  {nextRelease}
      *
-     * @return array The Player's hand
+     * @return CardCollection The Player's hand
      */
     public function getHand()
     {
@@ -101,11 +100,11 @@ class Player extends TableObserver
      *
      * @since  {nextRelease}
      *
-     * @param  array $hand The card's hand
+     * @param  CardCollection $hand The card's hand
      *
      * @return Player
      */
-    public function setHand(array $hand)
+    public function setHand(CardCollection $hand)
     {
         $this->hand = $hand;
         return $this;
@@ -156,12 +155,12 @@ class Player extends TableObserver
      *
      * @since  {nextRelease}
      *
-     * @return array The Player's hand
+     * @return CardCollection The Player's hand
      */
     public function returnHand()
     {
         $hand = $this->getHand();
-        $this->hand = array();
+        $this->hand = null;
         return $hand;
     }
 }

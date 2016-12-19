@@ -7,6 +7,7 @@ use PHPPokerAlho\Gameplay\Game\Table;
 use PHPPokerAlho\Gameplay\Game\TableEvent;
 use PHPPokerAlho\Gameplay\Cards\Card;
 use PHPPokerAlho\Gameplay\Cards\Suit;
+use PHPPokerAlho\Gameplay\Cards\CardCollection;
 
 /**
  * @since  {nextRelease}
@@ -112,9 +113,10 @@ class PlayerTest extends BaseTestCase
             0 => new Card(1, new Suit("Diamonds")),
             1 => new Card(1, new Suit("Hearts"))
         );
-        $player->setHand($holeCards);
+        $hand = new CardCollection($holeCards, 2);
+        $player->setHand($hand);
         $this->assertEquals(
-            $holeCards,
+            $hand,
             $this->getPropertyValue($player, 'hand')
         );
     }
@@ -184,8 +186,9 @@ class PlayerTest extends BaseTestCase
             0 => new Card(1, new Suit("Diamonds")),
             1 => new Card(1, new Suit("Hearts"))
         );
-        $player->setHand($holeCards);
-        $this->assertEquals($holeCards, $player->returnHand());
+        $hand = new CardCollection($holeCards, 2);
+        $player->setHand($hand);
+        $this->assertEquals($hand, $player->returnHand());
         $this->assertEmpty($player->getHand());
     }
 }

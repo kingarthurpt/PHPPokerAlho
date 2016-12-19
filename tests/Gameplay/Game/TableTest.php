@@ -2,11 +2,13 @@
 
 namespace Tests;
 
+use PHPPokerAlho\Gameplay\Cards\Card;
+use PHPPokerAlho\Gameplay\Cards\Suit;
 use PHPPokerAlho\Gameplay\Game\Table;
 use PHPPokerAlho\Gameplay\Game\Dealer;
 use PHPPokerAlho\Gameplay\Game\Player;
-use PHPPokerAlho\Gameplay\Cards\Card;
-use PHPPokerAlho\Gameplay\Cards\Suit;
+use PHPPokerAlho\Gameplay\Game\CommunityCards;
+use PHPPokerAlho\Gameplay\Game\Muck;
 
 /**
  * @since  {nextRelease}
@@ -26,7 +28,14 @@ class TableTest extends BaseTestCase
         $this->assertEquals('Table1', $this->getPropertyValue($table, 'name'));
         $this->assertEquals(6, $this->getPropertyValue($table, 'seats'));
         $this->assertEquals(array(), $this->getPropertyValue($table, 'players'));
-        $this->assertEquals(array(), $this->getPropertyValue($table, 'muck'));
+        $this->assertInstanceOf(
+            \PHPPokerAlho\Gameplay\Game\CommunityCards::class,
+            $this->getPropertyValue($table, 'communityCards')
+        );
+        $this->assertInstanceOf(
+            \PHPPokerAlho\Gameplay\Game\Muck::class,
+            $this->getPropertyValue($table, 'muck')
+        );
 
         return $table;
     }
@@ -270,7 +279,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::muckCard
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::getCommunityCards
      *
      * @depends testConstruct
      *
@@ -278,12 +287,31 @@ class TableTest extends BaseTestCase
      *
      * @param  Table $table The Table
      */
-    public function testMuckCard(Table $table)
+    public function testGetCommunityCards(Table $table)
     {
-        $card = new Card(3, new Suit("Diamonds"));
+        $this->assertEquals(
+            $this->getPropertyValue($table, 'communityCards'),
+            $table->getCommunityCards()
+        );
+    }
 
-        $this->assertInstanceOf(Table::class, $table->muckCard($card));
-        $this->assertNull($table->muckCard($card));
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::setCommunityCards
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Table $table The Table
+     */
+    public function testSetCommunityCards(Table $table)
+    {
+        $communityCards = new CommunityCards();
+        $table->setCommunityCards($communityCards);
+        $this->assertEquals(
+            $communityCards,
+            $this->getPropertyValue($table, 'communityCards')
+        );
     }
 
     /**
@@ -297,15 +325,14 @@ class TableTest extends BaseTestCase
      */
     public function testGetMuck(Table $table)
     {
-        $card = new Card(4, new Suit("Diamonds"));
-
-        $this->assertInstanceOf(Table::class, $table->muckCard($card));
-        $this->assertContains($card, $table->getMuck());
-        $this->assertEquals(array(), $this->getPropertyValue($table, 'muck'));
+        $this->assertEquals(
+            $this->getPropertyValue($table, 'muck'),
+            $table->getMuck()
+        );
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getFlop
+     * @covers \PHPPokerAlho\Gameplay\Game\Table::setMuck
      *
      * @depends testConstruct
      *
@@ -313,111 +340,13 @@ class TableTest extends BaseTestCase
      *
      * @param  Table $table The Table
      */
-    public function testGetFlop(Table $table)
+    public function testSetMuck(Table $table)
     {
+        $muck = new Muck();
+        $table->setMuck($muck);
         $this->assertEquals(
-            $this->getPropertyValue($table, 'flop'),
-            $table->getFlop()
-        );
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::setFlop
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Table $table The Table
-     */
-    public function testSetFlop(Table $table)
-    {
-        $flop = array(
-            0 => new Card(1, new Suit("Clubs")),
-            1 => new Card(10, new Suit("Clubs")),
-            2 => new Card(13, new Suit("Clubs"))
-        );
-        $this->assertTrue($table->setFlop($flop));
-        $this->assertEquals(
-            $flop,
-            $this->getPropertyValue($table, 'flop')
-        );
-
-        unset($flop[2]);
-        $this->assertFalse($table->setFlop($flop));
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getTurn
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Table $table The Table
-     */
-    public function testGetTurn(Table $table)
-    {
-        $this->assertEquals(
-            $this->getPropertyValue($table, 'turn'),
-            $table->getTurn()
-        );
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::setTurn
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Table $table The Table
-     */
-    public function testSetTurn(Table $table)
-    {
-        $turn = new Card(1, new Suit("Clubs"));
-
-        $table->setTurn($turn);
-        $this->assertEquals(
-            $turn,
-            $this->getPropertyValue($table, 'turn')
-        );
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getRiver
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Table $table The Table
-     */
-    public function testGetRiver(Table $table)
-    {
-        $this->assertEquals(
-            $this->getPropertyValue($table, 'river'),
-            $table->getRiver()
-        );
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::setRiver
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Table $table The Table
-     */
-    public function testSetRiver(Table $table)
-    {
-        $river = new Card(1, new Suit("Clubs"));
-
-        $table->setRiver($river);
-        $this->assertEquals(
-            $river,
-            $this->getPropertyValue($table, 'river')
+            $muck,
+            $this->getPropertyValue($table, 'muck')
         );
     }
 }

@@ -9,15 +9,8 @@ namespace PHPPokerAlho\Gameplay\Cards;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class Deck
+class Deck extends CardCollection
 {
-    /**
-     * The Deck's cards
-     *
-     * @var array
-     */
-    protected $cards;
-
     /**
      * Constructor
      *
@@ -25,58 +18,7 @@ class Deck
      */
     public function __construct()
     {
-        $this->cards = array();
-    }
-
-    /**
-     * Add a Card to the Deck
-     *
-     * @since  {nextRelease}
-     *
-     * @param  Card $card The Card to be added to the Deck
-     */
-    public function addCard(Card $card)
-    {
-        $this->cards[] = $card;
-    }
-
-    /**
-     * Add an array of Cards to the Deck
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     *
-     * @param  array $cards The Cards to add
-     *
-     * @return bool TRUE on success, FALSE on failure
-     */
-    public function addCards(array $cards)
-    {
-        if (empty($cards)) {
-            return false;
-        }
-
-        foreach ($cards as $key => $value) {
-            if (!$value instanceof Card) {
-                unset($cards[$key]);
-            }
-        }
-
-        $this->cards = array_merge($this->cards, $cards);
-        return true;
-    }
-
-    /**
-     * Get the Deck's size
-     *
-     * @since  {nextRelease}
-     *
-     * @return int The Deck's size
-     */
-    public function getSize()
-    {
-        return count($this->cards);
+        parent::__construct(array());
     }
 
     /**

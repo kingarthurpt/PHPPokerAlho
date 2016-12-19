@@ -49,6 +49,7 @@ class TableEvent
      */
     public function __construct(int $event, string $message)
     {
+        $this->type = $event;
         $this->message = $message;
     }
 

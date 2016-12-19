@@ -3,6 +3,7 @@
 namespace PHPPokerAlho\Gameplay\Game;
 
 use PHPPokerAlho\Gameplay\Cards\Deck;
+use PHPPokerAlho\Gameplay\Cards\CardCollection;
 
 /**
  * A Poker Dealer
@@ -131,15 +132,18 @@ class Dealer extends TableObserver
 
         // Return each player's hands back into the deck
         foreach ($players as $player) {
-            $deck->addCards($player->returnHand());
+            $hand = $player->returnHand();
+            if (!is_null($hand)) {
+                $deck->addCards($hand->getHand());
+            }
         }
 
-        $deck->addCards($table->getMuck());
+        $deck->addCards($table->getMuck()->removeCards());
         $deck->shuffle();
 
         foreach ($players as $player) {
-            $holeCards = $deck->drawFromTop(2);
-            $player->setHand($holeCards);
+            $hand = new CardCollection($deck->drawFromTop(2), 2);
+            $player->setHand($hand);
         }
 
         // Notify the Players

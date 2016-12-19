@@ -41,32 +41,18 @@ class Table extends TableSubject
     private $players = array();
 
     /**
+     * The community Cards
+     *
+     * @var CommunityCards
+     */
+    private $communityCards = null;
+
+    /**
      * Array of discarded Cards
      *
-     * @var array
+     * @var Muck
      */
-    private $muck = array();
-
-    /**
-     * The flop Cards
-     *
-     * @var array
-     */
-    private $flop = array();
-
-    /**
-     * The turn Card
-     *
-     * @var Card
-     */
-    private $turn = null;
-
-    /**
-     * The river Card
-     *
-     * @var Card
-     */
-    private $river = null;
+    private $muck = null;
 
     /**
      * The main pot
@@ -90,6 +76,9 @@ class Table extends TableSubject
         if (!is_null($seats)) {
             $this->setSeatsCount($seats);
         }
+
+        $this->communityCards = new CommunityCards();
+        $this->muck = new Muck();
     }
 
     /**
@@ -273,121 +262,56 @@ class Table extends TableSubject
     }
 
     /**
-     * Add a Card to the muck
+     * Get the Table's CommunityCards
      *
      * @since  {nextRelease}
      *
-     * @param  Card $card A discarded Card
-     *
-     * @return Table|null Table on success, null on failure
+     * @return CommunityCards The Table's CommunityCards
      */
-    public function muckCard(Card $card)
+    public function getCommunityCards()
     {
-        // Player is already seated
-        if (in_array($card, $this->muck)) {
-            return null;
-        }
+        return $this->communityCards;
+    }
 
-        $this->muck[] = $card;
+    /**
+     * Set the Table's CommunityCards
+     *
+     * @since  {nextRelease}
+     *
+     * @param  CommunityCards $cards The Table's CommunityCards
+     *
+     * @return Table
+     */
+    public function setCommunityCards(CommunityCards $cards)
+    {
+        $this->communityCards = $cards;
         return $this;
     }
 
     /**
-     * Remove and get all Cards from the muck
+     * Get the Table's Muck
      *
      * @since  {nextRelease}
      *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     *
-     * @return array The discarded Cards
+     * @return CommunityCards The Table's Muck
      */
     public function getMuck()
     {
-        $cards = $this->muck;
-        $this->muck = array();
-        return $cards;
+        return $this->muck;
     }
 
     /**
-     * Set the flop Cards
+     * Set the Table's Muck
      *
      * @since  {nextRelease}
      *
-     * @param  array $cards The flop Cards
+     * @param  Muck $cards The Table's Muck
+     *
+     * @return Table
      */
-    public function setFlop(array $cards)
+    public function setMuck(Muck $cards)
     {
-        if (count($cards) != 3) {
-            return false;
-        }
-
-        foreach ($cards as $card) {
-            if (!$card instanceof Card) {
-                return false;
-            }
-        }
-
-        $this->flop = $cards;
-        return true;
-    }
-
-    /**
-     * Get the flop Cards
-     *
-     * @since  {nextRelease}
-     *
-     * @return array The flop Cards
-     */
-    public function getFlop()
-    {
-        return $this->flop;
-    }
-
-    /**
-     * Set the turn Card
-     *
-     * @since  {nextRelease}
-     *
-     * @param  Card $card The turn Card
-     */
-    public function setTurn(Card $card)
-    {
-        $this->turn = $card;
-    }
-
-    /**
-     * Get the turn Card
-     *
-     * @since  {nextRelease}
-     *
-     * @return array The turn Card
-     */
-    public function getTurn()
-    {
-        return $this->turn;
-    }
-
-    /**
-     * Set the river Card
-     *
-     * @since  {nextRelease}
-     *
-     * @param  Card $card The river Card
-     */
-    public function setRiver(Card $card)
-    {
-        $this->river = $card;
-    }
-
-    /**
-     * Get the river Card
-     *
-     * @since  {nextRelease}
-     *
-     * @return array The river Card
-     */
-    public function getRiver()
-    {
-        return $this->river;
+        $this->muck = $cards;
+        return $this;
     }
 }
