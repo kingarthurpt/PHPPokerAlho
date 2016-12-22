@@ -26,7 +26,7 @@ class CardCollectionTest extends BaseTestCase
         $collection = new CardCollection(array());
         $this->assertEquals(
             array(),
-            $this->getPropertyValue($collection, 'cards')
+            $this->getPropertyValue($collection, 'items')
         );
 
         return $collection;
@@ -47,7 +47,7 @@ class CardCollectionTest extends BaseTestCase
 
         $this->assertEquals(
             $cards,
-            $this->getPropertyValue($collection, 'cards')
+            $this->getPropertyValue($collection, 'items')
         );
 
         return $collection;
@@ -65,6 +65,21 @@ class CardCollectionTest extends BaseTestCase
     public function testToStringWithEmptyCollection(CardCollection $collection)
     {
         $this->assertEquals('', $collection->__toString());
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::fromString
+     *
+     * @since  nextRelease
+     */
+    public function testFromString()
+    {
+        $this->assertNull(CardCollection::fromString("AcKc"));
+
+        $this->assertInstanceOf(
+            CardCollection::class,
+            CardCollection::fromString("Ac Kc")
+        );
     }
 
     /**
@@ -119,7 +134,7 @@ class CardCollectionTest extends BaseTestCase
     public function testGetCards(CardCollection $collection)
     {
         $this->assertEquals(
-            $this->getPropertyValue($collection, 'cards'),
+            $this->getPropertyValue($collection, 'items'),
             $collection->getCards()
         );
     }
@@ -165,7 +180,7 @@ class CardCollectionTest extends BaseTestCase
         $collection->setCards($cards);
         $this->assertEquals(
             $cards,
-            $this->getPropertyValue($collection, 'cards')
+            $this->getPropertyValue($collection, 'items')
         );
     }
 
@@ -201,10 +216,40 @@ class CardCollectionTest extends BaseTestCase
         $collection->addCard($card);
         $this->assertContains(
             $card,
-            $this->getPropertyValue($collection, 'cards')
+            $this->getPropertyValue($collection, 'items')
         );
 
         $this->assertNull($collection->addCard($card));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::mergeCards
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  CardCollection $collection
+     */
+    public function testMergeCards(CardCollection $collection)
+    {
+        $this->assertFalse($collection->mergeCards(new CardCollection()));
+
+        $cards = array(
+            new StandardCard(1, new Suit('Clubs', '♣')),
+            new StandardCard(2, new Suit('Clubs', '♣'))
+        );
+        $cardCollection = new CardCollection($cards);
+        $collection->mergeCards($cardCollection);
+
+        $this->assertContains(
+            $cards[0],
+            $this->getPropertyValue($collection, 'items')
+        );
+        $this->assertContains(
+            $cards[1],
+            $this->getPropertyValue($collection, 'items')
+        );
     }
 
     /**
@@ -226,11 +271,11 @@ class CardCollectionTest extends BaseTestCase
         $collection->addCards($cards);
         $this->assertContains(
             $cards[0],
-            $this->getPropertyValue($collection, 'cards')
+            $this->getPropertyValue($collection, 'items')
         );
         $this->assertContains(
             $cards[1],
-            $this->getPropertyValue($collection, 'cards')
+            $this->getPropertyValue($collection, 'items')
         );
     }
 
@@ -250,7 +295,7 @@ class CardCollectionTest extends BaseTestCase
         $cards = $collection->removeCards();
         $this->assertEquals(
             array(),
-            $this->getPropertyValue($collection, 'cards')
+            $this->getPropertyValue($collection, 'items')
         );
         $this->assertEquals($size, count($cards));
     }

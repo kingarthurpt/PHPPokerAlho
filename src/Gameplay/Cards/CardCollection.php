@@ -2,32 +2,40 @@
 
 namespace PHPPokerAlho\Gameplay\Cards;
 
+use \PHPPokerAlho\DesignPatterns\Collection;
+
 /**
  * @since  {nextRelease}
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class CardCollection
+class CardCollection extends Collection
 {
     /**
-     * An array of Cards
-     *
-     * @var array
-     */
-    protected $cards = array();
-
-    /**
-     * Constructor
+     * Create a CardCollection from StandardCard's string abbreviation
+     * Use a space to separate each card
      *
      * @since  {nextRelease}
      *
-     * @param  array $cards The Cards
+     * @param  string $str The StandardCard's string abbreviation
+     *
+     * @return StandardCard|null
      */
-    public function __construct(array $cards = array())
+    public static function fromString(string $str)
     {
-        if (!empty($cards)) {
-            $this->setCards($cards);
+        $cardsStr = explode(" ", $str);
+
+        $instance = new self();
+        foreach ($cardsStr as $cardStr) {
+            $card = StandardCard::fromString($cardStr);
+            if (is_null($card)) {
+                return null;
+            }
+
+            $instance->addCard($card);
         }
+
+        return $instance;
     }
 
     /**
@@ -39,13 +47,13 @@ class CardCollection
      */
     public function __toString()
     {
-        if (empty($this->cards)) {
+        if (empty($this->items)) {
             return "";
         }
 
         $result = "";
-        for ($i = 0; $i < count($this->cards); $i++) {
-            $result .= $this->cards[$i]->__toString();
+        for ($i = 0; $i < count($this->items); $i++) {
+            $result .= $this->items[$i]->__toString();
         }
         return $result;
     }
@@ -60,12 +68,12 @@ class CardCollection
     public function toCliOutput()
     {
         $result = "";
-        for ($i = 0; $i < count($this->cards); $i++) {
-            if (!$this->cards[$i] instanceof StandardCard) {
+        for ($i = 0; $i < count($this->items); $i++) {
+            if (!$this->items[$i] instanceof StandardCard) {
                 return $this->__toString();
             }
 
-            $result .= $this->cards[$i]->toCliOutput();
+            $result .= $this->items[$i]->toCliOutput();
         }
 
         return $result;
@@ -80,7 +88,7 @@ class CardCollection
      */
     public function getCards()
     {
-        return $this->cards;
+        return $this->getItems();
     }
 
     /**
@@ -94,7 +102,7 @@ class CardCollection
      */
     public function getCardAt(int $index)
     {
-        return isset($this->cards[$index]) ? $this->cards[$index] : null;
+        return $this->getItemAt($index);
     }
 
     /**
@@ -115,7 +123,7 @@ class CardCollection
             }
         }
 
-        $this->cards = $cards;
+        $this->setItems($cards);
         return true;
     }
 
@@ -128,12 +136,11 @@ class CardCollection
      */
     public function addCard(Card $card)
     {
-        if (in_array($card, $this->cards)) {
+        if (in_array($card, $this->items)) {
             return null;
         }
 
-        $this->cards[] = $card;
-        return $this;
+        return $this->addItem($card);
     }
 
     /**
@@ -157,20 +164,21 @@ class CardCollection
             }
         }
 
-        $this->cards = array_merge($this->cards, $cards);
-        return true;
+        return $this->addItems($cards);
     }
 
     /**
-     * Get the CardCollection's size
+     * Add an array of Cards to the CardCollection
      *
      * @since  {nextRelease}
      *
-     * @return int The CardCollection's size
+     * @param  CardCollection $cards The CardCollection to add
+     *
+     * @return bool TRUE on success, FALSE on failure
      */
-    public function getSize()
+    public function mergeCards(CardCollection $cards)
     {
-        return count($this->cards);
+        return $this->merge($cards);
     }
 
     /**
@@ -182,8 +190,6 @@ class CardCollection
      */
     public function removeCards()
     {
-        $cards = $this->cards;
-        $this->cards = array();
-        return $cards;
+        return $this->removeItems();
     }
 }

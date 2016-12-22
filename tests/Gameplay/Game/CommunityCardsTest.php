@@ -64,7 +64,7 @@ class CommunityCardsTest extends BaseTestCase
         $this->assertTrue($communityCards->setFlop($collection));
         $this->assertEquals(
             $flop,
-            $this->getPropertyValue($communityCards, 'cards')
+            $this->getPropertyValue($communityCards, 'items')
         );
 
         unset($flop[2]);

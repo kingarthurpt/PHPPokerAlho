@@ -12,6 +12,27 @@ namespace PHPPokerAlho\Gameplay\Cards;
 class StandardCard extends Card
 {
     /**
+     * Create a StandardCard from their face value and Suit name abbreviation
+     *
+     * @since  {nextRelease}
+     *
+     * @param  string $str The StandardCard's face value and Suit's abbreviation
+     *
+     * @return StandardCard|null
+     */
+    public static function fromString(string $str)
+    {
+        if (strlen($str) != 2) {
+            return null;
+        }
+
+        $instance = new self();
+        $instance->setFaceValue($str[0]);
+        $instance->setSuit(StandardSuit::fromAbbr($str[1]));
+        return $instance;
+    }
+
+    /**
      * Return a string representation of the Card
      *
      * @since  {nextRelease}
@@ -33,12 +54,12 @@ class StandardCard extends Card
     public function toCliOutput()
     {
         $symbol = $this->suit->getSymbol();
-        if ($symbol == StandardSuitFactory::STD_CLUBS[1]
-            || $symbol == StandardSuitFactory::STD_SPADES[1]
+        if ($symbol == StandardSuit::CLUBS[1]
+            || $symbol == StandardSuit::SPADES[1]
         ) {
             $suit = '<bg=white;fg=black>' . $this->suit . "</>";
-        } elseif ($symbol == StandardSuitFactory::STD_HEARTS[1]
-            || $symbol == StandardSuitFactory::STD_DIAMONDS[1]
+        } elseif ($symbol == StandardSuit::HEARTS[1]
+            || $symbol == StandardSuit::DIAMONDS[1]
         ) {
             $suit = '<bg=white;fg=red>' . $this->suit . "</>";
         }
@@ -65,11 +86,9 @@ class StandardCard extends Card
     }
 
     /**
-     * Converts the Card's value to their corresponding face value
+     * Convert the Card's value to their corresponding face value
      *
      * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
      *
      * @return string The Card's face value
      */
@@ -95,5 +114,35 @@ class StandardCard extends Card
                 $value = $this->value;
         }
         return $value;
+    }
+
+    /**
+     * Set the Card value by their corresponding face value
+     *
+     * @since  {nextRelease}
+     *
+     * @param  string $value [description]
+     */
+    public function setFaceValue(string $value)
+    {
+        switch ($value) {
+            case "A":
+                $value = 1;
+                break;
+            case "T":
+                $value = 10;
+                break;
+            case "J":
+                $value = 11;
+                break;
+            case "Q":
+                $value = 12;
+                break;
+            case "K":
+                $value = 13;
+                break;
+        }
+
+        return $this->setValue($value);
     }
 }

@@ -140,8 +140,6 @@ class Player extends TableObserver
      *
      * @since  {nextRelease}
      *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     *
      * @param  bool $value
      */
     public function setButton(bool $value)

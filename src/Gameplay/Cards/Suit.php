@@ -26,17 +26,26 @@ class Suit
     private $symbol;
 
     /**
+     * The Suit's abbreviation
+     *
+     * @var string
+     */
+    private $abbreviation;
+
+    /**
      * Constructor
      *
      * @since  {nextRelease}
      *
      * @param  string $name The Suit's name
      * @param  string $symbol The Suit's symbol
+     * @param  string $abbr The Suit's abbreviation
      */
-    public function __construct($name = null, $symbol = null)
+    public function __construct($name = null, $symbol = null, $abbr = null)
     {
         $this->setName($name);
         $this->setSymbol($symbol);
+        $this->setAbbreviation($abbr);
     }
 
     /**
@@ -102,6 +111,33 @@ class Suit
     public function setSymbol($symbol)
     {
         $this->symbol = $symbol;
+        return $this;
+    }
+
+    /**
+     * Get the Suit's abbreviation
+     *
+     * @since  {nextRelease}
+     *
+     * @return string The Suit's abbreviation
+     */
+    public function getAbbreviation()
+    {
+        return $this->abbreviation;
+    }
+
+    /**
+     * Set the Suit's abbreviation
+     *
+     * @since  {nextRelease}
+     *
+     * @param  string $abbreviation The Suit's abbreviation
+     *
+     * @return Suit
+     */
+    public function setAbbreviation($abbreviation)
+    {
+        $this->abbreviation = $abbreviation;
         return $this;
     }
 }

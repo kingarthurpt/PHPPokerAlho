@@ -12,16 +12,6 @@ namespace PHPPokerAlho\Gameplay\Cards;
 class Deck extends CardCollection
 {
     /**
-     * Constructor
-     *
-     * @since  {nextRelease}
-     */
-    public function __construct()
-    {
-        parent::__construct(array());
-    }
-
-    /**
      * Shuffle the Deck
      *
      * @since  {nextRelease}
@@ -30,7 +20,7 @@ class Deck extends CardCollection
      */
     public function shuffle()
     {
-        return shuffle($this->cards);
+        return shuffle($this->items);
     }
 
     /**
@@ -45,7 +35,7 @@ class Deck extends CardCollection
         if ($this->getSize() == 0) {
             return null;
         }
-        $index = array_rand($this->cards, 1);
+        $index = array_rand($this->items, 1);
         return $this->drawCardAt($index);
     }
 
@@ -64,7 +54,7 @@ class Deck extends CardCollection
             return false;
         }
 
-        foreach ($this->cards as $key => $value) {
+        foreach ($this->items as $key => $value) {
             if ($value == $card) {
                 $card = $this->drawCardAt($key);
                 return true;
@@ -81,16 +71,22 @@ class Deck extends CardCollection
      *
      * @param  int $amount The Card's index
      *
-     * @return array An array of Cards or an empty array if deck size < $amount
+     * @return Card|CardCollection|null A Card if $amount = 1
+     *                                  A CardCollection if $amout > 1
+     *                                  or null if deck size < $amount
      */
     public function drawFromTop(int $amount)
     {
         if ($this->getSize() < $amount) {
-            return array();
+            return null;
         }
 
-        $result = array_splice($this->cards, 0, $amount);
-        return $result;
+        $result = array_splice($this->items, 0, $amount);
+        if ($amount == 1) {
+            return $result[0];
+        }
+
+        return new CardCollection($result);
     }
 
     /**
@@ -104,11 +100,11 @@ class Deck extends CardCollection
      */
     private function drawCardAt(int $index)
     {
-        if (!isset($this->cards[$index])) {
+        if (!isset($this->items[$index])) {
             return null;
         }
 
-        $result = array_splice($this->cards, $index, 1);
+        $result = array_splice($this->items, $index, 1);
         return is_array($result) ? reset($result) : $result;
     }
 }

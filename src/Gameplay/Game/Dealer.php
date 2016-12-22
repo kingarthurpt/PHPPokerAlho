@@ -134,7 +134,7 @@ class Dealer extends TableObserver
         foreach ($players as $player) {
             $hand = $player->returnHand();
             if (!is_null($hand)) {
-                $deck->addCards($hand->getHand());
+                $deck->addCards($hand->getCards());
             }
         }
 
@@ -142,9 +142,92 @@ class Dealer extends TableObserver
         $deck->shuffle();
 
         foreach ($players as $player) {
-            $hand = new CardCollection($deck->drawFromTop(2), 2);
-            $player->setHand($hand);
+            $player->setHand($deck->drawFromTop(2));
         }
+
+        // Notify the Players
+        // $table->notify();
+
+        return true;
+    }
+
+    /**
+     * Deal the flop
+     *
+     * @since  {nextRelease}
+     *
+     * @return bool TRUE on success, FALSE on failure
+     */
+    public function dealFlop()
+    {
+        if (!$this->hasDeck() || !$this->hasTable()) {
+            return false;
+        }
+
+        $deck = $this->getDeck();
+        $table = $this->getTable();
+
+        // Muck a card
+        $table->getMuck()->addCard($deck->drawFromTop(1));
+
+        // Deal the flop
+        $table->getCommunityCards()->setFlop($deck->drawFromTop(3));
+
+        // Notify the Players
+        // $table->notify();
+
+        return true;
+    }
+
+    /**
+     * Deal the turn
+     *
+     * @since  {nextRelease}
+     *
+     * @return bool TRUE on success, FALSE on failure
+     */
+    public function dealTurn()
+    {
+        if (!$this->hasDeck() || !$this->hasTable()) {
+            return false;
+        }
+
+        $deck = $this->getDeck();
+        $table = $this->getTable();
+
+        // Muck a card
+        $table->getMuck()->addCard($deck->drawFromTop(1));
+
+        // Deal the turn
+        $table->getCommunityCards()->setTurn($deck->drawFromTop(1));
+
+        // Notify the Players
+        // $table->notify();
+
+        return true;
+    }
+
+    /**
+     * Deal the river
+     *
+     * @since  {nextRelease}
+     *
+     * @return bool TRUE on success, FALSE on failure
+     */
+    public function dealRiver()
+    {
+        if (!$this->hasDeck() || !$this->hasTable()) {
+            return false;
+        }
+
+        $deck = $this->getDeck();
+        $table = $this->getTable();
+
+        // Muck a card
+        $table->getMuck()->addCard($deck->drawFromTop(1));
+
+        // Deal the river
+        $table->getCommunityCards()->setTurn($deck->drawFromTop(1));
 
         // Notify the Players
         // $table->notify();
@@ -157,8 +240,6 @@ class Dealer extends TableObserver
      *
      * @since  {nextRelease}
      *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     *
      * @return bool TRUE on success, FALSE on failure
      */
     private function hasDeck()
@@ -170,8 +251,6 @@ class Dealer extends TableObserver
      * Checks if the Dealer has a Table
      *
      * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
      *
      * @return bool TRUE on success, FALSE on failure
      */
