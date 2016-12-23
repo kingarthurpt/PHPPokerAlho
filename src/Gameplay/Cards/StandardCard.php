@@ -12,6 +12,71 @@ namespace PHPPokerAlho\Gameplay\Cards;
 class StandardCard extends Card
 {
     /**
+     * @var integer
+     */
+    const ACE = 1;
+
+    /**
+     * @var integer
+     */
+    const TWO = 2;
+
+    /**
+     * @var integer
+     */
+    const THREE = 2;
+
+    /**
+     * @var integer
+     */
+    const FOUR = 4;
+
+    /**
+     * @var integer
+     */
+    const FIVE = 5;
+
+    /**
+     * @var integer
+     */
+    const SIX = 6;
+
+    /**
+     * @var integer
+     */
+    const SEVEN = 7;
+
+    /**
+     * @var integer
+     */
+    const EIGHT = 8;
+
+    /**
+     * @var integer
+     */
+    const NINE = 9;
+
+    /**
+     * @var integer
+     */
+    const TEN = 10;
+
+    /**
+     * @var integer
+     */
+    const JACK = 11;
+
+    /**
+     * @var integer
+     */
+    const QUEEN = 12;
+
+    /**
+     * @var integer
+     */
+    const KING = 13;
+
+    /**
      * Create a StandardCard from their face value and Suit name abbreviation
      *
      * @since  {nextRelease}

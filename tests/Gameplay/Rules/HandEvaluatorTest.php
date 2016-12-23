@@ -5,7 +5,9 @@ namespace Tests;
 use PHPPokerAlho\Gameplay\Cards\StandardCard;
 use PHPPokerAlho\Gameplay\Cards\StandardSuit;
 use PHPPokerAlho\Gameplay\Cards\CardCollection;
+use PHPPokerAlho\Gameplay\Game\HandStrength;
 use PHPPokerAlho\Gameplay\Rules\HandEvaluator;
+use PHPPokerAlho\Gameplay\Rules\HandRanking;
 
 /**
  * @since  {nextRelease}
@@ -15,36 +17,113 @@ use PHPPokerAlho\Gameplay\Rules\HandEvaluator;
 class HandEvaluatorTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::__construct
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareHands
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareTwoHands
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareCardValues
      *
      * @since  nextRelease
      */
-    public function testConstruct()
+    public function testCompareHandsByRanking()
     {
-        return new HandEvaluator();
+        $evaluator = new HandEvaluator();
+        $hand1 = new HandStrength(
+            HandRanking::TWO_PAIR,
+            array(StandardCard::EIGHT),
+            array(StandardCard::SIX, StandardCard::FOUR, StandardCard::THREE)
+        );
+        $hand2 = new HandStrength(
+            HandRanking::ONE_PAIR,
+            array(StandardCard::NINE),
+            array(StandardCard::SIX, StandardCard::FOUR, StandardCard::THREE)
+        );
+        $hand3 = new HandStrength(
+            HandRanking::THREE_OF_A_KIND,
+            array(StandardCard::ACE),
+            array(StandardCard::SIX, StandardCard::FOUR, StandardCard::THREE)
+        );
+
+        $hands = array($hand1, $hand2, $hand3);
+        $result = $evaluator->compareHands($hands);
+        $this->assertEquals($hand1, $result[1]);
+        $this->assertEquals($hand2, $result[2]);
+        $this->assertEquals($hand3, $result[0]);
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareHands
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareTwoHands
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareCardValues
+     *
+     * @since  nextRelease
+     */
+    public function testCompareHandsByRankingCardValues()
+    {
+        $evaluator = new HandEvaluator();
+        $hand1 = new HandStrength(
+            HandRanking::TWO_PAIR,
+            array(StandardCard::NINE, StandardCard::FOUR),
+            array(StandardCard::SIX, StandardCard::FOUR, StandardCard::THREE)
+        );
+        $hand2 = new HandStrength(
+            HandRanking::TWO_PAIR,
+            array(StandardCard::NINE, StandardCard::SEVEN),
+            array(StandardCard::SIX, StandardCard::FOUR, StandardCard::THREE)
+        );
+
+        $hands = array($hand1, $hand2);
+        $result = $evaluator->compareHands($hands);
+        $this->assertEquals($hand1, $result[1]);
+        $this->assertEquals($hand2, $result[0]);
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareHands
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareTwoHands
+     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareCardValues
+     *
+     * @since  nextRelease
+     */
+    public function testCompareHandsByKickerCards()
+    {
+        $evaluator = new HandEvaluator();
+        $hand1 = new HandStrength(
+            HandRanking::TWO_PAIR,
+            array(StandardCard::NINE, StandardCard::FOUR),
+            array(StandardCard::SIX, StandardCard::FIVE, StandardCard::THREE)
+        );
+        $hand2 = new HandStrength(
+            HandRanking::TWO_PAIR,
+            array(StandardCard::NINE, StandardCard::FOUR),
+            array(StandardCard::SIX, StandardCard::FOUR, StandardCard::THREE)
+        );
+        $hand3 = new HandStrength(
+            HandRanking::TWO_PAIR,
+            array(StandardCard::NINE, StandardCard::FOUR),
+            array(StandardCard::SEVEN, StandardCard::SIX, StandardCard::THREE)
+        );
+
+        $hands = array($hand1, $hand2, $hand3);
+        $result = $evaluator->compareHands($hands);
+        $this->assertEquals($hand1, $result[1]);
+        $this->assertEquals($hand2, $result[2]);
+        $this->assertEquals($hand3, $result[0]);
     }
 
     /**
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testGetStrength(HandEvaluator $evaluator)
+    public function testGetStrength()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ad Kd Qd Jd Td 2s 2c 6h');
-        $this->assertEquals(
-            -1,
-            $evaluator->getStrength($cards)
-        );
+        $this->assertNull($evaluator->getStrength($cards));
 
         $cards = CardCollection::fromString('Ad Kd Qd Jd Td 2s 2c');
         $this->assertEquals(
-            HandEvaluator::ROYAL_FLUSH,
-            $evaluator->getStrength($cards)
+            HandRanking::ROYAL_FLUSH,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -52,22 +131,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasRoyalFlush
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasRoyalFlush(HandEvaluator $evaluator)
+    public function testHasRoyalFlush()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ad Kd Qd Jd Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasRoyalFlush", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::ROYAL_FLUSH,
-            $evaluator->getStrength($cards)
+            HandRanking::ROYAL_FLUSH,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -75,14 +151,11 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasRoyalFlush
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidRoyalFlush(HandEvaluator $evaluator)
+    public function testInvalidRoyalFlush()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Kd Qd Jd Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasRoyalFlush", array($cards))
@@ -94,8 +167,8 @@ class HandEvaluatorTest extends BaseTestCase
         );
 
         $this->assertNotEquals(
-            HandEvaluator::ROYAL_FLUSH,
-            $evaluator->getStrength($cards)
+            HandRanking::ROYAL_FLUSH,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -103,22 +176,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasStraightFlush
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasStraightFlush(HandEvaluator $evaluator)
+    public function testHasStraightFlush()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Kh Qh Jh Th 9h 2s 2h');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasStraightFlush", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::STRAIGHT_FLUSH,
-            $evaluator->getStrength($cards)
+            HandRanking::STRAIGHT_FLUSH,
+            $evaluator->getStrength($cards)->getRanking()
         );
 
         $cards = CardCollection::fromString('Ac 2c 3c 4c 5c 2s 2h');
@@ -127,8 +197,8 @@ class HandEvaluatorTest extends BaseTestCase
         );
 
         $this->assertEquals(
-            HandEvaluator::STRAIGHT_FLUSH,
-            $evaluator->getStrength($cards)
+            HandRanking::STRAIGHT_FLUSH,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -136,22 +206,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasStraightFlush
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidStraightFlush(HandEvaluator $evaluator)
+    public function testInvalidStraightFlush()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('8c 3c 4c 5c 7d 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasStraightFlush", array($cards))
         );
 
         $this->assertNotEquals(
-            HandEvaluator::STRAIGHT_FLUSH,
-            $evaluator->getStrength($cards)
+            HandRanking::STRAIGHT_FLUSH,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -159,22 +226,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFourOfAKind
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasFourOfAKind(HandEvaluator $evaluator)
+    public function testHasFourOfAKind()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad As Ah Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasFourOfAKind", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::FOUR_OF_A_KIND,
-            $evaluator->getStrength($cards)
+            HandRanking::FOUR_OF_A_KIND,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -182,22 +246,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFourOfAKind
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidFourOfAKind(HandEvaluator $evaluator)
+    public function testInvalidFourOfAKind()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad As Kh Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasFourOfAKind", array($cards))
         );
 
         $this->assertNotEquals(
-            HandEvaluator::FOUR_OF_A_KIND,
-            $evaluator->getStrength($cards)
+            HandRanking::FOUR_OF_A_KIND,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -205,22 +266,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFullHouse
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasFullHouse(HandEvaluator $evaluator)
+    public function testHasFullHouse()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad As Kh 2h 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasFullHouse", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::FULL_HOUSE,
-            $evaluator->getStrength($cards)
+            HandRanking::FULL_HOUSE,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -228,22 +286,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFullHouse
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidFullHouse(HandEvaluator $evaluator)
+    public function testInvalidFullHouse()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad Ks Kh Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasFullHouse", array($cards))
         );
 
         $this->assertNotEquals(
-            HandEvaluator::FULL_HOUSE,
-            $evaluator->getStrength($cards)
+            HandRanking::FULL_HOUSE,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -251,22 +306,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFlush
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasFlush(HandEvaluator $evaluator)
+    public function testHasFlush()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac 3c 4c 7c Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasFlush", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::FLUSH,
-            $evaluator->getStrength($cards)
+            HandRanking::FLUSH,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -274,22 +326,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFlush
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidFlush(HandEvaluator $evaluator)
+    public function testInvalidFlush()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad Ks Kh Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasFlush", array($cards))
         );
 
         $this->assertNotEquals(
-            HandEvaluator::FLUSH,
-            $evaluator->getStrength($cards)
+            HandRanking::FLUSH,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -298,22 +347,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasStraight
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasStraight(HandEvaluator $evaluator)
+    public function testHasStraight()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Kc Qc Js Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasStraight", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::STRAIGHT,
-            $evaluator->getStrength($cards)
+            HandRanking::STRAIGHT,
+            $evaluator->getStrength($cards)->getRanking()
         );
 
         $cards = CardCollection::fromString('Ac 2c 2h 4s 5d 7s 3d');
@@ -322,8 +368,8 @@ class HandEvaluatorTest extends BaseTestCase
         );
 
         $this->assertEquals(
-            HandEvaluator::STRAIGHT,
-            $evaluator->getStrength($cards)
+            HandRanking::STRAIGHT,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -331,22 +377,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasStraight
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidStraight(HandEvaluator $evaluator)
+    public function testInvalidStraight()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('8c 3d 4s 5h 7d 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasStraight", array($cards))
         );
 
         $this->assertNotEquals(
-            HandEvaluator::STRAIGHT,
-            $evaluator->getStrength($cards)
+            HandRanking::STRAIGHT,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -354,22 +397,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasThreeOfAKind
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasThreeOfAKind(HandEvaluator $evaluator)
+    public function testHasThreeOfAKind()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad As Jd Td 6s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasThreeOfAKind", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::THREE_OF_A_KIND,
-            $evaluator->getStrength($cards)
+            HandRanking::THREE_OF_A_KIND,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -377,22 +417,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasThreeOfAKind
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidThreeOfAKind(HandEvaluator $evaluator)
+    public function testInvalidThreeOfAKind()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad 3s Jd Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasThreeOfAKind", array($cards))
         );
 
         $this->assertNotEquals(
-            HandEvaluator::THREE_OF_A_KIND,
-            $evaluator->getStrength($cards)
+            HandRanking::THREE_OF_A_KIND,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -400,22 +437,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasTwoPair
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasTwoPair(HandEvaluator $evaluator)
+    public function testHasTwoPair()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad Qs Jd Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasTwoPair", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::TWO_PAIR,
-            $evaluator->getStrength($cards)
+            HandRanking::TWO_PAIR,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -423,22 +457,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasTwoPair
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidTwoPair(HandEvaluator $evaluator)
+    public function testInvalidTwoPair()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad 3s Jd Td 4s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasTwoPair", array($cards))
         );
 
         $this->assertNotEquals(
-            HandEvaluator::TWO_PAIR,
-            $evaluator->getStrength($cards)
+            HandRanking::TWO_PAIR,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -446,22 +477,19 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasOnePair
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testHasOnePair(HandEvaluator $evaluator)
+    public function testHasOnePair()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad Qs Jd Td 5s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasOnePair", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::ONE_PAIR,
-            $evaluator->getStrength($cards)
+            HandRanking::ONE_PAIR,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
@@ -469,36 +497,30 @@ class HandEvaluatorTest extends BaseTestCase
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasOnePair
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testInvalidOnePair(HandEvaluator $evaluator)
+    public function testInvalidOnePair()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Kd 3s Jd Td 4s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasOnePair", array($cards))
         );
 
         $this->assertEquals(
-            HandEvaluator::HIGH_CARD,
-            $evaluator->getStrength($cards)
+            HandRanking::HIGH_CARD,
+            $evaluator->getStrength($cards)->getRanking()
         );
     }
 
     /**
      * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::countCardOccurrences
      *
-     * @depends testConstruct
-     *
      * @since  nextRelease
-     *
-     * @param  HandEvaluator $evaluator The HandEvaluator
      */
-    public function testCountCardOccurrences(HandEvaluator $evaluator)
+    public function testCountCardOccurrences()
     {
+        $evaluator = new HandEvaluator();
         $cards = CardCollection::fromString('Ac Ad As Ah Kd Ks Kc');
 
         $occurrences = $this->invokeMethod(

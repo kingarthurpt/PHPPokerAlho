@@ -64,9 +64,11 @@ class HandStrengthCommand extends Command
 
         $calculator = new HandEvaluator();
         $cards = new CardCollection();
-        $cards->addCards($player->getHand());
-        $cards->addCards($table->getCommunityCards());
-        $calculator->getStrength($cards);
+        $cards->mergeCards($player->getHand());
+        $cards->mergeCards($table->getCommunityCards());
+
+        $handStrength = $calculator->getStrength($cards);
+        $output->writeln("Hand Strength: " . $handStrength->__toString());
 
     }
 }

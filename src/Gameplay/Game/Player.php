@@ -3,6 +3,7 @@
 namespace PHPPokerAlho\Gameplay\Game;
 
 use PHPPokerAlho\Gameplay\Cards\CardCollection;
+use PHPPokerAlho\Gameplay\Game\PlayerHand;
 
 /**
  * @since  {nextRelease}
@@ -21,7 +22,7 @@ class Player extends TableObserver
     /**
      * The Players's cards
      *
-     * @var CardCollection
+     * @var PlayerHand
      */
     private $hand = null;
 
@@ -31,6 +32,13 @@ class Player extends TableObserver
      * @var bool
      */
     private $button = false;
+
+    /**
+     * The Table where the Player may be seated
+     *
+     * @var Table
+     */
+    private $table = null;
 
     /**
      * Constructor
@@ -88,7 +96,7 @@ class Player extends TableObserver
      *
      * @since  {nextRelease}
      *
-     * @return CardCollection The Player's hand
+     * @return PlayerHand The Player's hand
      */
     public function getHand()
     {
@@ -106,7 +114,7 @@ class Player extends TableObserver
      */
     public function setHand(CardCollection $hand)
     {
-        $this->hand = $hand;
+        $this->hand = new PlayerHand($hand->getCards());
         return $this;
     }
 
@@ -120,6 +128,10 @@ class Player extends TableObserver
      */
     public function update(TableSubject $subject, TableEvent $event)
     {
+        if (is_null($this->table) && $subject instanceof Table) {
+            $this->table = $subject;
+        }
+
         return true;
     }
 
@@ -153,12 +165,26 @@ class Player extends TableObserver
      *
      * @since  {nextRelease}
      *
-     * @return CardCollection The Player's hand
+     * @return PlayerHand The Player's hand
      */
     public function returnHand()
     {
         $hand = $this->getHand();
         $this->hand = null;
         return $hand;
+    }
+
+    /**
+     * Muck the Player's cards.
+     *
+     * @since  {nextRelease}
+     */
+    protected function muck()
+    {
+        if (empty($this->table)) {
+            return null;
+        }
+
+        $this->table->getMuck()->merge($this->returnHand());
     }
 }

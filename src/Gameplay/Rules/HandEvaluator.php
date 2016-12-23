@@ -4,6 +4,7 @@ namespace PHPPokerAlho\Gameplay\Rules;
 
 use PHPPokerAlho\Gameplay\Cards\CardCollection;
 use PHPPokerAlho\Gameplay\Game\CommunityCards;
+use PHPPokerAlho\Gameplay\Game\HandStrength;
 
 /**
  * @since  {nextRelease}
@@ -12,19 +13,20 @@ use PHPPokerAlho\Gameplay\Game\CommunityCards;
  */
 class HandEvaluator
 {
-    const ROYAL_FLUSH = 10;
-    const STRAIGHT_FLUSH = 9;
-    const FOUR_OF_A_KIND = 8;
-    const FULL_HOUSE = 7;
-    const FLUSH = 6;
-    const STRAIGHT = 5;
-    const THREE_OF_A_KIND = 4;
-    const TWO_PAIR = 3;
-    const ONE_PAIR = 2;
-    const HIGH_CARD = 1;
-
-    public function __construct()
+    /**
+     * Compare an array of HandStrengths and return the same array sorted by
+     * the best HandStrengths
+     *
+     * @since  {nextRelease}
+     *
+     * @param  array $hands [description]
+     *
+     * @return array The sorted array of HandStrengths
+     */
+    public function compareHands(array $hands)
     {
+        usort($hands, array($this, "compareTwoHands"));
+        return $hands;
     }
 
     /**
@@ -34,51 +36,37 @@ class HandEvaluator
      *
      * @param  CardCollection $cards
      *
-     * @return int
+     * @return HandStrength|null
      */
     public function getStrength(CardCollection $cards)
     {
-        if ($cards->getSize() != 7) {
-            return -1;
+        if ($cards->getSize() < 5 || $cards->getSize() > 7) {
+            return null;
         }
 
         if ($this->hasRoyalFlush($cards)) {
-            // echo "Royal Flush\n";
-            return self::ROYAL_FLUSH;
+            $ranking = HandRanking::ROYAL_FLUSH;
+        } elseif ($this->hasStraightFlush($cards)) {
+            $ranking = HandRanking::STRAIGHT_FLUSH;
+        } elseif ($this->hasFourOfAKind($cards)) {
+            $ranking = HandRanking::FOUR_OF_A_KIND;
+        } elseif ($this->hasFullHouse($cards)) {
+            $ranking = HandRanking::FULL_HOUSE;
+        } elseif ($this->hasFlush($cards)) {
+            $ranking = HandRanking::FLUSH;
+        } elseif ($this->hasStraight($cards)) {
+            $ranking = HandRanking::STRAIGHT;
+        } elseif ($this->hasThreeOfAKind($cards)) {
+            $ranking = HandRanking::THREE_OF_A_KIND;
+        } elseif ($this->hasTwoPair($cards)) {
+            $ranking = HandRanking::TWO_PAIR;
+        } elseif ($this->hasOnePair($cards)) {
+            $ranking = HandRanking::ONE_PAIR;
+        } else {
+            $ranking = HandRanking::HIGH_CARD;
         }
-        if ($this->hasStraightFlush($cards)) {
-            // echo "Straight Flush\n";
-            return self::STRAIGHT_FLUSH;
-        }
-        if ($this->hasFourOfAKind($cards)) {
-            // echo "4 of a kind\n";
-            return self::FOUR_OF_A_KIND;
-        }
-        if ($this->hasFullHouse($cards)) {
-            // echo "Full house\n";
-            return self::FULL_HOUSE;
-        }
-        if ($this->hasFlush($cards)) {
-            // echo "Flush\n";
-            return self::FLUSH;
-        }
-        if ($this->hasStraight($cards)) {
-            // echo "Straight\n";
-            return self::STRAIGHT;
-        }
-        if ($this->hasThreeOfAKind($cards)) {
-            // echo "3 of a Kind\n";
-            return self::THREE_OF_A_KIND;
-        }
-        if ($this->hasTwoPair($cards)) {
-            // echo "2 pairs\n";
-            return self::TWO_PAIR;
-        }
-        if ($this->hasOnePair($cards)) {
-            // echo "1 pair\n";
-            return self::ONE_PAIR;
-        }
-        return self::HIGH_CARD;
+
+        return new HandStrength($ranking, array(3), array());
     }
 
     /**
@@ -289,5 +277,66 @@ class HandEvaluator
         rsort($values);
 
         return $values;
+    }
+
+    /**
+     * Compare two HandStrengths
+     *
+     * @since  {nextRelease}
+     *
+     * @param  HandStrength $first The first HandStrength
+     * @param  HandStrength $second The second HandStrength
+     *
+     * @return int 1 if the second hand is stronger than the first,
+     *             -1 if the first hand is stronger than the second,
+     *             0 if both hands have the same strength
+     */
+    private function compareTwoHands(HandStrength $first, HandStrength $second)
+    {
+        // Compare HandRankings
+        if ($first->getRanking() > $second->getRanking()) {
+            return -1;
+        } elseif ($first->getRanking() < $second->getRanking()) {
+            return 1;
+        }
+
+        // Both HandStrength's have the same HandRanking.
+        // Compare their ranking Card values
+        $result = $this->compareCardValues(
+            $first->getRankingCardValues(),
+            $second->getRankingCardValues()
+        );
+        if ($result != 0) {
+            return $result;
+        }
+
+        // Both ranking Card values are the same.
+        // Compare their kicker Card values
+        return $this->compareCardValues($first->getKickers(), $second->getKickers());
+    }
+
+    /**
+     * Compare two arrays of Card values.
+     * Each array is sorted with a reverse order and contain the
+     * values of each Card
+     *
+     * @since  {nextRelease}
+     *
+     * @param  array $firstKickers [description]
+     * @param  array $secondKickers [description]
+     *
+     * @return int
+     */
+    private function compareCardValues(array $firstKickers, array $secondKickers)
+    {
+        for ($i = 0; $i < count($firstKickers) || $i < count($secondKickers); $i++) {
+            if ($firstKickers[$i] > $secondKickers[$i]) {
+                return -1;
+            } elseif ($firstKickers[$i] < $secondKickers[$i]) {
+                return 1;
+            }
+        }
+
+        return 0;
     }
 }
