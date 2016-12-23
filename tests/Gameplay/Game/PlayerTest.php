@@ -5,6 +5,7 @@ namespace Tests;
 use PHPPokerAlho\Gameplay\Game\Player;
 use PHPPokerAlho\Gameplay\Game\Table;
 use PHPPokerAlho\Gameplay\Game\TableEvent;
+use PHPPokerAlho\Gameplay\Game\PlayerHand;
 use PHPPokerAlho\Gameplay\Cards\Card;
 use PHPPokerAlho\Gameplay\Cards\Suit;
 use PHPPokerAlho\Gameplay\Cards\CardCollection;
@@ -115,8 +116,9 @@ class PlayerTest extends BaseTestCase
         );
         $hand = new CardCollection($holeCards, 2);
         $player->setHand($hand);
-        $this->assertEquals(
-            $hand,
+
+        $this->assertInstanceOf(
+            PlayerHand::class,
             $this->getPropertyValue($player, 'hand')
         );
     }
@@ -188,7 +190,8 @@ class PlayerTest extends BaseTestCase
         );
         $hand = new CardCollection($holeCards, 2);
         $player->setHand($hand);
-        $this->assertEquals($hand, $player->returnHand());
+
+        $this->assertInstanceOf(PlayerHand::class, $player->returnHand());
         $this->assertEmpty($player->getHand());
     }
 }

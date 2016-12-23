@@ -29,9 +29,9 @@ class CommunityCards extends CardCollection
             return false;
         }
 
-        $this->cards[0] = $cards->getCardAt(0);
-        $this->cards[1] = $cards->getCardAt(1);
-        $this->cards[2] = $cards->getCardAt(2);
+        $this->items[0] = $cards->getCardAt(0);
+        $this->items[1] = $cards->getCardAt(1);
+        $this->items[2] = $cards->getCardAt(2);
         return true;
     }
 

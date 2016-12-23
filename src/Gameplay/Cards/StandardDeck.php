@@ -23,15 +23,14 @@ class StandardDeck extends Deck
         parent::__construct();
 
         $suits = array(
-            StandardSuitFactory::STD_CLUBS,
-            StandardSuitFactory::STD_DIAMONDS,
-            StandardSuitFactory::STD_HEARTS,
-            StandardSuitFactory::STD_SPADES
+            StandardSuit::CLUBS,
+            StandardSuit::DIAMONDS,
+            StandardSuit::HEARTS,
+            StandardSuit::SPADES
         );
 
-        $suitFactory = new StandardSuitFactory();
         foreach ($suits as $suitName) {
-            $suit = $suitFactory->create($suitName);
+            $suit = StandardSuit::fromAbbr($suitName[2]);
 
             for ($i = 1; $i <= 13; $i++) {
                 $this->addCard(new StandardCard($i, $suit));

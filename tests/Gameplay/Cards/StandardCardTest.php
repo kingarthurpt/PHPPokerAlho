@@ -24,6 +24,19 @@ class StandardCardTest extends BaseTestCase
     }
 
     /**
+     * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::fromString
+     *
+     * @since  nextRelease
+     */
+    public function testFromString()
+    {
+        $this->assertNull(StandardCard::fromString('10c'));
+        
+        $card = StandardCard::fromString('Tc');
+        $this->assertEquals('[T♣]', $card);
+    }
+
+    /**
      * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::toCliOutput
      *
      * @since  nextRelease
@@ -85,6 +98,33 @@ class StandardCardTest extends BaseTestCase
         $this->assertEquals('A', $card->getFaceValue());
 
         $card->setValue(2);
+        $this->assertEquals('2', $card->getFaceValue());
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::setFaceValue
+     *
+     * @since  nextRelease
+     */
+    public function testSetFaceValue()
+    {
+        $card = new StandardCard();
+        $card->setFaceValue('T');
+        $this->assertEquals('T', $card->getFaceValue());
+
+        $card->setFaceValue('J');
+        $this->assertEquals('J', $card->getFaceValue());
+
+        $card->setFaceValue('Q');
+        $this->assertEquals('Q', $card->getFaceValue());
+
+        $card->setFaceValue('K');
+        $this->assertEquals('K', $card->getFaceValue());
+
+        $card->setFaceValue('A');
+        $this->assertEquals('A', $card->getFaceValue());
+
+        $card->setFaceValue('2');
         $this->assertEquals('2', $card->getFaceValue());
     }
 }

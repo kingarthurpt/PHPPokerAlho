@@ -19,7 +19,7 @@ class StandardDeckTest extends BaseTestCase
     public function testConstruct()
     {
         $deck = new StandardDeck();
-        $this->assertNotEquals(array(), $this->getPropertyValue($deck, 'cards'));
+        $this->assertNotEquals(array(), $this->getPropertyValue($deck, 'items'));
 
         $this->assertEquals(52, $deck->getSize());
 

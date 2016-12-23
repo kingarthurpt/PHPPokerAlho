@@ -213,4 +213,83 @@ class DealerTest extends BaseTestCase
         $event = new TableEvent(1, "some message");
         $this->assertTrue($dealer->update($table, $event));
     }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealFlop
+     *
+     * @since  nextRelease
+     */
+    public function testDealFlop()
+    {
+        $dealer = new Dealer();
+        $this->assertFalse($dealer->dealFlop());
+
+        $dealer->setDeck(new StandardDeck());
+        $table = new Table("Table1", 6);
+        $dealer->setTable($table);
+
+        $muckSize = $table->getMuck()->getSize();
+        $communityCardsSize = $table->getCommunityCards()->getSize();
+
+        $this->assertTrue($dealer->dealFlop());
+
+        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
+        $this->assertEquals(
+            $communityCardsSize + 3,
+            $table->getCommunityCards()->getSize()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealTurn
+     *
+     * @since  nextRelease
+     */
+    public function testDealTurn()
+    {
+        $dealer = new Dealer();
+        $this->assertFalse($dealer->dealTurn());
+
+        $dealer->setDeck(new StandardDeck());
+        $table = new Table("Table1", 6);
+        $dealer->setTable($table);
+
+        $muckSize = $table->getMuck()->getSize();
+        $communityCardsSize = $table->getCommunityCards()->getSize();
+
+        $this->assertTrue($dealer->dealTurn());
+
+        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
+        $this->assertEquals(
+            $communityCardsSize + 1,
+            $table->getCommunityCards()->getSize()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealRiver
+     *
+     * @since  nextRelease
+     */
+    public function testDealRiver()
+    {
+        $dealer = new Dealer();
+        $this->assertFalse($dealer->dealRiver());
+
+        $dealer->setDeck(new StandardDeck());
+        $table = new Table("Table1", 6);
+        $dealer->setTable($table);
+
+        $muckSize = $table->getMuck()->getSize();
+        $communityCardsSize = $table->getCommunityCards()->getSize();
+
+        $this->assertTrue($dealer->dealRiver());
+
+        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
+        $this->assertEquals(
+            $communityCardsSize + 1,
+            $table->getCommunityCards()->getSize()
+        );
+    }
+
 }

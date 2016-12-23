@@ -139,4 +139,39 @@ class SuitTest extends BaseTestCase
             $this->getPropertyValue($suit, 'symbol')
         );
     }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getAbbreviation
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Suit $suit The Suit
+     */
+    public function testGetAbbreviation(Suit $suit)
+    {
+        $this->assertEquals(
+            $this->getPropertyValue($suit, 'abbreviation'),
+            $suit->getAbbreviation()
+        );
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setAbbreviation
+     *
+     * @depends testConstruct
+     *
+     * @since  nextRelease
+     *
+     * @param  Suit $suit The Suit
+     */
+    public function testSetAbbreviation(Suit $suit)
+    {
+        $suit->setAbbreviation('c');
+        $this->assertEquals(
+            'c',
+            $this->getPropertyValue($suit, 'abbreviation')
+        );
+    }
 }

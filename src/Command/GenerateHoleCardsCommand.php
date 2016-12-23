@@ -62,8 +62,7 @@ class GenerateHoleCardsCommand extends Command
 
             $output->writeln(
                 "Hand #" . $i . ": "
-                . $hand[0]->toCliOutput() . " "
-                . $hand[1]->toCliOutput()
+                . $hand->toCliOutput()
             );
         }
     }

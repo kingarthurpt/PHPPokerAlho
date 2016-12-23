@@ -21,7 +21,7 @@ class DeckTest extends BaseTestCase
     public function testConstruct()
     {
         $deck = new Deck();
-        $this->assertEquals(array(), $this->getPropertyValue($deck, 'cards'));
+        $this->assertEquals(array(), $this->getPropertyValue($deck, 'items'));
 
         return $deck;
     }
@@ -40,13 +40,13 @@ class DeckTest extends BaseTestCase
         $card = new Card(3, new Suit("Clubs"));
         $this->assertNotContains(
             $card,
-            $this->getPropertyValue($deck, 'cards')
+            $this->getPropertyValue($deck, 'items')
         );
 
         $deck->addCard($card);
         $this->assertContains(
             $card,
-            $this->getPropertyValue($deck, 'cards')
+            $this->getPropertyValue($deck, 'items')
         );
     }
 
@@ -71,7 +71,7 @@ class DeckTest extends BaseTestCase
         foreach ($cards as $card) {
             $this->assertNotContains(
                 $card,
-                $this->getPropertyValue($deck, 'cards')
+                $this->getPropertyValue($deck, 'items')
             );
         }
 
@@ -80,7 +80,7 @@ class DeckTest extends BaseTestCase
         foreach ($cards as $card) {
             $this->assertContains(
                 $card,
-                $this->getPropertyValue($deck, 'cards')
+                $this->getPropertyValue($deck, 'items')
             );
         }
     }
@@ -97,7 +97,7 @@ class DeckTest extends BaseTestCase
     public function testGetSize(Deck $deck)
     {
         $this->assertEquals(
-            count($this->getPropertyValue($deck, 'cards')),
+            count($this->getPropertyValue($deck, 'items')),
             $deck->getSize()
         );
     }
@@ -226,15 +226,15 @@ class DeckTest extends BaseTestCase
         $this->assertEquals(2, $deck->getSize());
 
         $result = $deck->drawFromTop(1);
-        $this->assertContains($cards[0], $result);
+        $this->assertEquals($cards[0], $result);
         $this->assertEquals(1, $deck->getSize());
 
         $deck->addCards($cards);
         $this->assertEquals(3, $deck->getSize());
 
         $result = $deck->drawFromTop(2);
-        $this->assertContains($cards[0], $result);
-        $this->assertContains($cards[1], $result);
+        $this->assertContains($cards[0], $result->getCards());
+        $this->assertContains($cards[1], $result->getCards());
         $this->assertEquals(1, $deck->getSize());
 
         $this->assertEmpty($deck->drawFromTop(2));
