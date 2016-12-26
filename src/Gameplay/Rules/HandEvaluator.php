@@ -66,7 +66,7 @@ class HandEvaluator
             $ranking = HandRanking::HIGH_CARD;
         }
 
-        return new HandStrength($ranking, array(3), array());
+        return new HandStrength($ranking, array(10), array(1));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace PHPPokerAlho\Gameplay\Game;
 
 use PHPPokerAlho\Gameplay\Rules\HandRanking;
+use PHPPokerAlho\Gameplay\Cards\StandardCard;
 
 /**
  * @since  {nextRelease}
@@ -53,7 +54,20 @@ class HandStrength
 
     public function __toString()
     {
-        return HandRanking::getName($this->ranking);
+        $str = HandRanking::getName($this->ranking) . ": ";
+        foreach ($this->rankCardValues as $cardValue) {
+           $str .= StandardCard::getName($cardValue, true) . " and ";
+        }
+        $str = rtrim($str, " and ") . ".";
+
+       if (!empty($this->kickers)) {
+            $str .= " Kickers: ";
+            foreach ($this->kickers as $kicker) {
+                $str .= StandardCard::getName($kicker) . ", ";
+            }
+            $str = rtrim($str, ", ");
+        }
+        return $str;
     }
 
     /**

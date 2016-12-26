@@ -210,4 +210,54 @@ class StandardCard extends Card
 
         return $this->setValue($value);
     }
+
+    public static function getName(int $value, bool $plural = false)
+    {
+        switch ($value) {
+            case self::ACE:
+                $name = "Ace" ;
+                break;
+            case self::TWO:
+                $name = "Two";
+                break;
+            case self::THREE:
+                $name = "Three";
+                break;
+            case self::FOUR:
+                $name = "Four";
+                break;
+            case self::FIVE:
+                $name = "Five";
+                break;
+            case self::SIX:
+                $name = "Six";
+                break;
+            case self::SEVEN:
+                $name = "Seven";
+                break;
+            case self::EIGHT:
+                $name = "Eight";
+                break;
+            case self::NINE:
+                $name = "Nine";
+                break;
+            case self::TEN:
+                $name = "Ten";
+                break;
+            case self::JACK:
+                $name = "Jack";
+                break;
+            case self::QUEEN:
+                $name = "Queen";
+                break;
+            case self::KING:
+                $name = "King";
+                break;
+            default:
+                $name = "Unknown";
+        }
+        
+        $name .= $plural ? "s" : "";
+        return $name;
+    }
 }
