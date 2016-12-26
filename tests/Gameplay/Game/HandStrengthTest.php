@@ -8,7 +8,7 @@ use PHPPokerAlho\Gameplay\Rules\HandRanking;
 /**
  * @since  {nextRelease}
  *
- * @author Flavio Diniz <flavio.diniz@gatewit.com>
+ * @author Flavio Diniz <f.diniz14@gmail.com>
  */
 class HandStrengthTest extends BaseTestCase
 {
