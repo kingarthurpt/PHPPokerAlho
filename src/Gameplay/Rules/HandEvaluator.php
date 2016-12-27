@@ -73,6 +73,7 @@ class HandEvaluator
         } else {
             $ranking = HandRanking::HIGH_CARD;
         }
+
         return $ranking;
     }
 
@@ -227,13 +228,13 @@ class HandEvaluator
     private function hasStraight(CardCollection $cards)
     {
         // Array of occurrences of each card's value
-        $values = array_fill(1, 13, 0);
+        $values = array_fill(2, 13, 0);
         foreach ($cards->getCards() as $card) {
             $values[$card->getValue()]++;
         }
 
         // Duplicates the Ace to the end of the array
-        $values[14] = $values[1];
+        $values[1] = $values[14];
 
         $hasStraight = false;
         for ($i = 1; $i <= count($values) - 4; $i++) {
@@ -312,7 +313,7 @@ class HandEvaluator
     private function countCardOccurrences(CardCollection $cards)
     {
         // Array of occurrences of each card's value
-        $values = array_fill(1, 13, 0);
+        $values = array_fill(2, 13, 0);
         foreach ($cards->getCards() as $card) {
             $values[$card->getValue()]++;
         }
@@ -324,11 +325,11 @@ class HandEvaluator
 
     private function getStraightValues(CardCollection $cards)
     {
-        $occurrences = array_fill(1, 13, 0);
+        $occurrences = array_fill(2, 13, 0);
         foreach ($cards->getCards() as $card) {
             $occurrences[$card->getValue()]++;
         }
-        $occurrences[14] = $occurrences[1];
+        $occurrences[1] = $occurrences[14];
 
         for ($i = 1; $i <= count($occurrences) - 4; $i++) {
             if ($occurrences[$i] == 0) {
@@ -345,9 +346,9 @@ class HandEvaluator
 
         rsort($rankCards);
         foreach ($rankCards as &$card) {
-            $card = $card === 14 ? 1 : $card;
+            $card = $card === 1 ? 14 : $card;
         }
-        $kickers = end($rankCards) === 1 ? array(1) : array_slice($rankCards, 0, 1);
+        $kickers = array_slice($rankCards, 0, 1);
 
         $cardValues = array(
             'rankCards' => $rankCards,
@@ -362,9 +363,8 @@ class HandEvaluator
         $occurrences = array_fill(2, 13, 0);
         $values = array();
         foreach ($cards->getCards() as $card) {
-            $key = $card->getValue() === 1 ? 14 : $card->getValue();
-            $occurrences[$key]++;
-            $values[$key] = $card->getValue();
+            $occurrences[$card->getValue()]++;
+            $values[$card->getValue()] = $card->getValue();
         }
 
         arsort($occurrences);
@@ -372,7 +372,6 @@ class HandEvaluator
         unset($values[$three]);
         krsort($values);
         $kickers = array_slice($values, 0, 2);
-        $three = $three === 14 ? 1 : $three;
         $cardValues = array(
             'rankCards' => array($three),
             'kickers' => $kickers

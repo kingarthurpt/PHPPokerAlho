@@ -32,7 +32,7 @@ class StandardDeck extends Deck
         foreach ($suits as $suitName) {
             $suit = StandardSuit::fromAbbr($suitName[2]);
 
-            for ($i = 1; $i <= 13; $i++) {
+            for ($i = 2; $i <= 14; $i++) {
                 $this->addCard(new StandardCard($i, $suit));
             }
         }

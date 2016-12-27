@@ -54,14 +54,30 @@ class HandStrength
 
     public function __toString()
     {
+        switch ($this->ranking) {
+            case HandRanking::ONE_PAIR:
+            case HandRanking::TWO_PAIR:
+            case HandRanking::THREE_OF_A_KIND:
+            case HandRanking::FULL_HOUSE:
+            case HandRanking::FOUR_OF_A_KIND:
+                $plural = true;
+                break;
+            default :
+                $plural = false;
+        }
+
         $str = HandRanking::getName($this->ranking) . ": ";
         foreach ($this->rankCardValues as $cardValue) {
-           $str .= StandardCard::getName($cardValue) . ", ";
+           $str .= StandardCard::getName($cardValue, $plural) . ", ";
         }
-        $str = rtrim($str, ", ") . ".";
+        $str = rtrim($str, ", ");
+        $pos = strrpos($str, ", ");
+        if($pos !== false) {
+            $str = substr_replace($str, " and ", $pos, strlen(", "));
+        }
 
        if (!empty($this->kickers)) {
-            $str .= " Kickers: ";
+            $str .= ". Kickers: ";
             foreach ($this->kickers as $kicker) {
                 $str .= StandardCard::getName($kicker) . ", ";
             }

@@ -14,11 +14,6 @@ class StandardCard extends Card
     /**
      * @var integer
      */
-    const ACE = 1;
-
-    /**
-     * @var integer
-     */
     const TWO = 2;
 
     /**
@@ -75,6 +70,11 @@ class StandardCard extends Card
      * @var integer
      */
     const KING = 13;
+
+    /**
+     * @var integer
+     */
+    const ACE = 14;
 
     /**
      * Create a StandardCard from their face value and Suit name abbreviation
@@ -143,7 +143,7 @@ class StandardCard extends Card
      */
     public function setValue($value)
     {
-        if ($value < 1 || $value > 13) {
+        if ($value < 2 || $value > 14) {
             return null;
         }
 
@@ -160,9 +160,6 @@ class StandardCard extends Card
     public function getFaceValue()
     {
         switch ($this->value) {
-            case 1:
-                $value = "A";
-                break;
             case 10:
                 $value = "T";
                 break;
@@ -174,6 +171,9 @@ class StandardCard extends Card
                 break;
             case 13:
                 $value = "K";
+                break;
+            case 14:
+                $value = "A";
                 break;
             default:
                 $value = $this->value;
@@ -191,9 +191,6 @@ class StandardCard extends Card
     public function setFaceValue(string $value)
     {
         switch ($value) {
-            case "A":
-                $value = 1;
-                break;
             case "T":
                 $value = 10;
                 break;
@@ -206,52 +203,55 @@ class StandardCard extends Card
             case "K":
                 $value = 13;
                 break;
+            case "A":
+                $value = 14;
+                break;
         }
 
         return $this->setValue($value);
     }
 
-    public static function getName(int $value)
+    public static function getName(int $value, bool $plural = false)
     {
         switch ($value) {
-            case self::ACE:
-                $name = "Ace" ;
-                break;
             case self::TWO:
-                $name = "Two";
+                $name = $plural ? "Twos" : "Two";
                 break;
             case self::THREE:
-                $name = "Three";
+                $name = $plural ? "Threes" : "Three";
                 break;
             case self::FOUR:
-                $name = "Four";
+                $name = $plural ? "Threes" : "Four";
                 break;
             case self::FIVE:
-                $name = "Five";
+                $name = $plural ? "Fives" : "Five";
                 break;
             case self::SIX:
-                $name = "Six";
+                $name = $plural ? "Sixes" : "Six";
                 break;
             case self::SEVEN:
-                $name = "Seven";
+                $name = $plural ? "Sevens" : "Seven";
                 break;
             case self::EIGHT:
-                $name = "Eight";
+                $name = $plural ? "Eights" : "Eight";
                 break;
             case self::NINE:
-                $name = "Nine";
+                $name = $plural ? "Nine" : "Nine";
                 break;
             case self::TEN:
-                $name = "Ten";
+                $name = $plural ? "Tens" : "Ten";
                 break;
             case self::JACK:
-                $name = "Jack";
+                $name = $plural ? "Jacks" : "Jack";
                 break;
             case self::QUEEN:
-                $name = "Queen";
+                $name = $plural ? "Queens" : "Queen";
                 break;
             case self::KING:
-                $name = "King";
+                $name = $plural ? "Kings" : "King";
+                break;
+            case self::ACE:
+                $name = $plural ? "Aces" : "Ace" ;
                 break;
             default:
                 $name = "Unknown";
