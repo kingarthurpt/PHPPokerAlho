@@ -24,7 +24,7 @@ class StandardCard extends Card
     /**
      * @var integer
      */
-    const THREE = 2;
+    const THREE = 3;
 
     /**
      * @var integer
@@ -211,7 +211,7 @@ class StandardCard extends Card
         return $this->setValue($value);
     }
 
-    public static function getName(int $value, bool $plural = false)
+    public static function getName(int $value)
     {
         switch ($value) {
             case self::ACE:
@@ -256,8 +256,6 @@ class StandardCard extends Card
             default:
                 $name = "Unknown";
         }
-        
-        $name .= $plural ? "s" : "";
         return $name;
     }
 }

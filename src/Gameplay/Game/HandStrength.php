@@ -56,9 +56,9 @@ class HandStrength
     {
         $str = HandRanking::getName($this->ranking) . ": ";
         foreach ($this->rankCardValues as $cardValue) {
-           $str .= StandardCard::getName($cardValue, true) . " and ";
+           $str .= StandardCard::getName($cardValue) . ", ";
         }
-        $str = rtrim($str, " and ") . ".";
+        $str = rtrim($str, ", ") . ".";
 
        if (!empty($this->kickers)) {
             $str .= " Kickers: ";
