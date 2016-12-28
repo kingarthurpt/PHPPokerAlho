@@ -372,6 +372,7 @@ class HandEvaluator
         unset($values[$three]);
         krsort($values);
         $kickers = array_slice($values, 0, 2);
+
         $cardValues = array(
             'rankCards' => array($three),
             'kickers' => $kickers
@@ -385,17 +386,16 @@ class HandEvaluator
         $occurrences = array_fill(2, 13, 0);
         $values = array();
         foreach ($cards->getCards() as $card) {
-            $key = $card->getValue() === 1 ? 14 : $card->getValue();
-            $occurrences[$key]++;
-            $values[$key] = $card->getValue();
+            $occurrences[$card->getValue()]++;
+            $values[$card->getValue()] = $card->getValue();
         }
+
         arsort($occurrences);
         $pairs = array_slice($occurrences, 0, 2, true);
         $rankCards = array_keys($pairs);
         arsort($rankCards);
-        foreach ($rankCards as &$card) {
+        foreach ($rankCards as $card) {
             unset($values[$card]);
-            $card = $card === 14 ? 1 : $card;
         }
         krsort($values);
         $kickers = array_slice($values, 0, 1);
@@ -412,16 +412,16 @@ class HandEvaluator
         $occurrences = array_fill(2, 13, 0);
         $values = array();
         foreach ($cards->getCards() as $card) {
-            $key = $card->getValue() === 1 ? 14 : $card->getValue();
-            $occurrences[$key]++;
-            $values[$key] = $card->getValue();
+            $occurrences[$card->getValue()]++;
+            $values[$card->getValue()] = $card->getValue();
         }
+
         arsort($occurrences);
         $pair = key($occurrences);
         unset($values[$pair]);
         krsort($values);
         $kickers = array_slice($values, 0, 3);
-        $pair = $pair === 14 ? 1 : $pair;
+
         $cardValues = array(
             'rankCards' => array($pair),
             'kickers' => $kickers
@@ -434,12 +434,13 @@ class HandEvaluator
     {
         $values = array();
         foreach ($cards->getCards() as $card) {
-            $key = $card->getValue() === 1 ? 14 : $card->getValue();
-            $values[$key] = $card->getValue();
+            $values[$card->getValue()] = $card->getValue();
         }
+
         krsort($values);
         $highCard = reset($values);
         $kickers = array_slice($values, 1, 4);
+        
         $cardValues = array(
             'rankCards' => array($highCard),
             'kickers' => $kickers

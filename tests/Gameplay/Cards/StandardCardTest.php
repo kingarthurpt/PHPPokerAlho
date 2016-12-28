@@ -31,7 +31,7 @@ class StandardCardTest extends BaseTestCase
     public function testFromString()
     {
         $this->assertNull(StandardCard::fromString('10c'));
-        
+
         $card = StandardCard::fromString('Tc');
         $this->assertEquals('[T♣]', $card);
     }
@@ -65,8 +65,8 @@ class StandardCardTest extends BaseTestCase
     {
         $card = new StandardCard();
         $this->assertNull($card->setValue(0));
-        $this->assertNull($card->setValue(14));
-        $this->assertInstanceOf(StandardCard::class, $card->setValue(1));
+        $this->assertNull($card->setValue(15));
+        $this->assertInstanceOf(StandardCard::class, $card->setValue(2));
         $this->assertInstanceOf(StandardCard::class, $card->setValue(13));
 
         $this->assertEquals(
@@ -94,7 +94,7 @@ class StandardCardTest extends BaseTestCase
         $card->setValue(13);
         $this->assertEquals('K', $card->getFaceValue());
 
-        $card->setValue(1);
+        $card->setValue(14);
         $this->assertEquals('A', $card->getFaceValue());
 
         $card->setValue(2);
