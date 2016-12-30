@@ -133,7 +133,7 @@ class StandardCard extends Card
 
     /**
      * Set the Card's value.
-     * The value must be between 1 and 13
+     * The value must be between 2 and 14
      *
      * @since  {nextRelease}
      *
@@ -211,6 +211,19 @@ class StandardCard extends Card
         return $this->setValue($value);
     }
 
+    /**
+     * Gets the Card name given its value.<br/>
+     * If invalid value of Card is given returns "Unknown".
+     *
+     * @since   {nextRelease}
+     *
+     * @param   int $value Card value.
+     * @param   bool $plural [optional] <p>
+     * If given and is <b>TRUE</b>, gets the Card name in the plural form,
+     * <b>FALSE</b> otherwise.
+     * 
+     * @return  string Card name | "Unknown".
+     */
     public static function getName(int $value, bool $plural = false)
     {
         switch ($value) {
@@ -221,7 +234,7 @@ class StandardCard extends Card
                 $name = $plural ? "Threes" : "Three";
                 break;
             case self::FOUR:
-                $name = $plural ? "Threes" : "Four";
+                $name = $plural ? "Fours" : "Four";
                 break;
             case self::FIVE:
                 $name = $plural ? "Fives" : "Five";
@@ -236,7 +249,7 @@ class StandardCard extends Card
                 $name = $plural ? "Eights" : "Eight";
                 break;
             case self::NINE:
-                $name = $plural ? "Nine" : "Nine";
+                $name = $plural ? "Nines" : "Nine";
                 break;
             case self::TEN:
                 $name = $plural ? "Tens" : "Ten";
