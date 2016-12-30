@@ -4,6 +4,7 @@ namespace PHPPokerAlho\Gameplay\Game;
 
 use PHPPokerAlho\Gameplay\Cards\Deck;
 use PHPPokerAlho\Gameplay\Cards\CardCollection;
+use PHPPokerAlho\Rules\HandEvaluator;
 
 /**
  * A Poker Dealer
@@ -113,6 +114,43 @@ class Dealer extends TableObserver
         return true;
     }
 
+    public function startNewHand()
+    {
+        if (!$this->hasDeck() || !$this->hasTable()) {
+            return false;
+        }
+
+        $table = $this->getTable();
+        $players = $table->getPlayers();
+
+        $hand = new Hand();
+        $hand
+            ->setTable($table)
+            ->setPlayers($players)
+            ->setSmallBlind(10)
+            ->setBigBlind(20);
+
+        $buttonSeat = $this->moveButton();
+        $smallBlindSeat = $this->getNextPlayerSeat($buttonSeat);
+        $bigBlindSeat = $this->getNextPlayerSeat($smallBlindSeat);
+        $nextPlayer = $this->getNextPlayerSeat($bigBlindSeat);
+
+        $players[$smallBlindSeat]->paySmallBlind(10);
+        $players[$bigBlindSeat]->payBigBlind(20);
+
+        $this->deal();
+
+        $players[$nextPlayer]->update(
+            $this->getTable(),
+            new TableEvent(
+                TableEvent::PLAYER_ACTION_NEEDED,
+                "It's your turn $players[$nextPlayer]->getName()"
+            )
+        );
+
+        return true;
+    }
+
     /**
      * Deal cards to each Player seated at the Table
      *
@@ -143,6 +181,10 @@ class Dealer extends TableObserver
 
         foreach ($players as $player) {
             $player->setHand($deck->drawFromTop(2));
+            $player->update(
+                $table,
+                new TableEvent(TableEvent::PLAYER_RECEIVED_CARDS)
+            );
         }
 
         // Notify the Players
@@ -233,6 +275,49 @@ class Dealer extends TableObserver
         // $table->notify();
 
         return true;
+    }
+
+    public function moveButton()
+    {
+        $table = $this->getTable();
+        if (empty($table)) {
+            return false;
+        }
+
+        $players = $this->getTable()->getPlayers();
+        if (count($players) <= 1) {
+            return false;
+        }
+
+        $playerWithButton = 0;
+        foreach ($players as $seat => $player) {
+            if ($player->hasButton()) {
+                $playerWithButton = $seat;
+                break;
+            }
+        }
+
+        $nextSeat = $this->getNextPlayerSeat($playerWithButton);
+        $nextPlayer = $players[$nextSeat];
+        $players[$playerWithButton]->setButton(false);
+        $nextPlayer->setButton(true);
+        return $nextSeat;
+    }
+
+    private function getNextPlayerSeat(int $seat)
+    {
+        $table = $this->getTable();
+        $seats = $table->getSeatsCount();
+        $players = $table->getPlayers();
+
+        $nextSeat = 0;
+        for ($i = $seat + 1; $i < $seats; $i++) {
+            if (isset($players[($seat + $i) % $seats])) {
+                $nextSeat = ($seat + $i) % $seats;
+                break;
+            }
+        }
+        return $nextSeat;
     }
 
     /**

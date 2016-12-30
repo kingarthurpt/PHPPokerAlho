@@ -10,5 +10,6 @@ $application = new Application();
 // ... register commands
 $application->add(new \PHPPokerAlho\Command\GenerateHoleCardsCommand());
 $application->add(new \PHPPokerAlho\Command\HandStrengthCommand());
+$application->add(new \PHPPokerAlho\Command\PlayHandCommand());
 
 $application->run();

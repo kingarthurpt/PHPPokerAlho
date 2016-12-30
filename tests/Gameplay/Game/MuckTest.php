@@ -23,6 +23,17 @@ class MuckTest extends BaseTestCase
     }
 
     /**
+     * @covers \PHPPokerAlho\Gameplay\Game\Muck::getItems
+     *
+     * @since  nextRelease
+     */
+    public function testGetItems()
+    {
+        $muck = new Muck();
+        $this->assertNull($muck->getItems());
+    }
+
+    /**
      * @covers \PHPPokerAlho\Gameplay\Game\Muck::getCardAt
      *
      * @since  nextRelease
@@ -31,5 +42,16 @@ class MuckTest extends BaseTestCase
     {
         $muck = new Muck();
         $this->assertNull($muck->getCardAt(0));
+    }
+
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Game\Muck::getItemAt
+     *
+     * @since  nextRelease
+     */
+    public function testGetItemAt()
+    {
+        $muck = new Muck();
+        $this->assertNull($muck->getItemAt(0));
     }
 }

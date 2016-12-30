@@ -57,9 +57,31 @@ class Table extends TableSubject
     /**
      * The main pot
      *
-     * @var float
+     * @var Stack
      */
     private $pot = 0;
+
+    /**
+     * The Table's Logger
+     *
+     * @var TableEventLogger
+     */
+    private $logger = null;
+
+    /**
+     * Array of Stacks.
+     * Each Stack has the same key as the corresponding Player in $this->players
+     *
+     * @var array
+     */
+    private $playersBets = array();
+
+    /**
+     * The Hand which is currently being played at the Table
+     *
+     * @var Hand
+     */
+    private $activeHand = null;
 
     /**
      * Constructor
@@ -82,7 +104,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Return a string representation of the Table
+     * Returns a string representation of the Table
      *
      * @since  {nextRelease}
      *
@@ -94,7 +116,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Get the Table's name
+     * Gets the Table's name
      *
      * @since  {nextRelease}
      *
@@ -106,7 +128,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Set the Table's name
+     * Sets the Table's name
      *
      * @since  {nextRelease}
      *
@@ -121,7 +143,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Get the Table's number of seats
+     * Gets the Table's number of seats
      *
      * @since  {nextRelease}
      *
@@ -133,7 +155,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Set the Table's number of seats
+     * Sets the Table's number of seats
      *
      * @since  {nextRelease}
      *
@@ -148,7 +170,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Get the Table's Dealer
+     * Gets the Table's Dealer
      *
      * @since  {nextRelease}
      *
@@ -160,7 +182,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Set the Table's Dealer
+     * Sets the Table's Dealer
      *
      * @since  {nextRelease}
      *
@@ -175,7 +197,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Add a Player to the Table
+     * Adds a Player to the Table
      *
      * @since  {nextRelease}
      *
@@ -195,7 +217,19 @@ class Table extends TableSubject
             return null;
         }
 
+        // Sets the button to the first Player
+        if (empty($this->players)) {
+            $player->setButton(true);
+        }
+
+        // Set the Player's seat number
+        $player->setSeat(count($this->players));
+
         $this->players[] = $player;
+        $this->attach($player);
+
+        // Creates a new betting zone for the new Player
+        $this->playersBets[] = new Stack(0);
 
         // Notifies all TableObservers that a new Player has joined the Table
         $this->notify(new TableEvent(
@@ -207,7 +241,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Remove a Player from the Table
+     * Removes a Player from the Table
      *
      * @since  {nextRelease}
      *
@@ -225,11 +259,13 @@ class Table extends TableSubject
             if ($value == $player) {
                 unset($this->players[$key]);
 
+                // Removes the Player's betting zone
+                unset($this->playersBets[$key]);
+
                 $this->notify(new TableEvent(
                     TableEvent::PLAYER_LEAVES,
                     $player->getName() . " has left the table."
                 ));
-
                 return true;
             }
         }
@@ -238,7 +274,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Get the Players seated at the Table
+     * Gets the Players seated at the Table
      *
      * @since  {nextRelease}
      *
@@ -250,7 +286,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Get the number of seated Players
+     * Gets the number of seated Players
      *
      * @since  {nextRelease}
      *
@@ -262,7 +298,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Get the Table's CommunityCards
+     * Gets the Table's CommunityCards
      *
      * @since  {nextRelease}
      *
@@ -274,7 +310,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Set the Table's CommunityCards
+     * Sets the Table's CommunityCards
      *
      * @since  {nextRelease}
      *
@@ -289,7 +325,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Get the Table's Muck
+     * Gets the Table's Muck
      *
      * @since  {nextRelease}
      *
@@ -301,7 +337,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Set the Table's Muck
+     * Sets the Table's Muck
      *
      * @since  {nextRelease}
      *
@@ -313,5 +349,100 @@ class Table extends TableSubject
     {
         $this->muck = $cards;
         return $this;
+    }
+
+    /**
+     * Sets the Table's logger
+     *
+     * @since  {nextRelease}
+     *
+     * @param  TableEventLogger $logger
+     */
+    public function setLogger(TableEventLogger $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * Notifies all TableObservers about changes in the TableSubject
+     *
+     * @since  {nextRelease}
+     *
+     * @param TableEvent $event The Event being fired
+     *
+     * @return bool TRUE on success, FALSE on failure
+     */
+    public function notify(TableEvent $event)
+    {
+        if (!is_null($this->logger)) {
+            $this->logger->info($event->getMessage());
+        }
+        parent::notify($event);
+    }
+
+    public function setActiveHand(Hand $hand)
+    {
+        $this->activeHand = $hand;
+        return $this;
+    }
+
+    public function getActiveHand()
+    {
+        return $this->activeHand;
+    }
+
+    public function getPlayersBets()
+    {
+        return $this->playersBets;
+    }
+
+    public function getPlayerBets(Player $player)
+    {
+        if ($this->getPlayerCount() == 0) {
+            return null;
+        }
+
+        foreach ($this->players as $key => $value) {
+            if ($value == $player) {
+                return $this->playersBets[$key];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     *
+     *
+     * @since  {nextRelease}
+     *
+     * @author Artur Alves <artur.alves@gatewit.com>
+     *
+     * @param  Player $player [description]
+     * @param  int $key [description]
+     * @param  float $amount [description]
+     */
+    // public function addToStack(Player $player, int $key, float $amount)
+    // {
+    //     if ($this->players[$key] != $player) {
+    //         return false;
+    //     }
+    //     $this->playersBets[$key]->add($amount);
+    //     $this->pot += $amount;
+    //     return true;
+    // }
+
+    /**
+     * Moves each Player's bets to the main pot
+     *
+     * @since  {nextRelease}
+     */
+    public function moveToPot()
+    {
+        foreach ($this->playersBets as $stack) {
+            $amount = $stack->getSize();
+            $this->pot += $amount;
+            $stack->sub($amount);
+        }
     }
 }
