@@ -218,53 +218,50 @@ class StandardCard extends Card
      * @since   {nextRelease}
      *
      * @param   int $value Card value.
-     * @param   bool $plural [optional] <p>
-     * If given and is <b>TRUE</b>, gets the Card name in the plural form,
-     * <b>FALSE</b> otherwise.
-     * 
+     *
      * @return  string Card name | "Unknown".
      */
-    public static function getName(int $value, bool $plural = false)
+    public static function getName(int $value)
     {
         switch ($value) {
             case self::TWO:
-                $name = $plural ? "Twos" : "Two";
+                $name = "Two";
                 break;
             case self::THREE:
-                $name = $plural ? "Threes" : "Three";
+                $name = "Three";
                 break;
             case self::FOUR:
-                $name = $plural ? "Fours" : "Four";
+                $name = "Four";
                 break;
             case self::FIVE:
-                $name = $plural ? "Fives" : "Five";
+                $name = "Five";
                 break;
             case self::SIX:
-                $name = $plural ? "Sixes" : "Six";
+                $name = "Six";
                 break;
             case self::SEVEN:
-                $name = $plural ? "Sevens" : "Seven";
+                $name = "Seven";
                 break;
             case self::EIGHT:
-                $name = $plural ? "Eights" : "Eight";
+                $name = "Eight";
                 break;
             case self::NINE:
-                $name = $plural ? "Nines" : "Nine";
+                $name = "Nine";
                 break;
             case self::TEN:
-                $name = $plural ? "Tens" : "Ten";
+                $name = "Ten";
                 break;
             case self::JACK:
-                $name = $plural ? "Jacks" : "Jack";
+                $name = "Jack";
                 break;
             case self::QUEEN:
-                $name = $plural ? "Queens" : "Queen";
+                $name = "Queen";
                 break;
             case self::KING:
-                $name = $plural ? "Kings" : "King";
+                $name = "King";
                 break;
             case self::ACE:
-                $name = $plural ? "Aces" : "Ace" ;
+                $name = "Ace" ;
                 break;
             default:
                 $name = "Unknown";

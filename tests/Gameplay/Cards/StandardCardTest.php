@@ -138,44 +138,23 @@ class StandardCardTest extends BaseTestCase
     {
         $expectedValues = array(
             1 => "Unknown",
-            2 => "Unknown",
-            3 => "Two",
-            4 => "Twos",
-            5 => "Three",
-            6 => "Threes",
-            7 => "Four",
-            8 => "Fours",
-            9 => "Five",
-            10 => "Fives",
-            11 => "Six",
-            12 => "Sixes",
-            13 => "Seven",
-            14 => "Sevens",
-            15 => "Eight",
-            16 => "Eights",
-            17 => "Nine",
-            18 => "Nines",
-            19 => "Ten",
-            20 => "Tens",
-            21 => "Jack",
-            22 => "Jacks",
-            23 => "Queen",
-            24 => "Queens",
-            25 => "King",
-            26 => "Kings",
-            27 => "Ace",
-            28 => "Aces",
+            2 => "Two",
+            3 => "Three",
+            4 => "Four",
+            5 => "Five",
+            6 => "Six",
+            7 => "Seven",
+            8 => "Eight",
+            9 => "Nine",
+            10 => "Ten",
+            11 => "Jack",
+            12 => "Queen",
+            13 => "King",
+            14 => "Ace",
         );
 
         for ($i = 1; $i < 15; $i++) {
-            $this->assertEquals(
-                $expectedValues[2 * $i - 1],
-                StandardCard::getName($i)
-            );
-            $this->assertEquals(
-                $expectedValues[2 * $i],
-                StandardCard::getName($i, true)
-            );
+            $this->assertEquals($expectedValues[$i], StandardCard::getName($i));
         }
     }
 }

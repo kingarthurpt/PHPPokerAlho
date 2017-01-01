@@ -62,11 +62,10 @@ class HandStrength
      */
     public function __toString()
     {
-        $str = $this->rankingToStr();
-        $str .= $this->getRankingCardValuesString();
-        $str .= $this->kickersToStr();
-
-        return $str;
+        // @todo Avoid using static access
+        return HandRanking::getName($this->ranking) . ": "
+            . $this->getRankingCardValuesString() . ". "
+            . "Kickers: " . $this->kickersToStr() . ".";
     }
 
     /**
@@ -106,23 +105,11 @@ class HandStrength
     }
 
     /**
-     * Gets the name of the HandStrength ranking.
-     * 
-     * @since   {nextRelease}
-     * 
-     * @return  string The ranking name.
-     */
-    private function rankingToStr()
-    {
-        return HandRanking::getName($this->ranking) . ": ";
-    }
-    
-    /**
      * Based on the HandStrength ranking gets the name
      * of the HandStrength rankingCardValues.
-     * 
+     *
      * @since   {nextRelease}
-     * 
+     *
      * @return  string The ranking Crads names.
      */
     private function getRankingCardValuesString()
@@ -146,22 +133,27 @@ class HandStrength
 
     /**
      * Gets the name(s) of the HandStrength ranking Card(s).
-     * 
+     *
+     * @todo The method rankingCardValuesToStr has a boolean flag argument $plural,
+     * which is a certain sign of a Single Responsibility Principle violation.
+     *
      * @since   {nextRelease}
-     * 
+     *
      * @param   bool $plural [optional] <p>
      * If given and is <b>TRUE</b>, gets the Card name in the plural form,
      * <b>FALSE</b> otherwise.
-     * 
+     *
      * @return  string The ranking Cards name
      */
     private function rankingCardValuesToStr(bool $plural = false)
     {
         $str = "";
         foreach ($this->rankCardValues as $cardValue) {
-           $str .= StandardCard::getName($cardValue, $plural) . ", ";
+            // @todo Avoid using static access
+            $str .= StandardCard::getName($cardValue);
+            $str .= $plural ? "s, " : ", ";
         }
-        $str = rtrim($str, ", ") . ". ";
+        $str = rtrim($str, ", ");
         $pos = strrpos($str, ", ");
         if($pos !== false) {
             $str = substr_replace($str, " and ", $pos, strlen(", "));
@@ -171,21 +163,19 @@ class HandStrength
 
     /**
      * Gets the name(s) of the HandStrength kicker(s).
-     * 
+     *
      * @since   {nextRelease}
-     * 
+     *
      * @return  string The kickers names.
      */
     private function kickersToStr()
     {
         $str = "";
-        if (!empty($this->kickers)) {
-            $str .= "Kickers: ";
-            foreach ($this->kickers as $kicker) {
-                $str .= StandardCard::getName($kicker) . ", ";
-            }
-            $str = rtrim($str, ", ") . ".";
+        foreach ($this->kickers as $kicker) {
+            // @todo Avoid using static access
+            $str .= StandardCard::getName($kicker) . ", ";
         }
+        $str = rtrim($str, ", ");
         return $str;
     }
 }

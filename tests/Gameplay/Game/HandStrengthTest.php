@@ -111,23 +111,6 @@ class HandStrengthTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::rankingToStr()
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  HandStrength $handStrength The Hand strength
-     */
-    public function testRankingToStr(HandStrength $handStrength)
-    {
-        $this->assertEquals(
-            "Two Pair: ",
-            $this->invokeMethod($handStrength, "rankingToStr")
-        );
-    }
-
-    /**
      * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::getRankingCardValuesString()
      * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::rankingCardValuesToStr()
      *
@@ -141,7 +124,7 @@ class HandStrengthTest extends BaseTestCase
             array(StandardCard::NINE)
         );
         $this->assertEquals(
-            "Aces and Kings. ",
+            "Aces and Kings",
             $this->invokeMethod($handStrength1, "getRankingCardValuesString")
         );
 
@@ -178,7 +161,7 @@ class HandStrengthTest extends BaseTestCase
             )
         );
         $this->assertEquals(
-            "Ace. ",
+            "Ace",
             $this->invokeMethod($handStrength3, "getRankingCardValuesString")
         );
     }
@@ -195,7 +178,7 @@ class HandStrengthTest extends BaseTestCase
     public function testKickersToStr(HandStrength $handStrength)
     {
         $this->assertEquals(
-            "Kickers: Nine.",
+            "Nine",
             $this->invokeMethod($handStrength, "kickersToStr")
         );
 
@@ -207,7 +190,7 @@ class HandStrengthTest extends BaseTestCase
                 StandardCard::QUEEN,
                 StandardCard::JACK,
                 StandardCard::TEN
-            ), 
+            ),
             array()
         );
         $this->assertEquals(

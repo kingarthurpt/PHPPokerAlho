@@ -58,7 +58,7 @@ class HandEvaluator
      * @since   {nextRelease}
      *
      * @param   CardCollection $cards
-     * 
+     *
      * @return  int The value the ranking
      */
     private function getRanking(CardCollection $cards)
@@ -95,7 +95,7 @@ class HandEvaluator
      *
      * @param   CardCollection $cards
      * @param   int $ranking
-     * 
+     *
      * @return  array Card values
      */
     private function getRankCardsValues(CardCollection $cards, int $ranking)
@@ -406,7 +406,7 @@ class HandEvaluator
     {
         $occurrences = $this->getCardOccurences($cards);
         $fullHouse = array_slice($occurrences, 0, 2, true);
-        $rankCards = array_keys($pairs);
+        $rankCards = array_keys($fullHouse);
         arsort($rankCards);
 
         return $rankCards;
