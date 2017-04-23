@@ -1,6 +1,11 @@
 # PHP Poker Alho
 A PHP Texas Hold'em Poker library
 
+
+[![Build Status](https://travis-ci.org/kingarthurpt/PHPPokerAlho.svg?branch=master)](https://travis-ci.org/kingarthurpt/PHPPokerAlho)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/1009dffa-7ced-42bd-b453-ad860f0e4ca0/mini.png)](https://insight.sensiolabs.com/projects/1009dffa-7ced-42bd-b453-ad860f0e4ca0)
+
+
 ## Road map
 This project will focus on developing a PHP library around the *Texas Hold'em Poker* variant. Other types of Poker may be included someday.
 
