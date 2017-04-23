@@ -4,6 +4,7 @@ A PHP Texas Hold'em Poker library
 
 [![Build Status](https://travis-ci.org/kingarthurpt/PHPPokerAlho.svg?branch=master)](https://travis-ci.org/kingarthurpt/PHPPokerAlho)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/1009dffa-7ced-42bd-b453-ad860f0e4ca0/mini.png)](https://insight.sensiolabs.com/projects/1009dffa-7ced-42bd-b453-ad860f0e4ca0)
+[![Code Climate](https://codeclimate.com/github/kingarthurpt/PHPPokerAlho/badges/gpa.svg)](https://codeclimate.com/github/kingarthurpt/PHPPokerAlho)
 
 
 ## Road map
