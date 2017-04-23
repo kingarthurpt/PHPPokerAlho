@@ -450,7 +450,6 @@ class Player extends TableObserver
             return null;
         }
 
-        // $hand = $this->getHand();
         $this->table->notify(new TableEvent(
             TableEvent::PLAYER_ACTION_SHOW_HAND,
             "$this->name mucks his hand"

@@ -3,8 +3,6 @@
 namespace PHPPokerAlho\Gameplay\Game;
 
 use PHPPokerAlho\Gameplay\Cards\Deck;
-use PHPPokerAlho\Gameplay\Cards\CardCollection;
-use PHPPokerAlho\Rules\HandEvaluator;
 
 /**
  * A Poker Dealer
@@ -187,9 +185,6 @@ class Dealer extends TableObserver
             );
         }
 
-        // Notify the Players
-        // $table->notify();
-
         return true;
     }
 
@@ -214,9 +209,6 @@ class Dealer extends TableObserver
 
         // Deal the flop
         $table->getCommunityCards()->setFlop($deck->drawFromTop(3));
-
-        // Notify the Players
-        // $table->notify();
 
         return true;
     }
@@ -243,9 +235,6 @@ class Dealer extends TableObserver
         // Deal the turn
         $table->getCommunityCards()->setTurn($deck->drawFromTop(1));
 
-        // Notify the Players
-        // $table->notify();
-
         return true;
     }
 
@@ -270,9 +259,6 @@ class Dealer extends TableObserver
 
         // Deal the river
         $table->getCommunityCards()->setTurn($deck->drawFromTop(1));
-
-        // Notify the Players
-        // $table->notify();
 
         return true;
     }

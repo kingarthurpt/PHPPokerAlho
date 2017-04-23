@@ -3,7 +3,6 @@
 namespace PHPPokerAlho\Gameplay\Game;
 
 use PHPPokerAlho\Gameplay\Game\TableSubject;
-use PHPPokerAlho\Gameplay\Cards\Card;
 
 /**
  * @since  {nextRelease}
@@ -410,27 +409,6 @@ class Table extends TableSubject
 
         return null;
     }
-
-    /**
-     *
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     *
-     * @param  Player $player [description]
-     * @param  int $key [description]
-     * @param  float $amount [description]
-     */
-    // public function addToStack(Player $player, int $key, float $amount)
-    // {
-    //     if ($this->players[$key] != $player) {
-    //         return false;
-    //     }
-    //     $this->playersBets[$key]->add($amount);
-    //     $this->pot += $amount;
-    //     return true;
-    // }
 
     /**
      * Moves each Player's bets to the main pot

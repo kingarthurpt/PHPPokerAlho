@@ -9,7 +9,7 @@ namespace PHPPokerAlho\DesignPatterns;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-interface Factory
+interface FactoryInterface
 {
     public function make($data);
 }

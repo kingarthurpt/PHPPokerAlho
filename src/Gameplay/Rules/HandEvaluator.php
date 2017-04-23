@@ -3,7 +3,6 @@
 namespace PHPPokerAlho\Gameplay\Rules;
 
 use PHPPokerAlho\Gameplay\Cards\CardCollection;
-use PHPPokerAlho\Gameplay\Game\CommunityCards;
 use PHPPokerAlho\Gameplay\Game\HandStrength;
 
 /**

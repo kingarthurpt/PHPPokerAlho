@@ -20,13 +20,6 @@ class TableEventLogger
 
     public function info(string $message)
     {
-        // $this->logger->emergency($message);
-        // $this->logger->alert($message);
-        // $this->logger->critical($message);
-        // $this->logger->error($message);
-        // $this->logger->warning($message);
-        // $this->logger->notice($message);
         $this->logger->info($message);
-        // $this->logger->debug($message);
     }
 }
