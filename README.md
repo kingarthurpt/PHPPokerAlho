@@ -26,7 +26,7 @@ These may be some of them:
 You need to install these dependencies in order to execute the project.
 On a Debian system, execute:
 ```
-sudo apt install composer php7.0 php-xml php-mbstring php-xdebug -y
+sudo apt install composer php7.0 php-xml php-mbstring php-xdebug php-curl -y
 ```
 
 If you haven't done it already, clone this project into your computer with:
