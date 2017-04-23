@@ -1,6 +1,12 @@
 # PHP Poker Alho
 A PHP Texas Hold'em Poker library
 
+
+[![Build Status](https://travis-ci.org/kingarthurpt/PHPPokerAlho.svg?branch=master)](https://travis-ci.org/kingarthurpt/PHPPokerAlho)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/1009dffa-7ced-42bd-b453-ad860f0e4ca0/mini.png)](https://insight.sensiolabs.com/projects/1009dffa-7ced-42bd-b453-ad860f0e4ca0)
+[![Code Climate](https://codeclimate.com/github/kingarthurpt/PHPPokerAlho/badges/gpa.svg)](https://codeclimate.com/github/kingarthurpt/PHPPokerAlho)
+
+
 ## Road map
 This project will focus on developing a PHP library around the *Texas Hold'em Poker* variant. Other types of Poker may be included someday.
 
@@ -21,7 +27,7 @@ These may be some of them:
 You need to install these dependencies in order to execute the project.
 On a Debian system, execute:
 ```
-sudo apt install composer php7.0 php-xml php-mbstring php-xdebug -y
+sudo apt install composer php7.0 php-xml php-mbstring php-xdebug php-curl -y
 ```
 
 If you haven't done it already, clone this project into your computer with:

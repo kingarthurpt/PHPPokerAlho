@@ -1,7 +1,7 @@
 {
     "name": "kingarthurpt/php-pokeralho",
     "description": "A Poker PHP library",
-    "license": "GPLv3",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Artur Alves",
@@ -23,6 +23,7 @@
         "symfony/console": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "codeclimate/php-test-reporter": "dev-master"
     }
 }

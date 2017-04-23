@@ -14,22 +14,6 @@ use PHPPokerAlho\Gameplay\Game\TableEvent;
 class TableSubjectTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\TableSubject::__construct
-     *
-     * @since  nextRelease
-     */
-    public function testConstruct()
-    {
-        $subject = $this->getMockForAbstractClass(TableSubject::class);
-        $this->assertInstanceOf(TableSubject::class, $subject);
-
-        $this->assertEquals(
-            array(),
-            $this->getPropertyValue($subject, 'observers')
-        );
-    }
-
-    /**
      * @covers \PHPPokerAlho\Gameplay\Game\TableSubject::attach
      *
      * @since  nextRelease

@@ -292,4 +292,48 @@ class DealerTest extends BaseTestCase
         );
     }
 
+    /**
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::moveButton
+     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getNextPlayerSeat
+     *
+     * @since  nextRelease
+     */
+    public function testMoveButton()
+    {
+        $dealer = new Dealer();
+        $this->assertFalse($dealer->moveButton());
+
+        // $dealer->setDeck(new StandardDeck());
+        $table = new Table("Table1", 6);
+        $dealer->setTable($table);
+        $this->assertFalse($dealer->moveButton());
+
+        $player1 = new Player("p1");
+        $player2 = new Player("p2");
+        $player3 = new Player("p3");
+        $player4 = new Player("p4");
+        $table
+            ->addPlayer($player1)
+            ->addPlayer($player2)
+            ->addPlayer($player3)
+            ->addPlayer($player4);
+
+        $this->assertTrue($player1->hasButton());
+        $this->assertEquals($player2->getSeat(), $dealer->moveButton());
+        $this->assertFalse($player1->hasButton());
+        $this->assertTrue($player2->hasButton());
+
+
+        // $dealer->moveButton()
+
+        //
+        // $this->assertTrue($dealer->dealRiver());
+        //
+        // $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
+        // $this->assertEquals(
+        //     $communityCardsSize + 1,
+        //     $table->getCommunityCards()->getSize()
+        // );
+    }
+
 }

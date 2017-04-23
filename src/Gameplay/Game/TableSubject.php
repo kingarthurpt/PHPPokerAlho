@@ -14,17 +14,7 @@ abstract class TableSubject
      *
      * @var array
      */
-    protected $observers;
-
-    /**
-     * Constructor
-     *
-     * @since  {nextRelease}
-     */
-    public function __construct()
-    {
-        $this->observers = array();
-    }
+    protected $observers = array();
 
     /**
      * Registers a TableObserver
