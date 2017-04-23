@@ -19,9 +19,6 @@ use PHPPokerAlho\Gameplay\Game\Stack;
 
 use PHPPokerAlho\Controller\HumanPlayerConsoleController;
 
-// use PHPPokerAlho\Gameplay\Cards\CardCollection;
-// use PHPPokerAlho\Gameplay\Rules\HandEvaluator;
-
 class PlayHandCommand extends Command
 {
     private $input;
@@ -68,13 +65,10 @@ class PlayHandCommand extends Command
                 $player->fold();
                 break;
             case 'c':
-                // $player->call();
                 break;
             case 'r':
-                // $player->raise();
                 break;
             case 'a':
-                // $player->allin();
         }
     }
 

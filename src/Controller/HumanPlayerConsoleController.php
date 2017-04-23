@@ -57,7 +57,6 @@ class HumanPlayerConsoleController implements PlayerControllerInterface
     public function handleEvent(TableEvent $event)
     {
         if ($event->getType() == TableEvent::PLAYER_RECEIVED_CARDS) {
-            // $this->controller->print();
             $this->print($this->player->getHand()->toCliOutput());
         }
         if ($event->getType() == TableEvent::PLAYER_ACTION_NEEDED) {

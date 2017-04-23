@@ -52,7 +52,8 @@ class CardCollection extends Collection
         }
 
         $result = "";
-        for ($i = 0; $i < count($this->items); $i++) {
+        $count = count($this->items);
+        for ($i = 0; $i < $count; $i++) {
             $result .= $this->items[$i]->__toString();
         }
         return $result;
@@ -68,7 +69,8 @@ class CardCollection extends Collection
     public function toCliOutput()
     {
         $result = "";
-        for ($i = 0; $i < count($this->items); $i++) {
+        $count = count($this->items);
+        for ($i = 0; $i < $count; $i++) {
             if (!$this->items[$i] instanceof StandardCard) {
                 return $this->__toString();
             }
@@ -116,8 +118,9 @@ class CardCollection extends Collection
      */
     public function setCards(array $cards)
     {
+        $count = count($cards);
         // Each array element must be a Card
-        for ($i = 0; $i < count($cards); $i++) {
+        for ($i = 0; $i < $count; $i++) {
             if (!$cards[$i] instanceof Card) {
                 return false;
             }

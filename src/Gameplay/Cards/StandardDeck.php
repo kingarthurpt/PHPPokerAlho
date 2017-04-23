@@ -2,8 +2,6 @@
 
 namespace PHPPokerAlho\Gameplay\Cards;
 
-use PHPPokerAlho\Gameplay\Cards\StandardSuitFactory;
-
 /**
  * A standard Poker Deck
  *
