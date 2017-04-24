@@ -62,6 +62,8 @@ class HandEvaluator
      */
     private function getRanking(CardCollection $cards)
     {
+        $ranking = HandRanking::HIGH_CARD;
+
         if ($this->hasRoyalFlush($cards)) {
             $ranking = HandRanking::ROYAL_FLUSH;
         } elseif ($this->hasStraightFlush($cards)) {
@@ -80,8 +82,6 @@ class HandEvaluator
             $ranking = HandRanking::TWO_PAIR;
         } elseif ($this->hasOnePair($cards)) {
             $ranking = HandRanking::ONE_PAIR;
-        } else {
-            $ranking = HandRanking::HIGH_CARD;
         }
 
         return $ranking;
@@ -204,7 +204,7 @@ class HandEvaluator
             'T' => null,
         );
 
-        foreach ($cards->getCards() as $key => $card) {
+        foreach ($cards->getCards() as $card) {
             if (array_key_exists($card->getFaceValue(), $royalCards)) {
                 $royalCards[$card->getFaceValue()] = $card->getSuit();
             }
@@ -397,13 +397,14 @@ class HandEvaluator
 
     private function getFourOfAKindValue(CardCollection $cards)
     {
-        $rankCards = key($this->getCardOccurences($cards));
+        $occurrences = $this->getCardOccurrences($cards);
+        $rankCards = key($occurrences);
         return array($rankCards);
     }
 
     private function getFullHouseValue(CardCollection $cards)
     {
-        $occurrences = $this->getCardOccurences($cards);
+        $occurrences = $this->getCardOccurrences($cards);
         $fullHouse = array_slice($occurrences, 0, 2, true);
         $rankCards = array_keys($fullHouse);
         arsort($rankCards);
@@ -432,7 +433,7 @@ class HandEvaluator
 
     private function getStraightValue(CardCollection $cards)
     {
-        $occurrences = $this->getCardOccurences($cards, true);
+        $occurrences = $this->getCardOccurrencesAddWheel($cards);
         for ($i = count($occurrences); $i >= 5; $i--) {
             if ($occurrences[$i] == 0) {
                 continue;
@@ -452,13 +453,14 @@ class HandEvaluator
 
     private function getThreeOfAKindValue(CardCollection $cards)
     {
-        $rankCards = key($this->getCardOccurences($cards));
+        $occurrences = $this->getCardOccurrences($cards);
+        $rankCards = key($occurrences);
         return array($rankCards);
     }
 
     private function getTwoPairValue(CardCollection $cards)
     {
-        $occurrences = $this->getCardOccurences($cards);
+        $occurrences = $this->getCardOccurrences($cards);
         $pairs = array_slice($occurrences, 0, 2, true);
         $rankCards = array_keys($pairs);
         arsort($rankCards);
@@ -468,27 +470,39 @@ class HandEvaluator
 
     private function getOnePairValue(CardCollection $cards)
     {
-        $rankCards = key($this->getCardOccurences($cards));
+        $occurrences = $this->getCardOccurrences($cards);
+        $rankCards = key($occurrences);
         return array($rankCards);
     }
 
     private function getHighCardValue(CardCollection $cards)
     {
-        $rankCards = key($this->getCardOccurences($cards));
+        $occurrences = $this->getCardOccurrences($cards);
+        $rankCards = key($occurrences);
         return array($rankCards);
     }
 
-    private function getCardOccurences(CardCollection $cards, bool $addWheel = false)
+    private function getCardOccurrences(CardCollection $cards)
+    {
+        $occurrences = $this->getOccurrences($cards);
+        arsort($occurrences);
+        
+        return $occurrences;
+    }
+
+    private function getCardOccurrencesAddWheel(CardCollection $cards)
+    {
+        $occurrences = $this->getOccurrences($cards);
+        $occurrences[1] = $occurrences[14];
+
+        return $occurrences;
+    }
+
+    private function getOccurrences(CardCollection $cards)
     {
         $occurrences = array_fill_keys(range(14, 2), 0);
         foreach ($cards->getCards() as $card) {
             $occurrences[$card->getValue()]++;
-        }
-
-        if ($addWheel) {
-            $occurrences[1] = $occurrences[14];
-        } else {
-            arsort($occurrences);
         }
 
         return $occurrences;

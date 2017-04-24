@@ -155,7 +155,7 @@ class HandStrength
         }
         $str = rtrim($str, ", ");
         $pos = strrpos($str, ", ");
-        if($pos !== false) {
+        if ($pos !== false) {
             $str = substr_replace($str, " and ", $pos, strlen(", "));
         }
         return $str;
