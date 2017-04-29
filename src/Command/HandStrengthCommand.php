@@ -38,6 +38,8 @@ class HandStrengthCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        unset($input);
+        
         $table = new Table("Table1", 1);
         $dealer = new Dealer(new StandardDeck());
         $dealer->setTable($table);
@@ -69,6 +71,5 @@ class HandStrengthCommand extends Command
 
         $handStrength = $calculator->getStrength($cards);
         $output->writeln("Hand Strength: " . $handStrength->__toString());
-
     }
 }

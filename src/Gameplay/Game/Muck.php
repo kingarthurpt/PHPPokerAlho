@@ -48,6 +48,8 @@ class Muck extends CardCollection
      */
     public function getCardAt(int $index)
     {
+        unset($index);
+
         return null;
     }
 
@@ -62,6 +64,8 @@ class Muck extends CardCollection
      */
     public function getItemAt(int $index)
     {
+        unset($index);
+        
         return null;
     }
 }

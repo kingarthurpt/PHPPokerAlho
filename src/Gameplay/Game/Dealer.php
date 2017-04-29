@@ -109,6 +109,8 @@ class Dealer extends TableObserver
      */
     public function update(TableSubject $subject, TableEvent $event)
     {
+        unset($subject, $event);
+
         return true;
     }
 

@@ -41,7 +41,8 @@ class HandStrengthTest extends BaseTestCase
     public function testGetRanking(HandStrength $handStrength)
     {
         $this->assertEquals(
-                $this->getPropertyValue($handStrength, 'ranking'), $handStrength->getRanking()
+            $this->getPropertyValue($handStrength, 'ranking'),
+            $handStrength->getRanking()
         );
     }
 
@@ -57,7 +58,8 @@ class HandStrengthTest extends BaseTestCase
     public function testGetRankCardValues(HandStrength $handStrength)
     {
         $this->assertEquals(
-                $this->getPropertyValue($handStrength, 'rankCardValues'), $handStrength->getRankingCardValues()
+            $this->getPropertyValue($handStrength, 'rankCardValues'),
+            $handStrength->getRankingCardValues()
         );
     }
 
@@ -73,7 +75,8 @@ class HandStrengthTest extends BaseTestCase
     public function testGetKikers(HandStrength $handStrength)
     {
         $this->assertEquals(
-                $this->getPropertyValue($handStrength, 'kickers'), $handStrength->getKickers()
+            $this->getPropertyValue($handStrength, 'kickers'),
+            $handStrength->getKickers()
         );
     }
 
@@ -89,7 +92,8 @@ class HandStrengthTest extends BaseTestCase
     public function testToString(HandStrength $handStrength)
     {
         $this->assertEquals(
-                $handStrength, HandRanking::getName($handStrength->getRanking())
+            $handStrength,
+            HandRanking::getName($handStrength->getRanking())
         );
     }
 }

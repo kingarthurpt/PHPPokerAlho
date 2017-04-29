@@ -87,7 +87,7 @@ class HandEvaluator
             'T' => null,
         );
 
-        foreach ($cards->getCards() as $key => $card) {
+        foreach ($cards->getCards() as $card) {
             if (array_key_exists($card->getFaceValue(), $royalCards)) {
                 $royalCards[$card->getFaceValue()] = $card->getSuit();
             }

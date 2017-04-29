@@ -322,18 +322,5 @@ class DealerTest extends BaseTestCase
         $this->assertEquals($player2->getSeat(), $dealer->moveButton());
         $this->assertFalse($player1->hasButton());
         $this->assertTrue($player2->hasButton());
-
-
-        // $dealer->moveButton()
-
-        //
-        // $this->assertTrue($dealer->dealRiver());
-        //
-        // $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
-        // $this->assertEquals(
-        //     $communityCardsSize + 1,
-        //     $table->getCommunityCards()->getSize()
-        // );
     }
-
 }
