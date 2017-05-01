@@ -11,10 +11,7 @@
     "autoload": {
         "psr-4": {
             "PHPPokerAlho\\": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -23,12 +20,10 @@
     },
     "require": {
         "php": ">=5.6",
-        "symfony/console": "*",
-        "symfony/framework-bundle": "^3.2",
-        "doctrine/common": "^2.7"
+        "symfony/console": "*"
     },
     "require-dev": {
-        "codeclimate/php-test-reporter": "dev-master",
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "codeclimate/php-test-reporter": "dev-master"
     }
 }
