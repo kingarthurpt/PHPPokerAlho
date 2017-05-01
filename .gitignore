@@ -1,3 +1,5 @@
-vendor/
-coverage/
-build/
+/app/config/parameters.yml
+/build/
+/coverage/
+/var/
+/vendor/
