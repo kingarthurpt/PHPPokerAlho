@@ -19,10 +19,4 @@ if ($debug) {
 
 $kernel = new AppKernel($env, $debug);
 $application = new Application($kernel);
-
-// ... register commands
-$application->add(new \PHPPokerAlho\Command\GenerateHoleCardsCommand());
-$application->add(new \PHPPokerAlho\Command\HandStrengthCommand());
-$application->add(new \PHPPokerAlho\Command\PlayHandCommand());
-
 $application->run($input);

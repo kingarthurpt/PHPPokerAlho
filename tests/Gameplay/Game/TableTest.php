@@ -2,13 +2,13 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\Card;
-use PHPPokerAlho\Gameplay\Cards\Suit;
-use PHPPokerAlho\Gameplay\Game\Table;
-use PHPPokerAlho\Gameplay\Game\Dealer;
-use PHPPokerAlho\Gameplay\Game\Player;
-use PHPPokerAlho\Gameplay\Game\CommunityCards;
-use PHPPokerAlho\Gameplay\Game\Muck;
+use TexasHoldemBundle\Gameplay\Cards\Card;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Game\Table;
+use TexasHoldemBundle\Gameplay\Game\Dealer;
+use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\CommunityCards;
+use TexasHoldemBundle\Gameplay\Game\Muck;
 
 /**
  * @since  {nextRelease}
@@ -18,7 +18,7 @@ use PHPPokerAlho\Gameplay\Game\Muck;
 class TableTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::__construct
      *
      * @since  nextRelease
      */
@@ -29,11 +29,11 @@ class TableTest extends BaseTestCase
         $this->assertEquals(6, $this->getPropertyValue($table, 'seats'));
         $this->assertEquals(array(), $this->getPropertyValue($table, 'players'));
         $this->assertInstanceOf(
-            \PHPPokerAlho\Gameplay\Game\CommunityCards::class,
+            CommunityCards::class,
             $this->getPropertyValue($table, 'communityCards')
         );
         $this->assertInstanceOf(
-            \PHPPokerAlho\Gameplay\Game\Muck::class,
+            Muck::class,
             $this->getPropertyValue($table, 'muck')
         );
 
@@ -41,7 +41,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::__construct
      *
      * @since  nextRelease
      */
@@ -53,7 +53,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::__toString
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::__toString
      *
      * @depends testConstruct
      *
@@ -70,7 +70,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getName
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::getName
      *
      * @depends testConstruct
      *
@@ -87,7 +87,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::setName
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::setName
      *
      * @depends testConstruct
      *
@@ -105,7 +105,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getSeatsCount
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::getSeatsCount
      *
      * @depends testConstruct
      *
@@ -122,7 +122,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::setSeatsCount
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::setSeatsCount
      *
      * @depends testConstruct
      *
@@ -140,7 +140,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getDealer
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::getDealer
      *
      * @depends testConstruct
      *
@@ -157,7 +157,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::setDealer
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::setDealer
      *
      * @depends testConstruct
      *
@@ -176,7 +176,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::addPlayer
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::addPlayer
      *
      * @depends testConstruct
      *
@@ -194,7 +194,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::addPlayer
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::addPlayer
      *
      * @since  nextRelease
      */
@@ -209,7 +209,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::removePlayer
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::removePlayer
      *
      * @since  nextRelease
      */
@@ -232,7 +232,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::addPlayer
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::addPlayer
      *
      * @since  nextRelease
      */
@@ -245,7 +245,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getPlayerCount
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::getPlayerCount
      *
      * @depends testConstruct
      *
@@ -262,7 +262,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getPlayers
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::getPlayers
      *
      * @depends testConstruct
      *
@@ -279,7 +279,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getCommunityCards
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::getCommunityCards
      *
      * @depends testConstruct
      *
@@ -296,7 +296,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::setCommunityCards
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::setCommunityCards
      *
      * @depends testConstruct
      *
@@ -315,7 +315,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::getMuck
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::getMuck
      *
      * @depends testConstruct
      *
@@ -332,7 +332,7 @@ class TableTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Table::setMuck
+     * @covers \TexasHoldemBundle\Gameplay\Game\Table::setMuck
      *
      * @depends testConstruct
      *

@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Game\Stack;
+use TexasHoldemBundle\Gameplay\Game\Stack;
 
 /**
  * @since  {nextRelease}
@@ -12,7 +12,7 @@ use PHPPokerAlho\Gameplay\Game\Stack;
 class StackTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Stack::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Game\Stack::__construct
      *
      * @since  nextRelease
      */
@@ -25,7 +25,7 @@ class StackTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Stack::getSize
+     * @covers \TexasHoldemBundle\Gameplay\Game\Stack::getSize
      *
      * @since  nextRelease
      */
@@ -36,7 +36,7 @@ class StackTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Stack::add
+     * @covers \TexasHoldemBundle\Gameplay\Game\Stack::add
      *
      * @since  nextRelease
      */
@@ -48,7 +48,7 @@ class StackTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Stack::sub
+     * @covers \TexasHoldemBundle\Gameplay\Game\Stack::sub
      *
      * @since  nextRelease
      */

@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\Suit;
-use PHPPokerAlho\Gameplay\Cards\Card;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\Card;
 
 /**
  * @since  {nextRelease}
@@ -13,7 +13,7 @@ use PHPPokerAlho\Gameplay\Cards\Card;
 class CardTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Card::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::__construct
      *
      * @since  nextRelease
      */
@@ -28,7 +28,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Card::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::__construct
      *
      * @since  nextRelease
      */
@@ -41,7 +41,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Card::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::__construct
      *
      * @since  nextRelease
      */
@@ -53,7 +53,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Card::__toString
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::__toString
      *
      * @since  nextRelease
      */
@@ -64,7 +64,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Card::getValue
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::getValue
      *
      * @depends testConstructWithBothArgs
      *
@@ -81,7 +81,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Card::setValue
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::setValue
      *
      * @depends testConstructWithBothArgs
      *
@@ -99,7 +99,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Card::getSuit
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::getSuit
      *
      * @depends testConstructWithBothArgs
      *
@@ -116,7 +116,7 @@ class CardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Card::setSuit
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::setSuit
      *
      * @depends testConstructWithBothArgs
      *

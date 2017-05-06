@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Game\TableSubject;
-use PHPPokerAlho\Gameplay\Game\TableObserver;
-use PHPPokerAlho\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\TableSubject;
+use TexasHoldemBundle\Gameplay\Game\TableObserver;
+use TexasHoldemBundle\Gameplay\Game\TableEvent;
 
 /**
  * @since  {nextRelease}
@@ -14,7 +14,7 @@ use PHPPokerAlho\Gameplay\Game\TableEvent;
 class TableSubjectTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\TableSubject::attach
+     * @covers \TexasHoldemBundle\Gameplay\Game\TableSubject::attach
      *
      * @since  nextRelease
      */
@@ -27,7 +27,7 @@ class TableSubjectTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\TableSubject::detach
+     * @covers \TexasHoldemBundle\Gameplay\Game\TableSubject::detach
      *
      * @since  nextRelease
      */
@@ -44,7 +44,7 @@ class TableSubjectTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\TableSubject::notify
+     * @covers \TexasHoldemBundle\Gameplay\Game\TableSubject::notify
      *
      * @since  nextRelease
      */

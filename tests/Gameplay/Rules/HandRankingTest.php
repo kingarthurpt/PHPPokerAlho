@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Rules\HandRanking;
+use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 
 /**
  * @since  {nextRelease}
@@ -12,7 +12,7 @@ use PHPPokerAlho\Gameplay\Rules\HandRanking;
 class HandRankingTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandRanking::getName
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandRanking::getName
      *
      * @since  nextRelease
      */

@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\StandardDeck;
+use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 
 /**
  * @since  {nextRelease}
@@ -12,7 +12,7 @@ use PHPPokerAlho\Gameplay\Cards\StandardDeck;
 class StandardDeckTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardDeck::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardDeck::__construct
      *
      * @since  nextRelease
      */

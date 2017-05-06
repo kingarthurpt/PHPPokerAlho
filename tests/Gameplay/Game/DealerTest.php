@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\Deck;
-use PHPPokerAlho\Gameplay\Cards\StandardDeck;
-use PHPPokerAlho\Gameplay\Game\Dealer;
-use PHPPokerAlho\Gameplay\Game\Table;
-use PHPPokerAlho\Gameplay\Game\Player;
-use PHPPokerAlho\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Cards\Deck;
+use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
+use TexasHoldemBundle\Gameplay\Game\Dealer;
+use TexasHoldemBundle\Gameplay\Game\Table;
+use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\TableEvent;
 
 /**
  * @since  {nextRelease}
@@ -17,7 +17,7 @@ use PHPPokerAlho\Gameplay\Game\TableEvent;
 class DealerTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::__construct
      *
      * @since  nextRelease
      */
@@ -31,7 +31,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::__construct
      *
      * @since  nextRelease
      */
@@ -42,7 +42,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getDeck
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::getDeck
      *
      * @depends testConstruct
      *
@@ -59,7 +59,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::setDeck
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::setDeck
      *
      * @depends testConstruct
      *
@@ -78,7 +78,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getTable
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::getTable
      *
      * @depends testConstruct
      *
@@ -95,7 +95,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::setTable
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::setTable
      *
      * @depends testConstruct
      *
@@ -114,7 +114,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::hasDeck
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::hasDeck
      *
      * @since  nextRelease
      */
@@ -128,7 +128,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::hasTable
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::hasTable
      *
      * @since  nextRelease
      */
@@ -142,7 +142,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::deal
      *
      * @since  nextRelease
      */
@@ -153,7 +153,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::deal
      *
      * @since  nextRelease
      */
@@ -171,7 +171,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::deal
      *
      * @since  nextRelease
      */
@@ -199,7 +199,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::update
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::update
      *
      * @depends testConstruct
      *
@@ -215,7 +215,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealFlop
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::dealFlop
      *
      * @since  nextRelease
      */
@@ -241,7 +241,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealTurn
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::dealTurn
      *
      * @since  nextRelease
      */
@@ -267,7 +267,7 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealRiver
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::dealRiver
      *
      * @since  nextRelease
      */
@@ -293,8 +293,8 @@ class DealerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::moveButton
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getNextPlayerSeat
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::moveButton
+     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::getNextPlayerSeat
      *
      * @since  nextRelease
      */

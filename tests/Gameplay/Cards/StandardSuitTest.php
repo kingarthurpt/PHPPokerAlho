@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\Suit;
-use PHPPokerAlho\Gameplay\Cards\StandardSuit;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuit;
 
 /**
  * @since  {nextRelease}
@@ -13,7 +13,7 @@ use PHPPokerAlho\Gameplay\Cards\StandardSuit;
 class StandardSuitTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardSuit::fromAbbr
+     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardSuit::fromAbbr
      *
      * @since  nextRelease
      */

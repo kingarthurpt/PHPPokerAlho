@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Game\HandStrength;
-use PHPPokerAlho\Gameplay\Rules\HandRanking;
+use TexasHoldemBundle\Gameplay\Game\HandStrength;
+use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 
 /**
  * @since  {nextRelease}
@@ -14,7 +14,7 @@ class HandStrengthTest extends BaseTestCase
 {
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::__construct()
+     * @covers \TexasHoldemBundle\Gameplay\Game\HandStrength::__construct()
      *
      * @since  nextRelease
      */
@@ -30,7 +30,7 @@ class HandStrengthTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::getRanking()
+     * @covers \TexasHoldemBundle\Gameplay\Game\HandStrength::getRanking()
      *
      * @depends testConstruct
      *
@@ -47,7 +47,7 @@ class HandStrengthTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::getRankingCardValues()
+     * @covers \TexasHoldemBundle\Gameplay\Game\HandStrength::getRankingCardValues()
      *
      * @depends testConstruct
      *
@@ -64,7 +64,7 @@ class HandStrengthTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::getKickers()
+     * @covers \TexasHoldemBundle\Gameplay\Game\HandStrength::getKickers()
      *
      * @depends testConstruct
      *
@@ -81,7 +81,7 @@ class HandStrengthTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::__toString()
+     * @covers \TexasHoldemBundle\Gameplay\Game\HandStrength::__toString()
      *
      * @depends testConstruct
      *

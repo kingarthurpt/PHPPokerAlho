@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\Deck;
-use PHPPokerAlho\Gameplay\Cards\Card;
-use PHPPokerAlho\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\Deck;
+use TexasHoldemBundle\Gameplay\Cards\Card;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
 
 /**
  * @since  {nextRelease}
@@ -14,7 +14,7 @@ use PHPPokerAlho\Gameplay\Cards\Suit;
 class DeckTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::__construct
      *
      * @since  nextRelease
      */
@@ -27,7 +27,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::addCard
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::addCard
      *
      * @depends testConstruct
      *
@@ -51,7 +51,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::addCards
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::addCards
      *
      * @depends testConstruct
      *
@@ -86,7 +86,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::getSize
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::getSize
      *
      * @depends testConstruct
      *
@@ -103,7 +103,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::shuffle
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::shuffle
      *
      * @depends testConstruct
      *
@@ -131,7 +131,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawRandomCard
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::drawRandomCard
      *
      * @depends testConstruct
      *
@@ -154,7 +154,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawRandomCard
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::drawRandomCard
      *
      * @depends testConstruct
      *
@@ -174,7 +174,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCard
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::drawCard
      *
      * @depends testConstruct
      *
@@ -201,7 +201,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawFromTop
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::drawFromTop
      *
      * @depends testConstruct
      *
@@ -241,7 +241,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCard
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::drawCard
      *
      * @depends testConstruct
      *
@@ -262,7 +262,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCard
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::drawCard
      *
      * @depends testConstruct
      *
@@ -285,7 +285,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCardAt
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::drawCardAt
      *
      * @depends testConstruct
      *
@@ -309,7 +309,7 @@ class DeckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Deck::drawCardAt
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Deck::drawCardAt
      *
      * @depends testConstruct
      *

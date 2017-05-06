@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\StandardCard;
-use PHPPokerAlho\Gameplay\Cards\StandardSuit;
-use PHPPokerAlho\Gameplay\Cards\CardCollection;
-use PHPPokerAlho\Gameplay\Game\HandStrength;
-use PHPPokerAlho\Gameplay\Rules\HandEvaluator;
-use PHPPokerAlho\Gameplay\Rules\HandRanking;
+use TexasHoldemBundle\Gameplay\Cards\StandardCard;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuit;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Game\HandStrength;
+use TexasHoldemBundle\Gameplay\Rules\HandEvaluator;
+use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 
 /**
  * @since  {nextRelease}
@@ -17,9 +17,9 @@ use PHPPokerAlho\Gameplay\Rules\HandRanking;
 class HandEvaluatorTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareHands
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareTwoHands
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareCardValues
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareHands
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareTwoHands
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareCardValues
      *
      * @since  nextRelease
      */
@@ -50,9 +50,9 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareHands
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareTwoHands
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareCardValues
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareHands
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareTwoHands
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareCardValues
      *
      * @since  nextRelease
      */
@@ -77,9 +77,9 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareHands
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareTwoHands
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::compareCardValues
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareHands
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareTwoHands
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::compareCardValues
      *
      * @since  nextRelease
      */
@@ -110,7 +110,7 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -128,8 +128,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasRoyalFlush
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasRoyalFlush
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -148,8 +148,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasRoyalFlush
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasRoyalFlush
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -173,8 +173,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasStraightFlush
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasStraightFlush
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -203,8 +203,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasStraightFlush
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasStraightFlush
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -223,8 +223,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFourOfAKind
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasFourOfAKind
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -243,8 +243,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFourOfAKind
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasFourOfAKind
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -263,8 +263,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFullHouse
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasFullHouse
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -283,8 +283,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFullHouse
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasFullHouse
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -303,8 +303,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFlush
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasFlush
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -323,8 +323,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasFlush
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasFlush
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -344,8 +344,8 @@ class HandEvaluatorTest extends BaseTestCase
 
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasStraight
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasStraight
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -374,8 +374,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasStraight
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasStraight
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -394,8 +394,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasThreeOfAKind
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasThreeOfAKind
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -414,8 +414,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasThreeOfAKind
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasThreeOfAKind
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -434,8 +434,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasTwoPair
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasTwoPair
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -454,8 +454,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasTwoPair
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasTwoPair
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -474,8 +474,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasOnePair
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasOnePair
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -494,8 +494,8 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::hasOnePair
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::getStrength
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::hasOnePair
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::getStrength
      *
      * @since  nextRelease
      */
@@ -514,7 +514,7 @@ class HandEvaluatorTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Rules\HandEvaluator::countCardOccurrences
+     * @covers \TexasHoldemBundle\Gameplay\Rules\HandEvaluator::countCardOccurrences
      *
      * @since  nextRelease
      */

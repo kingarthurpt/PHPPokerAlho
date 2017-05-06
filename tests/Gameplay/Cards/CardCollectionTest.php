@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\Card;
-use PHPPokerAlho\Gameplay\Cards\StandardCard;
-use PHPPokerAlho\Gameplay\Cards\Suit;
-use PHPPokerAlho\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Cards\Card;
+use TexasHoldemBundle\Gameplay\Cards\StandardCard;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 
 /**
  * @since  {nextRelease}
@@ -15,7 +15,7 @@ use PHPPokerAlho\Gameplay\Cards\CardCollection;
 class CardCollectionTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::__construct
      *
      * @since  nextRelease
      *
@@ -33,7 +33,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::__construct
      *
      * @since  nextRelease
      *
@@ -54,7 +54,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::__toString
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::__toString
      *
      * @depends testConstructWithoutArgs
      *
@@ -68,7 +68,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::fromString
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::fromString
      *
      * @since  nextRelease
      */
@@ -83,7 +83,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::__toString
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::__toString
      *
      * @depends testConstruct
      *
@@ -97,7 +97,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-      * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::toCliOutput
+      * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::toCliOutput
       *
       * @depends testConstruct
       *
@@ -123,7 +123,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::getCards
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::getCards
      *
      * @depends testConstruct
      *
@@ -140,7 +140,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::getCardAt
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::getCardAt
      *
      * @depends testConstruct
      *
@@ -161,7 +161,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::setCards
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::setCards
      *
      * @depends testConstruct
      *
@@ -185,7 +185,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::setCards
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::setCards
      *
      * @depends testConstruct
      *
@@ -201,7 +201,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::addCard
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::addCard
      *
      * @depends testConstruct
      *
@@ -223,7 +223,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::mergeCards
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::mergeCards
      *
      * @depends testConstruct
      *
@@ -253,7 +253,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::addCards
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::addCards
      *
      * @depends testConstruct
      *
@@ -280,7 +280,7 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\CardCollection::removeCards
+     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::removeCards
      *
      * @depends testConstruct
      *
