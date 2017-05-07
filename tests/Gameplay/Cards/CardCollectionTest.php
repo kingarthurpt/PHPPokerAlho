@@ -68,21 +68,6 @@ class CardCollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::fromString
-     *
-     * @since  nextRelease
-     */
-    public function testFromString()
-    {
-        $this->assertNull(CardCollection::fromString("AcKc"));
-
-        $this->assertInstanceOf(
-            CardCollection::class,
-            CardCollection::fromString("Ac Kc")
-        );
-    }
-
-    /**
      * @covers \TexasHoldemBundle\Gameplay\Cards\CardCollection::__toString
      *
      * @depends testConstruct

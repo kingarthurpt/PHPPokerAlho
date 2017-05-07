@@ -34,14 +34,12 @@ class Dealer extends TableObserver
      *
      * @param  Deck $deck A Deck of Cards
      */
-    public function __construct($deck = null)
+    public function __construct(Deck $deck, Table $table)
     {
-        $this->deck = null;
         $this->table = null;
 
-        if (!is_null($deck)) {
-            $this->setDeck($deck);
-        }
+        $this->setDeck($deck);
+        $this->setTable($table);
     }
 
     /**
@@ -116,10 +114,6 @@ class Dealer extends TableObserver
 
     public function startNewHand()
     {
-        if (!$this->hasDeck() || !$this->hasTable()) {
-            return false;
-        }
-
         $table = $this->getTable();
         $players = $table->getPlayers();
 
@@ -160,10 +154,6 @@ class Dealer extends TableObserver
      */
     public function deal()
     {
-        if (!$this->hasDeck() || !$this->hasTable()) {
-            return false;
-        }
-
         $deck = $this->getDeck();
         $table = $this->getTable();
         $players = $table->getPlayers();
@@ -199,10 +189,6 @@ class Dealer extends TableObserver
      */
     public function dealFlop()
     {
-        if (!$this->hasDeck() || !$this->hasTable()) {
-            return false;
-        }
-
         $deck = $this->getDeck();
         $table = $this->getTable();
 
@@ -224,10 +210,6 @@ class Dealer extends TableObserver
      */
     public function dealTurn()
     {
-        if (!$this->hasDeck() || !$this->hasTable()) {
-            return false;
-        }
-
         $deck = $this->getDeck();
         $table = $this->getTable();
 
@@ -249,10 +231,6 @@ class Dealer extends TableObserver
      */
     public function dealRiver()
     {
-        if (!$this->hasDeck() || !$this->hasTable()) {
-            return false;
-        }
-
         $deck = $this->getDeck();
         $table = $this->getTable();
 
@@ -306,29 +284,5 @@ class Dealer extends TableObserver
             }
         }
         return $nextSeat;
-    }
-
-    /**
-     * Checks if the Dealer has a Deck
-     *
-     * @since  {nextRelease}
-     *
-     * @return bool TRUE on success, FALSE on failure
-     */
-    private function hasDeck()
-    {
-        return $this->deck instanceof Deck;
-    }
-
-    /**
-     * Checks if the Dealer has a Table
-     *
-     * @since  {nextRelease}
-     *
-     * @return bool TRUE on success, FALSE on failure
-     */
-    private function hasTable()
-    {
-        return $this->table instanceof Table;
     }
 }

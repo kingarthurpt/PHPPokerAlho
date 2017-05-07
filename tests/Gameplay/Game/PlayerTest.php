@@ -10,6 +10,7 @@ use TexasHoldemBundle\Gameplay\Game\Stack;
 use TexasHoldemBundle\Gameplay\Cards\Card;
 use TexasHoldemBundle\Gameplay\Cards\Suit;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
 
 /**
  * @since  {nextRelease}
@@ -297,7 +298,8 @@ class PlayerTest extends BaseTestCase
         $player->setStack(new Stack(100));
         $table = new Table("Table1", 10);
         $table->addPlayer($player);
-        $player->setHand(CardCollection::fromString('As Ac'));
+        $factory = new CardCollectionFactory();
+        $player->setHand($factory->makeFromString('As Ac'));
 
         $this->assertTrue($player->paySmallBlind(10));
         $this->assertEquals(90, $player->getStack()->getSize());
@@ -323,7 +325,8 @@ class PlayerTest extends BaseTestCase
         $table->addPlayer($player);
         $this->assertFalse($player->fold());
 
-        $player->setHand(CardCollection::fromString('As Ac'));
+        $factory = new CardCollectionFactory();
+        $player->setHand($factory->makeFromString('As Ac'));
         $this->assertTrue($player->fold());
     }
 
@@ -355,7 +358,8 @@ class PlayerTest extends BaseTestCase
         $this->assertFalse($player->raise(40));
         $this->assertFalse($player->allIn());
 
-        $player->setHand(CardCollection::fromString('As Ac'));
+        $factory = new CardCollectionFactory();
+        $player->setHand($factory->makeFromString('As Ac'));
         $this->assertTrue($player->check());
         $this->assertTrue($player->call(20));
         $this->assertTrue($player->raise(40));

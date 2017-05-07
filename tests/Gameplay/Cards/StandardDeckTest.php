@@ -3,6 +3,7 @@
 namespace Tests;
 
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 
 /**
  * @since  {nextRelease}
@@ -18,7 +19,8 @@ class StandardDeckTest extends BaseTestCase
      */
     public function testConstruct()
     {
-        $deck = new StandardDeck();
+        $suitFactory = new StandardSuitFactory();
+        $deck = new StandardDeck($suitFactory);
         $this->assertNotEquals(array(), $this->getPropertyValue($deck, 'items'));
 
         $this->assertEquals(52, $deck->getSize());

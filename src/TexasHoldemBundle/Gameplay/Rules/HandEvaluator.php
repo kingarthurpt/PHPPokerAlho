@@ -43,6 +43,7 @@ class HandEvaluator
             return null;
         }
 
+        $ranking = HandRanking::HIGH_CARD;
         if ($this->hasRoyalFlush($cards)) {
             $ranking = HandRanking::ROYAL_FLUSH;
         } elseif ($this->hasStraightFlush($cards)) {
@@ -61,8 +62,6 @@ class HandEvaluator
             $ranking = HandRanking::TWO_PAIR;
         } elseif ($this->hasOnePair($cards)) {
             $ranking = HandRanking::ONE_PAIR;
-        } else {
-            $ranking = HandRanking::HIGH_CARD;
         }
 
         return new HandStrength($ranking, array(3), array());

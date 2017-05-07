@@ -16,10 +16,8 @@ class StandardDeck extends Deck
      *
      * @since  {nextRelease}
      */
-    public function __construct()
+    public function __construct(StandardSuitFactory $suitsFactory)
     {
-        parent::__construct();
-
         $suits = array(
             StandardSuit::CLUBS,
             StandardSuit::DIAMONDS,
@@ -28,7 +26,7 @@ class StandardDeck extends Deck
         );
 
         foreach ($suits as $suitName) {
-            $suit = StandardSuit::fromAbbr($suitName[2]);
+            $suit = $suitsFactory->makeFromAbbr($suitName[2]);
 
             for ($i = 1; $i <= 13; $i++) {
                 $this->addCard(new StandardCard($i, $suit));

@@ -24,19 +24,6 @@ class StandardCardTest extends BaseTestCase
     }
 
     /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::fromString
-     *
-     * @since  nextRelease
-     */
-    public function testFromString()
-    {
-        $this->assertNull(StandardCard::fromString('10c'));
-        
-        $card = StandardCard::fromString('Tc');
-        $this->assertEquals('[T♣]', $card);
-    }
-
-    /**
      * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::toCliOutput
      *
      * @since  nextRelease

@@ -12,33 +12,6 @@ use TexasHoldemBundle\DesignPatterns\Collection;
 class CardCollection extends Collection
 {
     /**
-     * Create a CardCollection from StandardCard's string abbreviation
-     * Use a space to separate each card
-     *
-     * @since  {nextRelease}
-     *
-     * @param  string $str The StandardCard's string abbreviation
-     *
-     * @return StandardCard|null
-     */
-    public static function fromString(string $str)
-    {
-        $cardsStr = explode(" ", $str);
-
-        $instance = new self();
-        foreach ($cardsStr as $cardStr) {
-            $card = StandardCard::fromString($cardStr);
-            if (is_null($card)) {
-                return null;
-            }
-
-            $instance->addCard($card);
-        }
-
-        return $instance;
-    }
-
-    /**
      * Return a string representation of the CardCollection
      *
      * @since  {nextRelease}

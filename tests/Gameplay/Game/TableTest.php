@@ -4,6 +4,8 @@ namespace Tests;
 
 use TexasHoldemBundle\Gameplay\Cards\Card;
 use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
+use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Game\Table;
 use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Game\Player;
@@ -167,7 +169,10 @@ class TableTest extends BaseTestCase
      */
     public function testSetDealer(Table $table)
     {
-        $dealer = new Dealer();
+        $suitFactory = new StandardSuitFactory();
+        $deck = new StandardDeck($suitFactory);
+        $table = new Table("Table1", 10);
+        $dealer = new Dealer($deck, $table);
         $table->setDealer($dealer);
         $this->assertEquals(
             $dealer,

@@ -14,11 +14,6 @@ class StandardCard extends Card
     /**
      * @var integer
      */
-    const ACE = 1;
-
-    /**
-     * @var integer
-     */
     const TWO = 2;
 
     /**
@@ -77,25 +72,9 @@ class StandardCard extends Card
     const KING = 13;
 
     /**
-     * Create a StandardCard from their face value and Suit name abbreviation
-     *
-     * @since  {nextRelease}
-     *
-     * @param  string $str The StandardCard's face value and Suit's abbreviation
-     *
-     * @return StandardCard|null
+     * @var integer
      */
-    public static function fromString(string $str)
-    {
-        if (strlen($str) != 2) {
-            return null;
-        }
-
-        $instance = new self();
-        $instance->setFaceValue($str[0]);
-        $instance->setSuit(StandardSuit::fromAbbr($str[1]));
-        return $instance;
-    }
+    const ACE = 14;
 
     /**
      * Return a string representation of the Card

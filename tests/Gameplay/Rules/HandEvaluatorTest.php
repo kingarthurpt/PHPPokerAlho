@@ -5,6 +5,7 @@ namespace Tests;
 use TexasHoldemBundle\Gameplay\Cards\StandardCard;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuit;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
 use TexasHoldemBundle\Gameplay\Game\HandStrength;
 use TexasHoldemBundle\Gameplay\Rules\HandEvaluator;
 use TexasHoldemBundle\Gameplay\Rules\HandRanking;
@@ -117,10 +118,11 @@ class HandEvaluatorTest extends BaseTestCase
     public function testGetStrength()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ad Kd Qd Jd Td 2s 2c 6h');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ad Kd Qd Jd Td 2s 2c 6h');
         $this->assertNull($evaluator->getStrength($cards));
 
-        $cards = CardCollection::fromString('Ad Kd Qd Jd Td 2s 2c');
+        $cards = $factory->makeFromString('Ad Kd Qd Jd Td 2s 2c');
         $this->assertEquals(
             HandRanking::ROYAL_FLUSH,
             $evaluator->getStrength($cards)->getRanking()
@@ -136,7 +138,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasRoyalFlush()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ad Kd Qd Jd Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ad Kd Qd Jd Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasRoyalFlush", array($cards))
         );
@@ -156,12 +159,13 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidRoyalFlush()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Kd Qd Jd Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Kd Qd Jd Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasRoyalFlush", array($cards))
         );
 
-        $cards = CardCollection::fromString('2d Kd Qd Jd Td 2s 2c');
+        $cards = $factory->makeFromString('2d Kd Qd Jd Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasRoyalFlush", array($cards))
         );
@@ -181,7 +185,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasStraightFlush()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Kh Qh Jh Th 9h 2s 2h');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Kh Qh Jh Th 9h 2s 2h');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasStraightFlush", array($cards))
         );
@@ -191,7 +196,7 @@ class HandEvaluatorTest extends BaseTestCase
             $evaluator->getStrength($cards)->getRanking()
         );
 
-        $cards = CardCollection::fromString('Ac 2c 3c 4c 5c 2s 2h');
+        $cards = $factory->makeFromString('Ac 2c 3c 4c 5c 2s 2h');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasStraightFlush", array($cards))
         );
@@ -211,7 +216,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidStraightFlush()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('8c 3c 4c 5c 7d 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('8c 3c 4c 5c 7d 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasStraightFlush", array($cards))
         );
@@ -231,7 +237,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasFourOfAKind()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad As Ah Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad As Ah Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasFourOfAKind", array($cards))
         );
@@ -251,7 +258,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidFourOfAKind()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad As Kh Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad As Kh Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasFourOfAKind", array($cards))
         );
@@ -271,7 +279,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasFullHouse()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad As Kh 2h 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad As Kh 2h 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasFullHouse", array($cards))
         );
@@ -291,7 +300,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidFullHouse()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad Ks Kh Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad Ks Kh Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasFullHouse", array($cards))
         );
@@ -311,7 +321,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasFlush()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac 3c 4c 7c Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac 3c 4c 7c Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasFlush", array($cards))
         );
@@ -331,7 +342,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidFlush()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad Ks Kh Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad Ks Kh Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasFlush", array($cards))
         );
@@ -352,7 +364,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasStraight()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Kc Qc Js Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Kc Qc Js Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasStraight", array($cards))
         );
@@ -362,7 +375,7 @@ class HandEvaluatorTest extends BaseTestCase
             $evaluator->getStrength($cards)->getRanking()
         );
 
-        $cards = CardCollection::fromString('Ac 2c 2h 4s 5d 7s 3d');
+        $cards = $factory->makeFromString('Ac 2c 2h 4s 5d 7s 3d');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasStraight", array($cards))
         );
@@ -382,7 +395,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidStraight()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('8c 3d 4s 5h 7d 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('8c 3d 4s 5h 7d 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasStraight", array($cards))
         );
@@ -402,7 +416,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasThreeOfAKind()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad As Jd Td 6s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad As Jd Td 6s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasThreeOfAKind", array($cards))
         );
@@ -422,7 +437,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidThreeOfAKind()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad 3s Jd Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad 3s Jd Td 2s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasThreeOfAKind", array($cards))
         );
@@ -442,7 +458,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasTwoPair()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad Qs Jd Td 2s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad Qs Jd Td 2s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasTwoPair", array($cards))
         );
@@ -462,7 +479,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidTwoPair()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad 3s Jd Td 4s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad 3s Jd Td 4s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasTwoPair", array($cards))
         );
@@ -482,7 +500,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testHasOnePair()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad Qs Jd Td 5s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad Qs Jd Td 5s 2c');
         $this->assertTrue(
             $this->invokeMethod($evaluator, "hasOnePair", array($cards))
         );
@@ -502,7 +521,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testInvalidOnePair()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Kd 3s Jd Td 4s 2c');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Kd 3s Jd Td 4s 2c');
         $this->assertFalse(
             $this->invokeMethod($evaluator, "hasOnePair", array($cards))
         );
@@ -521,7 +541,8 @@ class HandEvaluatorTest extends BaseTestCase
     public function testCountCardOccurrences()
     {
         $evaluator = new HandEvaluator();
-        $cards = CardCollection::fromString('Ac Ad As Ah Kd Ks Kc');
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString('Ac Ad As Ah Kd Ks Kc');
 
         $occurrences = $this->invokeMethod(
             $evaluator,
