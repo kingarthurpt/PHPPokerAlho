@@ -12,19 +12,10 @@ use TexasHoldemBundle\Gameplay\Game\Table;
 use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 
 class HoleCardsCommand extends Command
 {
-    private $table;
-    private $dealer;
-
-    public function __construct(Table $table, Dealer $dealer)
-    {
-        parent::__construct();
-        $this->table = $table;
-        $this->dealer = $dealer;
-    }
-
     /**
      * Configure the command
      *
@@ -58,14 +49,15 @@ class HoleCardsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->dealer->setTable($this->table);
-
+        $table = new Table("Table1", 2);
+        $factory = new StandardSuitFactory();
+        $dealer = new Dealer(new StandardDeck($factory), $table);
         $player = new Player("Player1");
-        $this->table->addPlayer($player);
+        $table->addPlayer($player);
 
         $hands = $input->getArgument("hands");
         for ($i = 1; $i <= $hands; $i++) {
-            $this->dealer->deal();
+            $dealer->deal();
             $hand = $player->getHand();
 
             $output->writeln(

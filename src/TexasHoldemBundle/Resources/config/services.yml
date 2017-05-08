@@ -1,20 +1,20 @@
 parameters:
-    table_name: "Table1"
-    table_seats: 10
+    # table_name: "Table1"
+    # table_seats: 10
 
 services:
-    deck:
-        class: TexasHoldemBundle\Gameplay\Cards\StandardDeck
-        arguments: []
-    dealer:
-        class: TexasHoldemBundle\Gameplay\Game\Dealer
-        arguments: ['@deck']
-    table:
-        class: TexasHoldemBundle\Gameplay\Game\Table
-        arguments: ['%table_name%', '%table_seats%']
+    # deck:
+    #     class: TexasHoldemBundle\Gameplay\Cards\StandardDeck
+    #     arguments: []
+    # dealer:
+    #     class: TexasHoldemBundle\Gameplay\Game\Dealer
+    #     arguments: ['@deck']
+    # table:
+    #     class: TexasHoldemBundle\Gameplay\Game\Table
+    #     arguments: ['%table_name%', '%table_seats%']
 
-    app.command.hole_card:
-        class: TexasHoldemBundle\Command\HoleCardsCommand
-        arguments: ['@table', '@dealer']
-        tags:
-            - { name: console.command }
+    # app.command.hole_card:
+        # class: TexasHoldemBundle\Command\HoleCardsCommand
+        # arguments: ['@table', '@dealer']
+        # tags:
+        #     - { name: console.command }
