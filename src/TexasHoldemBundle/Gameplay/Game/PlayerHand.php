@@ -12,9 +12,4 @@ use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 class PlayerHand extends CardCollection
 {
     protected $strength = null;
-
-    public function setStrength(HandStrength $handStrength)
-    {
-        $this->strength = $handStrength;
-    }
 }

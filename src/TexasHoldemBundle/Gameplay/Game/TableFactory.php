@@ -2,7 +2,6 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
-use TexasHoldemBundle\Gameplay\Game\TableSubject;
 use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
