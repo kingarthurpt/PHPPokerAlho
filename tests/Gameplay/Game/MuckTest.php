@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Game\Muck;
+use TexasHoldemBundle\Gameplay\Game\Muck;
 
 /**
  * @since  {nextRelease}
@@ -12,7 +12,7 @@ use PHPPokerAlho\Gameplay\Game\Muck;
 class MuckTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Muck::getCards
+     * @covers \TexasHoldemBundle\Gameplay\Game\Muck::getCards
      *
      * @since  nextRelease
      */
@@ -23,7 +23,7 @@ class MuckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Muck::getItems
+     * @covers \TexasHoldemBundle\Gameplay\Game\Muck::getItems
      *
      * @since  nextRelease
      */
@@ -34,7 +34,7 @@ class MuckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Muck::getCardAt
+     * @covers \TexasHoldemBundle\Gameplay\Game\Muck::getCardAt
      *
      * @since  nextRelease
      */
@@ -45,7 +45,7 @@ class MuckTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Muck::getItemAt
+     * @covers \TexasHoldemBundle\Gameplay\Game\Muck::getItemAt
      *
      * @since  nextRelease
      */

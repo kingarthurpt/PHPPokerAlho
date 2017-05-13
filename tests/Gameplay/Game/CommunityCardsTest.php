@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Game\CommunityCards;
-use PHPPokerAlho\Gameplay\Cards\Card;
-use PHPPokerAlho\Gameplay\Cards\Suit;
-use PHPPokerAlho\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Game\CommunityCards;
+use TexasHoldemBundle\Gameplay\Cards\Card;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 
 /**
  * @since  {nextRelease}
@@ -15,7 +15,7 @@ use PHPPokerAlho\Gameplay\Cards\CardCollection;
 class CommunityCardsTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\CommunityCards::getFlop
+     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getFlop
      *
      * @since  nextRelease
      */
@@ -26,7 +26,7 @@ class CommunityCardsTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\CommunityCards::getFlop
+     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getFlop
      *
      * @since  nextRelease
      */
@@ -45,7 +45,7 @@ class CommunityCardsTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\CommunityCards::setFlop
+     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::setFlop
      *
      * @since  nextRelease
      */
@@ -73,7 +73,7 @@ class CommunityCardsTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\CommunityCards::getTurn
+     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getTurn
      *
      * @since  nextRelease
      */
@@ -97,7 +97,7 @@ class CommunityCardsTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\CommunityCards::setTurn
+     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::setTurn
      *
      * @since  nextRelease
      */
@@ -122,7 +122,7 @@ class CommunityCardsTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\CommunityCards::getRiver
+     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getRiver
      *
      * @since  nextRelease
      */
@@ -147,7 +147,7 @@ class CommunityCardsTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\CommunityCards::setRiver
+     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::setRiver
      *
      * @since  nextRelease
      */

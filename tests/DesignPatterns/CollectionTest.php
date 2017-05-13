@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use PHPPokerAlho\DesignPatterns\Collection;
-use PHPPokerAlho\Gameplay\Cards\Suit;
+use TexasHoldemBundle\DesignPatterns\Collection;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
 
 /**
  * @since  {nextRelease}
@@ -13,7 +13,7 @@ use PHPPokerAlho\Gameplay\Cards\Suit;
 class CollectionTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::__construct
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::__construct
      *
      * @since  nextRelease
      */
@@ -29,7 +29,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::__construct
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::__construct
      *
      * @since  nextRelease
      */
@@ -49,7 +49,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::getItems
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::getItems
      *
      * @since  nextRelease
      */
@@ -64,7 +64,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::getItemAt
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::getItemAt
      *
      * @since  nextRelease
      */
@@ -83,7 +83,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::setItems
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::setItems
      *
      * @since  nextRelease
      */
@@ -104,7 +104,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::addItem
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::addItem
      *
      * @since  nextRelease
      */
@@ -121,7 +121,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::merge
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::merge
      *
      * @since  nextRelease
      */
@@ -149,7 +149,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::addItems
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::addItems
      *
      * @since  nextRelease
      */
@@ -175,7 +175,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::removeItemAt
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::removeItemAt
      *
      * @since  nextRelease
      */
@@ -204,7 +204,7 @@ class CollectionTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\DesignPatterns\Collection::removeItems
+     * @covers \TexasHoldemBundle\DesignPatterns\Collection::removeItems
      *
      * @since  nextRelease
      */

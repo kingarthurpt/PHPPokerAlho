@@ -9,6 +9,14 @@ engines:
     enabled: true
   phpmd:
     enabled: true
+    checks:
+        Naming/ShortVariable:
+            enabled: false
+        # Temporary
+        Design/CouplingBetweenObjects:
+            enabled: false
+        Design/TooManyPublicMethods:
+            enabled: false
   phpcodesniffer:
     enabled: true
 ratings:

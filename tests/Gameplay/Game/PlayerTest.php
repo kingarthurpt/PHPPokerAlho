@@ -2,14 +2,15 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Game\Player;
-use PHPPokerAlho\Gameplay\Game\Table;
-use PHPPokerAlho\Gameplay\Game\TableEvent;
-use PHPPokerAlho\Gameplay\Game\PlayerHand;
-use PHPPokerAlho\Gameplay\Game\Stack;
-use PHPPokerAlho\Gameplay\Cards\Card;
-use PHPPokerAlho\Gameplay\Cards\Suit;
-use PHPPokerAlho\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\Table;
+use TexasHoldemBundle\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\PlayerHand;
+use TexasHoldemBundle\Gameplay\Game\Stack;
+use TexasHoldemBundle\Gameplay\Cards\Card;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
 
 /**
  * @since  {nextRelease}
@@ -19,7 +20,7 @@ use PHPPokerAlho\Gameplay\Cards\CardCollection;
 class PlayerTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::__construct
      *
      * @since  nextRelease
      */
@@ -32,7 +33,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::__toString
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::__toString
      *
      * @depends testConstruct
      *
@@ -49,7 +50,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::getName
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::getName
      *
      * @depends testConstruct
      *
@@ -66,7 +67,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setName
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setName
      *
      * @depends testConstruct
      *
@@ -84,7 +85,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::getHand
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::getHand
      *
      * @depends testConstruct
      *
@@ -101,7 +102,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setHand
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setHand
      *
      * @depends testConstruct
      *
@@ -125,7 +126,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::hasButton
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::hasButton
      *
      * @depends testConstruct
      *
@@ -142,7 +143,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setButton
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setButton
      *
      * @depends testConstruct
      *
@@ -159,7 +160,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::getSeat
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::getSeat
      *
      * @depends testConstruct
      *
@@ -176,7 +177,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setSeat
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setSeat
      *
      * @depends testConstruct
      *
@@ -191,7 +192,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::getStack
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::getStack
      *
      * @depends testConstruct
      *
@@ -208,7 +209,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setStack
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setStack
      *
      * @depends testConstruct
      *
@@ -227,7 +228,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setController
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setController
      *
      * @depends testConstruct
      *
@@ -245,7 +246,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::update
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::update
      *
      * @depends testConstruct
      *
@@ -261,7 +262,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::returnHand
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::returnHand
      *
      * @depends testConstruct
      *
@@ -283,8 +284,8 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::paySmallBlind
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::payBigBlind
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::paySmallBlind
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::payBigBlind
      *
      * @depends testConstruct
      *
@@ -297,7 +298,8 @@ class PlayerTest extends BaseTestCase
         $player->setStack(new Stack(100));
         $table = new Table("Table1", 10);
         $table->addPlayer($player);
-        $player->setHand(CardCollection::fromString('As Ac'));
+        $factory = new CardCollectionFactory();
+        $player->setHand($factory->makeFromString('As Ac'));
 
         $this->assertTrue($player->paySmallBlind(10));
         $this->assertEquals(90, $player->getStack()->getSize());
@@ -307,7 +309,7 @@ class PlayerTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::fold
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::fold
      *
      * @depends testConstruct
      *
@@ -323,16 +325,17 @@ class PlayerTest extends BaseTestCase
         $table->addPlayer($player);
         $this->assertFalse($player->fold());
 
-        $player->setHand(CardCollection::fromString('As Ac'));
+        $factory = new CardCollectionFactory();
+        $player->setHand($factory->makeFromString('As Ac'));
         $this->assertTrue($player->fold());
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::check
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::call
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::raise
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::allIn
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::placeBet
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::check
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::call
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::raise
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::allIn
+     * @covers \TexasHoldemBundle\Gameplay\Game\Player::placeBet
      *
      * @depends testConstruct
      *
@@ -355,7 +358,8 @@ class PlayerTest extends BaseTestCase
         $this->assertFalse($player->raise(40));
         $this->assertFalse($player->allIn());
 
-        $player->setHand(CardCollection::fromString('As Ac'));
+        $factory = new CardCollectionFactory();
+        $player->setHand($factory->makeFromString('As Ac'));
         $this->assertTrue($player->check());
         $this->assertTrue($player->call(20));
         $this->assertTrue($player->raise(40));

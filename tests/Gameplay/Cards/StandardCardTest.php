@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\Suit;
-use PHPPokerAlho\Gameplay\Cards\StandardCard;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\StandardCard;
 
 /**
  * @since  {nextRelease}
@@ -13,7 +13,7 @@ use PHPPokerAlho\Gameplay\Cards\StandardCard;
 class StandardCardTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::__toString
+     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::__toString
      *
      * @since  nextRelease
      */
@@ -24,20 +24,7 @@ class StandardCardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::fromString
-     *
-     * @since  nextRelease
-     */
-    public function testFromString()
-    {
-        $this->assertNull(StandardCard::fromString('10c'));
-        
-        $card = StandardCard::fromString('Tc');
-        $this->assertEquals('[T♣]', $card);
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::toCliOutput
+     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::toCliOutput
      *
      * @since  nextRelease
      */
@@ -57,7 +44,7 @@ class StandardCardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::setValue
+     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::setValue
      *
      * @since  nextRelease
      */
@@ -76,7 +63,7 @@ class StandardCardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::getFaceValue
+     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::getFaceValue
      *
      * @since  nextRelease
      */
@@ -102,7 +89,7 @@ class StandardCardTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardCard::setFaceValue
+     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::setFaceValue
      *
      * @since  nextRelease
      */

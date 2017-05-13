@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use PHPPokerAlho\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
 
 /**
  * @since  {nextRelease}
@@ -12,7 +12,7 @@ use PHPPokerAlho\Gameplay\Cards\Suit;
 class SuitTest extends BaseTestCase
 {
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct
      *
      * @since  nextRelease
      */
@@ -25,7 +25,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct
      *
      * @since  nextRelease
      */
@@ -36,7 +36,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct
      *
      * @since  nextRelease
      */
@@ -48,7 +48,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct
      *
      * @since  nextRelease
      */
@@ -60,7 +60,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__toString
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__toString
      *
      * @since  nextRelease
      */
@@ -71,7 +71,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getName
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::getName
      *
      * @depends testConstruct
      *
@@ -88,7 +88,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setName
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setName
      *
      * @depends testConstruct
      *
@@ -106,7 +106,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getSymbol
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::getSymbol
      *
      * @depends testConstruct
      *
@@ -123,7 +123,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setSymbol
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setSymbol
      *
      * @depends testConstruct
      *
@@ -141,7 +141,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getAbbreviation
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::getAbbreviation
      *
      * @depends testConstruct
      *
@@ -158,7 +158,7 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setAbbreviation
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setAbbreviation
      *
      * @depends testConstruct
      *
