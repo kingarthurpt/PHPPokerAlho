@@ -77,6 +77,17 @@ class StandardCard extends Card
     const ACE = 14;
 
     /**
+     * @var array
+     */
+    private $faceValues = [
+        1 => 'A',
+        10 => 'T',
+        11 => 'J',
+        12 => 'Q',
+        13 => 'K',
+    ];
+
+    /**
      * Return a string representation of the Card
      *
      * @since  {nextRelease}
@@ -138,26 +149,9 @@ class StandardCard extends Card
      */
     public function getFaceValue()
     {
-        switch ($this->value) {
-            case 1:
-                $value = "A";
-                break;
-            case 10:
-                $value = "T";
-                break;
-            case 11:
-                $value = "J";
-                break;
-            case 12:
-                $value = "Q";
-                break;
-            case 13:
-                $value = "K";
-                break;
-            default:
-                $value = $this->value;
-        }
-        return $value;
+        return isset($this->faceValues[$this->value])
+            ? $this->faceValues[$this->value]
+            : $this->value;
     }
 
     /**
@@ -165,28 +159,16 @@ class StandardCard extends Card
      *
      * @since  {nextRelease}
      *
-     * @param  string $value [description]
+     * @param  string $value
      */
     public function setFaceValue(string $value)
     {
-        switch ($value) {
-            case "A":
-                $value = 1;
-                break;
-            case "T":
-                $value = 10;
-                break;
-            case "J":
-                $value = 11;
-                break;
-            case "Q":
-                $value = 12;
-                break;
-            case "K":
-                $value = 13;
-                break;
-        }
+        $this->setValue($value);
 
-        return $this->setValue($value);
+        foreach ($this->faceValues as $key => $faceValue) {
+            if ($value === $faceValue) {
+                $this->setValue($key);
+            }
+        }
     }
 }
