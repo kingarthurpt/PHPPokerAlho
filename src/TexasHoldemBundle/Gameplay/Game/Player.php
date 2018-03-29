@@ -468,15 +468,10 @@ class Player extends TableObserver
      */
     private function placeBet(float $amount, TableEvent $event)
     {
-        if (empty($this->table)) {
-            return false;
-        }
-
-        if (empty($this->getHand())) {
-            return false;
-        }
-
-        if (!$this->stack->sub($amount)) {
+        if (empty($this->table)
+            || empty($this->getHand())
+            || !$this->stack->sub($amount)
+        ) {
             return false;
         }
 
