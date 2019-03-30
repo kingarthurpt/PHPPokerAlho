@@ -4,17 +4,11 @@ namespace TexasHoldemBundle\Gameplay\Cards;
 
 /**
  * A collection of Cards
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
  */
 class Deck extends CardCollection
 {
     /**
      * Shuffle the Deck
-     *
-     * @since  {nextRelease}
      *
      * @return bool TRUE on success or FALSE on failure
      */
@@ -25,8 +19,6 @@ class Deck extends CardCollection
 
     /**
      * Draw a random Card from the Deck
-     *
-     * @since  {nextRelease}
      *
      * @return Card|null A random Card or null if the Deck is empty
      */
@@ -41,8 +33,6 @@ class Deck extends CardCollection
 
     /**
      * Draw a Card from the Deck
-     *
-     * @since  {nextRelease}
      *
      * @param  Card $card The Card to be drawn from the Deck
      *
@@ -67,8 +57,6 @@ class Deck extends CardCollection
     /**
      * Draw the first $amount of Cards
      *
-     * @since  {nextRelease}
-     *
      * @param  int $amount The Card's index
      *
      * @return Card|CardCollection|null A Card if $amount = 1
@@ -91,8 +79,6 @@ class Deck extends CardCollection
 
     /**
      * Draw the Card at the given index
-     *
-     * @since  {nextRelease}
      *
      * @param  int $index The Card's index
      *

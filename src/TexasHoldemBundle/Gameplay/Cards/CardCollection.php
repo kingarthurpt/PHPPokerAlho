@@ -4,17 +4,10 @@ namespace TexasHoldemBundle\Gameplay\Cards;
 
 use TexasHoldemBundle\DesignPatterns\Collection;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class CardCollection extends Collection
 {
     /**
      * Return a string representation of the CardCollection
-     *
-     * @since  {nextRelease}
      *
      * @return string The CardCollection represented as a string
      */
@@ -34,8 +27,6 @@ class CardCollection extends Collection
 
     /**
      * Return a string representation of the CardCollection, formated with CLI colors
-     *
-     * @since  {nextRelease}
      *
      * @return string The CardCollection represented as a string
      */
@@ -57,8 +48,6 @@ class CardCollection extends Collection
     /**
      * Get the array of Cards
      *
-     * @since  {nextRelease}
-     *
      * @return array The array of Cards
      */
     public function getCards()
@@ -68,8 +57,6 @@ class CardCollection extends Collection
 
     /**
      * Get the Card at a given index
-     *
-     * @since  {nextRelease}
      *
      * @param  int $index The index
      *
@@ -82,8 +69,6 @@ class CardCollection extends Collection
 
     /**
      * Set the array of Cards
-     *
-     * @since  {nextRelease}
      *
      * @param  array $cards The collection of Cards
      *
@@ -106,8 +91,6 @@ class CardCollection extends Collection
     /**
      * Add a Card to the CardCollection
      *
-     * @since  {nextRelease}
-     *
      * @param  Card $card The Card to be added to the CardCollection
      */
     public function addCard(Card $card)
@@ -121,8 +104,6 @@ class CardCollection extends Collection
 
     /**
      * Add an array of Cards to the CardCollection
-     *
-     * @since  {nextRelease}
      *
      * @param  array $cards The Cards to add
      *
@@ -146,8 +127,6 @@ class CardCollection extends Collection
     /**
      * Add an array of Cards to the CardCollection
      *
-     * @since  {nextRelease}
-     *
      * @param  CardCollection $cards The CardCollection to add
      *
      * @return bool TRUE on success, FALSE on failure
@@ -159,8 +138,6 @@ class CardCollection extends Collection
 
     /**
      * Remove and get all Cards in the collection
-     *
-     * @since  {nextRelease}
      *
      * @return array The collection Cards
      */

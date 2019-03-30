@@ -4,10 +4,6 @@ namespace TexasHoldemBundle\Gameplay\Cards;
 
 /**
  * A Card with a face value and a Suit
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
  */
 class Card
 {
@@ -28,8 +24,6 @@ class Card
     /**
      * Constructor
      *
-     * @since  {nextRelease}
-     *
      * @param  int $value The Card's value
      * @param  Suit $suit The Card's Suit
      */
@@ -44,8 +38,6 @@ class Card
     /**
      * Return a string representation of the Card
      *
-     * @since  {nextRelease}
-     *
      * @return string The Card represented as a string
      */
     public function __toString()
@@ -55,8 +47,6 @@ class Card
 
     /**
      * Get the Card's value
-     *
-     * @since  {nextRelease}
      *
      * @return string The Card's value
      */
@@ -68,8 +58,6 @@ class Card
     /**
      * Set the Card's value
      *
-     * @since  {nextRelease}
-     *
      * @param  int $value The card's value
      *
      * @return Card
@@ -77,13 +65,12 @@ class Card
     public function setValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
 
     /**
      * Get the Card's Suit
-     *
-     * @since  {nextRelease}
      *
      * @return string The Card's Suit
      */
@@ -95,8 +82,6 @@ class Card
     /**
      * Set the Card's Suit
      *
-     * @since  {nextRelease}
-     *
      * @param  Suit $suit The Card's Suit
      *
      * @return Card
@@ -104,6 +89,7 @@ class Card
     public function setSuit(Suit $suit)
     {
         $this->suit = $suit;
+
         return $this;
     }
 }

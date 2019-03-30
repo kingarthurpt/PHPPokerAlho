@@ -3,132 +3,95 @@
 namespace Tests;
 
 use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuit;
 use TexasHoldemBundle\Gameplay\Cards\Card;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class CardTest extends BaseTestCase
 {
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructWithBothArgs()
     {
-        $suit = new Suit('hearts');
+        $suit = new Suit(StandardSuit::HEARTS);
         $card = new Card(2, $suit);
-        $this->assertEquals($suit, $this->getPropertyValue($card, 'suit'));
-        $this->assertEquals(2, $this->getPropertyValue($card, 'value'));
+        $this->assertSame($suit, $card->getSuit());
+        $this->assertSame(2, $card->getValue());
 
         return $card;
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructOnlyWithSuit()
     {
-        $suit = new Suit('hearts');
+        $suit = new Suit(StandardSuit::HEARTS);
         $card = new Card(null, $suit);
-        $this->assertEquals($suit, $this->getPropertyValue($card, 'suit'));
-        $this->assertEquals(null, $this->getPropertyValue($card, 'value'));
+        $this->assertSame($suit, $card->getSuit());
+        $this->assertSame(null, $card->getValue());
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructOnlyWithValue()
     {
         $card = new Card(3, null);
-        $this->assertEquals(null, $this->getPropertyValue($card, 'suit'));
-        $this->assertEquals(3, $this->getPropertyValue($card, 'value'));
+        $this->assertSame(null, $card->getSuit());
+        $this->assertSame(3, $card->getValue());
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::__toString
-     *
-     * @since  nextRelease
-     */
     public function testToString()
     {
-        $card = new Card(10, new Suit('Clubs', '♣'));
-        $this->assertEquals('[10♣]', $card);
+        $value = 10;
+        $suit = '♣';
+        $expected = sprintf('[%s%s]', $value, $suit);
+        $card = new Card($value, new Suit(StandardSuit::CLUBS, $suit));
+        $this->assertEquals($expected, $card);
     }
 
     /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::getValue
-     *
      * @depends testConstructWithBothArgs
-     *
-     * @since  nextRelease
      *
      * @param  Card $card The Card
      */
     public function testGetValue(Card $card)
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->getPropertyValue($card, 'value'),
             $card->getValue()
         );
     }
 
     /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::setValue
-     *
      * @depends testConstructWithBothArgs
-     *
-     * @since  nextRelease
      *
      * @param  Card $card The Card
      */
     public function testSetValue(Card $card)
     {
-        $card->setValue("Clubs");
-        $this->assertEquals(
-            "Clubs",
+        $card->setValue(StandardSuit::CLUBS);
+        $this->assertSame(
+            StandardSuit::CLUBS,
             $this->getPropertyValue($card, 'value')
         );
     }
 
     /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::getSuit
-     *
      * @depends testConstructWithBothArgs
-     *
-     * @since  nextRelease
      *
      * @param  Card $card The Card
      */
     public function testGetSuit(Card $card)
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->getPropertyValue($card, 'suit'),
             $card->getSuit()
         );
     }
 
     /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Card::setSuit
-     *
      * @depends testConstructWithBothArgs
-     *
-     * @since  nextRelease
      *
      * @param  Card $card The Card
      */
     public function testSetSuit(Card $card)
     {
-        $suit = new Suit("Clubs");
+        $suit = new Suit(StandardSuit::CLUBS);
         $card->setSuit($suit);
-        $this->assertEquals(
+        $this->assertSame(
             $suit,
             $this->getPropertyValue($card, 'suit')
         );
