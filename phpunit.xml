@@ -2,9 +2,7 @@
 <phpunit
     colors="true"
     bootstrap="vendor/autoload.php"
-    processIsolation="true"
-    coverage-html="coverage"
-    coverage-text="coverage/coverage.txt">
+    processIsolation="true">
     <testsuites>
         <testsuite name="PHPPokerAlho Test Suite">
             <directory
@@ -19,9 +17,8 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="coverage" lowUpperBound="35"
-           highLowerBound="70"/>
-        <log type="coverage-text" target="coverage/coverage.txt"
-            showUncoveredFiles="true"/>
+        <log type="coverage-html" target="coverage" lowUpperBound="50" highLowerBound="75" />
+        <log type="coverage-text" target="coverage/coverage.txt" showUncoveredFiles="true" />
+        <log type="coverage-clover" target="coverage/coverage.xml" showUncoveredFiles="true" />
     </logging>
 </phpunit>
