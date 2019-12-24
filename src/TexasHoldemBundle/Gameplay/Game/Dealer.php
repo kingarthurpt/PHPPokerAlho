@@ -245,28 +245,18 @@ class Dealer extends TableObserver
 
     public function moveButton()
     {
-        $table = $this->getTable();
-        if (empty($table)) {
-            return false;
-        }
-
         $players = $this->getTable()->getPlayers();
         if (count($players) <= 1) {
             return false;
         }
 
-        $playerWithButton = 0;
-        foreach ($players as $seat => $player) {
-            if ($player->hasButton()) {
-                $playerWithButton = $seat;
-                break;
-            }
-        }
+        $playerWithButton = $this->getTable()->getSeatOfPlayerWithButton();
 
         $nextSeat = $this->getNextPlayerSeat($playerWithButton);
         $nextPlayer = $players[$nextSeat];
         $players[$playerWithButton]->setButton(false);
         $nextPlayer->setButton(true);
+
         return $nextSeat;
     }
 

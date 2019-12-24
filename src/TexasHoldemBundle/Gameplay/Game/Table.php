@@ -54,20 +54,6 @@ class Table extends TableSubject
     private $muck = null;
 
     /**
-     * The main pot
-     *
-     * @var Stack
-     */
-    private $pot = 0;
-
-    /**
-     * The Table's Logger
-     *
-     * @var TableEventLogger
-     */
-    private $logger = null;
-
-    /**
      * Array of Stacks.
      * Each Stack has the same key as the corresponding Player in $this->players
      *
@@ -207,7 +193,7 @@ class Table extends TableSubject
     public function addPlayer(Player $player)
     {
         // Table is full
-        if ($this->getPlayerCount() == $this->seats) {
+        if (count($this->getPlayers()) == $this->seats) {
             return null;
         }
 
@@ -250,7 +236,7 @@ class Table extends TableSubject
      */
     public function removePlayer(Player $player)
     {
-        if ($this->getPlayerCount() == 0) {
+        if (count($this->getPlayers()) == 0) {
             return false;
         }
 
@@ -282,18 +268,6 @@ class Table extends TableSubject
     public function getPlayers()
     {
         return $this->players;
-    }
-
-    /**
-     * Gets the number of seated Players
-     *
-     * @since  {nextRelease}
-     *
-     * @return int The number of seated Players
-     */
-    public function getPlayerCount()
-    {
-        return count($this->players);
     }
 
     /**
@@ -350,35 +324,6 @@ class Table extends TableSubject
         return $this;
     }
 
-    /**
-     * Sets the Table's logger
-     *
-     * @since  {nextRelease}
-     *
-     * @param  TableEventLogger $logger
-     */
-    public function setLogger(TableEventLogger $logger)
-    {
-        $this->logger = $logger;
-    }
-
-    /**
-     * Notifies all TableObservers about changes in the TableSubject
-     *
-     * @since  {nextRelease}
-     *
-     * @param TableEvent $event The Event being fired
-     *
-     * @return bool TRUE on success, FALSE on failure
-     */
-    public function notify(TableEvent $event)
-    {
-        if (!is_null($this->logger)) {
-            $this->logger->info($event->getMessage());
-        }
-        parent::notify($event);
-    }
-
     public function setActiveHand(Hand $hand)
     {
         $this->activeHand = $hand;
@@ -397,7 +342,7 @@ class Table extends TableSubject
 
     public function getPlayerBets(Player $player)
     {
-        if ($this->getPlayerCount() == 0) {
+        if (count($this->getPlayers()) == 0) {
             return null;
         }
 
@@ -411,16 +356,20 @@ class Table extends TableSubject
     }
 
     /**
-     * Moves each Player's bets to the main pot
+     * Gets the index (seat number) of the player with the button
      *
-     * @since  {nextRelease}
+     * @return int
      */
-    public function moveToPot()
+    public function getSeatOfPlayerWithButton()
     {
-        foreach ($this->playersBets as $stack) {
-            $amount = $stack->getSize();
-            $this->pot += $amount;
-            $stack->sub($amount);
+        $playerWithButton = 0;
+        foreach ($this->getPlayers() as $seat => $player) {
+            if ($player->hasButton()) {
+                $playerWithButton = $seat;
+                break;
+            }
         }
+
+        return $playerWithButton;
     }
 }

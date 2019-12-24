@@ -3,3 +3,4 @@
 /coverage/
 /var/
 /vendor/
+.phpunit.result.cache
