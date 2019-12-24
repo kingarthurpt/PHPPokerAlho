@@ -17,6 +17,13 @@ abstract class TableSubject
     protected $observers = array();
 
     /**
+     * The Table's Logger
+     *
+     * @var TableEventLogger
+     */
+    protected $logger = null;
+
+    /**
      * Registers a TableObserver
      *
      * @since  {nextRelease}
@@ -67,6 +74,10 @@ abstract class TableSubject
      */
     public function notify(TableEvent $event)
     {
+        if (!is_null($this->logger)) {
+            $this->logger->info($event->getMessage());
+        }
+
         if (empty($this->observers)) {
             return false;
         }
@@ -76,5 +87,15 @@ abstract class TableSubject
         }
 
         return true;
+    }
+
+    /**
+     * Sets the Table's logger
+     *
+     * @param  TableEventLogger $logger
+     */
+    public function setLogger(TableEventLogger $logger)
+    {
+        $this->logger = $logger;
     }
 }

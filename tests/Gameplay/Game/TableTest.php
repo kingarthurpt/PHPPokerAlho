@@ -210,7 +210,7 @@ class TableTest extends \Tests\BaseTestCase
         $table->setSeatsCount(10);
 
         $this->assertInstanceOf(Table::class, $table->addPlayer($player));
-        $this->assertEquals(1, $table->getPlayerCount());
+        $this->assertEquals(1, count($table->getPlayers()));
     }
 
     /**
@@ -230,10 +230,9 @@ class TableTest extends \Tests\BaseTestCase
         $table->addPlayer($player1);
         $this->assertFalse($table->removePlayer($player2));
 
-        $this->assertEquals(1, $table->getPlayerCount());
+        $this->assertEquals(1, count($table->getPlayers()));
         $this->assertTrue($table->removePlayer($player1));
-        $this->assertEquals(0, $table->getPlayerCount());
-
+        $this->assertEquals(0, count($table->getPlayers()));
     }
 
     /**
@@ -247,23 +246,6 @@ class TableTest extends \Tests\BaseTestCase
         $player = new Player("Player1");
         $this->assertInstanceOf(Table::class, $table->addPlayer($player));
         $this->assertNull($table->addPlayer($player));
-    }
-
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Table::getPlayerCount
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Table $table The Table
-     */
-    public function testGetPlayerCount(Table $table)
-    {
-        $this->assertEquals(
-            count($this->getPropertyValue($table, 'players')),
-            $table->getPlayerCount()
-        );
     }
 
     /**
