@@ -54,13 +54,6 @@ class Table extends TableSubject
     private $muck = null;
 
     /**
-     * The main pot
-     *
-     * @var Stack
-     */
-    private $pot = 0;
-
-    /**
      * Array of Stacks.
      * Each Stack has the same key as the corresponding Player in $this->players
      *
