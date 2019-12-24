@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Cards;
 
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
@@ -10,7 +10,7 @@ use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class StandardDeckTest extends BaseTestCase
+class StandardDeckTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\Gameplay\Cards\StandardDeck::__construct

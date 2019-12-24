@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Game\TableEvent;
 
@@ -9,7 +9,7 @@ use TexasHoldemBundle\Gameplay\Game\TableEvent;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class TableEventTest extends BaseTestCase
+class TableEventTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\Gameplay\Game\TableEvent::__construct

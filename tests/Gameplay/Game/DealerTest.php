@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Cards\Deck;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
@@ -16,7 +16,7 @@ use TexasHoldemBundle\Gameplay\Game\TableEvent;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class DealerTest extends BaseTestCase
+class DealerTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::__construct

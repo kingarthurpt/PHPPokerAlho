@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\DesignPatterns;
 
 use TexasHoldemBundle\DesignPatterns\Collection;
 use TexasHoldemBundle\Gameplay\Cards\Suit;
@@ -10,7 +10,7 @@ use TexasHoldemBundle\Gameplay\Cards\Suit;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class CollectionTest extends BaseTestCase
+class CollectionTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\DesignPatterns\Collection::__construct

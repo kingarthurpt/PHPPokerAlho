@@ -24,7 +24,9 @@
     "require": {
         "php": ">=7",
         "symfony/console": "*",
-        "symfony/framework-bundle": "^5.0"
+        "symfony/framework-bundle": "^5.0",
+        "doctrine/annotations": "^1.8",
+        "symfony/yaml": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
