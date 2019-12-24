@@ -64,5 +64,7 @@ class HoleCardsCommand extends Command
                 . $hand->toCliOutput()
             );
         }
+
+        return 0;
     }
 }
