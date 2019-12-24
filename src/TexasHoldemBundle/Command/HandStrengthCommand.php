@@ -11,7 +11,8 @@ use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
-use TexasHoldemBundle\Gameplay\Rules\HandEvaluator;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
+// use TexasHoldemBundle\Gameplay\Rules\HandEvaluator;
 
 class HandStrengthCommand extends Command
 {
@@ -41,7 +42,7 @@ class HandStrengthCommand extends Command
         unset($input);
 
         $table = new Table("Table1", 1);
-        $dealer = new Dealer(new StandardDeck());
+        $dealer = new Dealer(new StandardDeck(new StandardSuitFactory()), $table);
         $dealer->setTable($table);
 
         $player = new Player("Player1");
@@ -64,12 +65,14 @@ class HandStrengthCommand extends Command
         );
 
 
-        $calculator = new HandEvaluator();
+        // $calculator = new HandEvaluator();
         $cards = new CardCollection();
         $cards->mergeCards($player->getHand());
         $cards->mergeCards($table->getCommunityCards());
 
-        $handStrength = $calculator->getStrength($cards);
-        $output->writeln("Hand Strength: " . $handStrength->__toString());
+        // $handStrength = $calculator->getStrength($cards);
+        // $output->writeln("Hand Strength: " . $handStrength->__toString());
+
+        return 0;
     }
 }

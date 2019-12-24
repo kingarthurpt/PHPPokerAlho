@@ -16,6 +16,7 @@ use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Game\Stack;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 
 use TexasHoldemBundle\Controller\HumanPlayerConsoleController;
 
@@ -86,6 +87,8 @@ class PlayHandCommand extends Command
         $this->output = $output;
 
         $this->dealNewHand();
+
+        return 0;
     }
 
     /**
@@ -104,7 +107,7 @@ class PlayHandCommand extends Command
         $table = new Table("Test Table", 10);
         $table->setLogger($logger);
 
-        $dealer = new Dealer(new StandardDeck());
+        $dealer = new Dealer(new StandardDeck(new StandardSuitFactory()), $table);
         $dealer->setTable($table);
 
         $player1 = new Player("Player1");
