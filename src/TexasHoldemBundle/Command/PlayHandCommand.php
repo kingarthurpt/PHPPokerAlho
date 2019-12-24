@@ -85,6 +85,14 @@ class PlayHandCommand extends Command
         $this->input = $input;
         $this->output = $output;
 
+        $this->dealNewHand();
+    }
+
+    /**
+     * Creates all needed objects and deals a hand
+     */
+    private function dealNewHand()
+    {
         $logger = new TableEventLogger(new ConsoleLogger(
             $output,
             array(
