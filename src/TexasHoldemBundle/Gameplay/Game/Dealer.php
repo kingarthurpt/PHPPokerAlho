@@ -255,18 +255,13 @@ class Dealer extends TableObserver
             return false;
         }
 
-        $playerWithButton = 0;
-        foreach ($players as $seat => $player) {
-            if ($player->hasButton()) {
-                $playerWithButton = $seat;
-                break;
-            }
-        }
+        $playerWithButton = $this->getTable()->getSeatOfPlayerWithButton();
 
         $nextSeat = $this->getNextPlayerSeat($playerWithButton);
         $nextPlayer = $players[$nextSeat];
         $players[$playerWithButton]->setButton(false);
         $nextPlayer->setButton(true);
+
         return $nextSeat;
     }
 

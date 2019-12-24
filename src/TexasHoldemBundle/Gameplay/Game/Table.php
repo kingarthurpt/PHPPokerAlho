@@ -423,4 +423,22 @@ class Table extends TableSubject
             $stack->sub($amount);
         }
     }
+
+    /**
+     * Gets the index (seat number) of the player with the button
+     *
+     * @return int
+     */
+    public function getSeatOfPlayerWithButton()
+    {
+        $playerWithButton = 0;
+        foreach ($this->getPlayers() as $seat => $player) {
+            if ($player->hasButton()) {
+                $playerWithButton = $seat;
+                break;
+            }
+        }
+
+        return $playerWithButton;
+    }
 }
