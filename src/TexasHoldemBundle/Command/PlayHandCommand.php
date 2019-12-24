@@ -94,7 +94,7 @@ class PlayHandCommand extends Command
     private function dealNewHand()
     {
         $logger = new TableEventLogger(new ConsoleLogger(
-            $output,
+            $this->output,
             array(
                 LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL,
                 LogLevel::INFO   => OutputInterface::VERBOSITY_NORMAL,
