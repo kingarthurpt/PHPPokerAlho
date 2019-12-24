@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Cards;
 
 use TexasHoldemBundle\Gameplay\Cards\Suit;
 
@@ -9,7 +9,7 @@ use TexasHoldemBundle\Gameplay\Cards\Suit;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class SuitTest extends BaseTestCase
+class SuitTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct

@@ -10,21 +10,19 @@
     ],
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "": "src/",
+            "Tests\\": "tests/"
         },
         "classmap": [
             "app/AppKernel.php"
         ]
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
     "require": {
         "php": ">=7",
         "symfony/console": "*",
-        "symfony/framework-bundle": "^5.0"
+        "symfony/framework-bundle": "^5.0",
+        "doctrine/annotations": "^1.8",
+        "symfony/yaml": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*"

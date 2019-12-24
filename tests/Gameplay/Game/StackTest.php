@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Game\Stack;
 
@@ -9,7 +9,7 @@ use TexasHoldemBundle\Gameplay\Game\Stack;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class StackTest extends BaseTestCase
+class StackTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\Gameplay\Game\Stack::__construct

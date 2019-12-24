@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
     colors="true"
-    bootstrap="vendor/autoload.php"
+    bootstrap="tests/bootstrap.php"
     processIsolation="true">
     <testsuites>
         <testsuite name="PHPPokerAlho Test Suite">
@@ -17,8 +17,8 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="coverage" lowUpperBound="50" highLowerBound="75" />
-        <log type="coverage-text" target="coverage/coverage.txt" showUncoveredFiles="true" />
-        <log type="coverage-clover" target="coverage/coverage.xml" showUncoveredFiles="true" />
+        <log type="coverage-html" target="build/logs" lowUpperBound="50" highLowerBound="75" />
+        <log type="coverage-text" target="build/logs/coverage.txt" showUncoveredFiles="true" />
+        <log type="coverage-clover" target="build/logs/clover.xml" showUncoveredFiles="true" />
     </logging>
 </phpunit>

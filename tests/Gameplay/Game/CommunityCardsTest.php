@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Game\CommunityCards;
 use TexasHoldemBundle\Gameplay\Cards\Card;
@@ -12,7 +12,7 @@ use TexasHoldemBundle\Gameplay\Cards\CardCollection;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class CommunityCardsTest extends BaseTestCase
+class CommunityCardsTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getFlop

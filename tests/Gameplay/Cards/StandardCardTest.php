@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Cards;
 
 use TexasHoldemBundle\Gameplay\Cards\Suit;
 use TexasHoldemBundle\Gameplay\Cards\StandardCard;
@@ -10,7 +10,7 @@ use TexasHoldemBundle\Gameplay\Cards\StandardCard;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class StandardCardTest extends BaseTestCase
+class StandardCardTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::__toString

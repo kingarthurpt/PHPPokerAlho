@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Game\Muck;
 
@@ -9,7 +9,7 @@ use TexasHoldemBundle\Gameplay\Game\Muck;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class MuckTest extends BaseTestCase
+class MuckTest extends \Tests\BaseTestCase
 {
     /**
      * @covers \TexasHoldemBundle\Gameplay\Game\Muck::getCards
