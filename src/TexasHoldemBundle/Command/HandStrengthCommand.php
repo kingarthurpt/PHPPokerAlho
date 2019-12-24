@@ -12,7 +12,6 @@ use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
-// use TexasHoldemBundle\Gameplay\Rules\HandEvaluator;
 
 class HandStrengthCommand extends Command
 {
