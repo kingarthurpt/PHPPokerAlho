@@ -17,11 +17,6 @@
             "app/AppKernel.php"
         ]
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
     "require": {
         "php": ">=7",
         "symfony/console": "*",
