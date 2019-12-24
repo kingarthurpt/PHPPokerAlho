@@ -6,10 +6,10 @@ use TexasHoldemBundle\Gameplay\Cards\Deck;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 use TexasHoldemBundle\Gameplay\Game\Dealer;
-use TexasHoldemBundle\Gameplay\Game\Table;
-use TexasHoldemBundle\Gameplay\Game\TableFactory;
 use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\Table;
 use TexasHoldemBundle\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\TableFactory;
 
 /**
  * @since  {nextRelease}
@@ -27,9 +27,9 @@ class DealerTest extends \Tests\BaseTestCase
     {
         $suitFactory = new StandardSuitFactory();
         $deck = new StandardDeck($suitFactory);
-        $table = new Table("Table1", 10);
+        $table = new Table('Table1', 10);
         $dealer = new Dealer($deck, $table);
-        $this->assertEquals($deck, $this->getPropertyValue($dealer, 'deck'));
+        $this->assertSame($deck, $this->getPropertyValue($dealer, 'deck'));
 
         return $dealer;
     }
@@ -41,11 +41,11 @@ class DealerTest extends \Tests\BaseTestCase
      *
      * @since  nextRelease
      *
-     * @param  Dealer $dealer The Dealer
+     * @param Dealer $dealer The Dealer
      */
     public function testGetDeck(Dealer $dealer)
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->getPropertyValue($dealer, 'deck'),
             $dealer->getDeck()
         );
@@ -58,13 +58,13 @@ class DealerTest extends \Tests\BaseTestCase
      *
      * @since  nextRelease
      *
-     * @param  Dealer $dealer The Dealer
+     * @param Dealer $dealer The Dealer
      */
     public function testSetDeck(Dealer $dealer)
     {
         $deck = new Deck();
         $dealer->setDeck($deck);
-        $this->assertEquals(
+        $this->assertSame(
             $deck,
             $this->getPropertyValue($dealer, 'deck')
         );
@@ -77,11 +77,11 @@ class DealerTest extends \Tests\BaseTestCase
      *
      * @since  nextRelease
      *
-     * @param  Dealer $dealer The Dealer
+     * @param Dealer $dealer The Dealer
      */
     public function testGetTable(Dealer $dealer)
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->getPropertyValue($dealer, 'table'),
             $dealer->getTable()
         );
@@ -94,13 +94,13 @@ class DealerTest extends \Tests\BaseTestCase
      *
      * @since  nextRelease
      *
-     * @param  Dealer $dealer The Dealer
+     * @param Dealer $dealer The Dealer
      */
     public function testSetTable(Dealer $dealer)
     {
-        $table = new Table("Table2");
+        $table = new Table('Table2');
         $dealer->setTable($table);
-        $this->assertEquals(
+        $this->assertSame(
             $table,
             $this->getPropertyValue($dealer, 'table')
         );
@@ -116,8 +116,8 @@ class DealerTest extends \Tests\BaseTestCase
         $dealer = $this->getDealer();
         $table = $dealer->getTable();
 
-        $player1 = new Player("Player1");
-        $player2 = new Player("Player2");
+        $player1 = new Player('Player1');
+        $player2 = new Player('Player2');
         $table->addPlayer($player1)->addPlayer($player2);
 
         $this->assertEmpty($player1->getHand());
@@ -139,12 +139,12 @@ class DealerTest extends \Tests\BaseTestCase
      *
      * @since  nextRelease
      *
-     * @param  Dealer $dealer The Dealer
+     * @param Dealer $dealer The Dealer
      */
     public function testUpdate(Dealer $dealer)
     {
-        $table = new Table("Table1", 10);
-        $event = new TableEvent(1, "some message");
+        $table = new Table('Table1', 10);
+        $event = new TableEvent(1, 'some message');
         $this->assertTrue($dealer->update($table, $event));
     }
 
@@ -155,19 +155,7 @@ class DealerTest extends \Tests\BaseTestCase
      */
     public function testDealFlop()
     {
-        $dealer = $this->getDealer();
-        $table = $dealer->getTable();
-
-        $muckSize = $table->getMuck()->getSize();
-        $communityCardsSize = $table->getCommunityCards()->getSize();
-
-        $this->assertTrue($dealer->dealFlop());
-
-        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
-        $this->assertEquals(
-            $communityCardsSize + 3,
-            $table->getCommunityCards()->getSize()
-        );
+        $this->doTestDealCommunityCards('dealFlop', 3);
     }
 
     /**
@@ -177,19 +165,7 @@ class DealerTest extends \Tests\BaseTestCase
      */
     public function testDealTurn()
     {
-        $dealer = $this->getDealer();
-        $table = $dealer->getTable();
-
-        $muckSize = $table->getMuck()->getSize();
-        $communityCardsSize = $table->getCommunityCards()->getSize();
-
-        $this->assertTrue($dealer->dealTurn());
-
-        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
-        $this->assertEquals(
-            $communityCardsSize + 1,
-            $table->getCommunityCards()->getSize()
-        );
+        $this->doTestDealCommunityCards('dealTurn', 1);
     }
 
     /**
@@ -199,19 +175,7 @@ class DealerTest extends \Tests\BaseTestCase
      */
     public function testDealRiver()
     {
-        $dealer = $this->getDealer();
-        $table = $dealer->getTable();
-
-        $muckSize = $table->getMuck()->getSize();
-        $communityCardsSize = $table->getCommunityCards()->getSize();
-
-        $this->assertTrue($dealer->dealRiver());
-
-        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
-        $this->assertEquals(
-            $communityCardsSize + 1,
-            $table->getCommunityCards()->getSize()
-        );
+        $this->doTestDealCommunityCards('dealRiver', 1);
     }
 
     /**
@@ -227,14 +191,14 @@ class DealerTest extends \Tests\BaseTestCase
         $this->assertFalse($dealer->moveButton());
 
         // $dealer->setDeck(new StandardDeck());
-        $table = new Table("Table1", 6);
+        $table = new Table('Table1', 6);
         $dealer->setTable($table);
         $this->assertFalse($dealer->moveButton());
 
-        $player1 = new Player("p1");
-        $player2 = new Player("p2");
-        $player3 = new Player("p3");
-        $player4 = new Player("p4");
+        $player1 = new Player('p1');
+        $player2 = new Player('p2');
+        $player3 = new Player('p3');
+        $player4 = new Player('p4');
         $table
             ->addPlayer($player1)
             ->addPlayer($player2)
@@ -242,13 +206,36 @@ class DealerTest extends \Tests\BaseTestCase
             ->addPlayer($player4);
 
         $this->assertTrue($player1->hasButton());
-        $this->assertEquals($player2->getSeat(), $dealer->moveButton());
+        $this->assertSame($player2->getSeat(), $dealer->moveButton());
         $this->assertFalse($player1->hasButton());
         $this->assertTrue($player2->hasButton());
     }
 
     /**
-     * Creates a Dealer
+     * Tests the dealFlop, dealTurn and dealRiver functions
+     *
+     * @param string $dealerFunction
+     * @param int    $cardSize
+     */
+    private function doTestDealCommunityCards($dealerFunction, $cardSize)
+    {
+        $dealer = $this->getDealer();
+        $table = $dealer->getTable();
+
+        $muckSize = $table->getMuck()->getSize();
+        $communityCardsSize = $table->getCommunityCards()->getSize();
+
+        $this->assertTrue($dealer->$dealerFunction());
+
+        $this->assertSame($muckSize + 1, $table->getMuck()->getSize());
+        $this->assertSame(
+            $communityCardsSize + $cardSize,
+            $table->getCommunityCards()->getSize()
+        );
+    }
+
+    /**
+     * Creates a Dealer.
      *
      * @since  {nextRelease}
      *
@@ -257,7 +244,8 @@ class DealerTest extends \Tests\BaseTestCase
     private function getDealer()
     {
         $tableFactory = new TableFactory();
-        $table = $tableFactory->makeTableWithDealer("Table1", 6);
+        $table = $tableFactory->makeTableWithDealer('Table1', 6);
+
         return $table->getDealer();
     }
 }
