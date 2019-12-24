@@ -245,11 +245,6 @@ class Dealer extends TableObserver
 
     public function moveButton()
     {
-        $table = $this->getTable();
-        if (empty($table)) {
-            return false;
-        }
-
         $players = $this->getTable()->getPlayers();
         if (count($players) <= 1) {
             return false;

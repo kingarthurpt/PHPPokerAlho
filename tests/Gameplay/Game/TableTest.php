@@ -354,4 +354,16 @@ class TableTest extends \Tests\BaseTestCase
             $this->getPropertyValue($table, 'muck')
         );
     }
+
+    public function testGetSeatOfPlayerWithButton()
+    {
+        $player1 = new Player('player1');
+        $table = new Table('table1', 2);
+        $table->addPlayer($player1);
+
+        $this->assertSame(
+            0,
+            $table->getSeatOfPlayerWithButton()
+        );
+    }
 }
