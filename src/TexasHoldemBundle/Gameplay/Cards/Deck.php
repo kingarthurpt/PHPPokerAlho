@@ -3,18 +3,12 @@
 namespace TexasHoldemBundle\Gameplay\Cards;
 
 /**
- * A collection of Cards
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
+ * A collection of Cards.
  */
 class Deck extends CardCollection
 {
     /**
-     * Shuffle the Deck
-     *
-     * @since  {nextRelease}
+     * Shuffle the Deck.
      *
      * @return bool TRUE on success or FALSE on failure
      */
@@ -24,39 +18,37 @@ class Deck extends CardCollection
     }
 
     /**
-     * Draw a random Card from the Deck
-     *
-     * @since  {nextRelease}
+     * Draw a random Card from the Deck.
      *
      * @return Card|null A random Card or null if the Deck is empty
      */
     public function drawRandomCard()
     {
-        if ($this->getSize() == 0) {
+        if (0 == $this->getSize()) {
             return null;
         }
         $index = array_rand($this->items, 1);
+
         return $this->drawCardAt($index);
     }
 
     /**
-     * Draw a Card from the Deck
+     * Draw a Card from the Deck.
      *
-     * @since  {nextRelease}
-     *
-     * @param  Card $card The Card to be drawn from the Deck
+     * @param Card $card The Card to be drawn from the Deck
      *
      * @return bool TRUE in success, FALSE if there was an error
      */
     public function drawCard(Card $card)
     {
-        if ($this->getSize() == 0) {
+        if (0 == $this->getSize()) {
             return false;
         }
 
         foreach ($this->items as $key => $value) {
             if ($value == $card) {
                 $card = $this->drawCardAt($key);
+
                 return true;
             }
         }
@@ -65,11 +57,9 @@ class Deck extends CardCollection
     }
 
     /**
-     * Draw the first $amount of Cards
+     * Draw the first $amount of Cards.
      *
-     * @since  {nextRelease}
-     *
-     * @param  int $amount The Card's index
+     * @param int $amount The Card's index
      *
      * @return Card|CardCollection|null A Card if $amount = 1
      *                                  A CardCollection if $amout > 1
@@ -82,7 +72,7 @@ class Deck extends CardCollection
         }
 
         $result = array_splice($this->items, 0, $amount);
-        if ($amount == 1) {
+        if (1 == $amount) {
             return $result[0];
         }
 
@@ -90,11 +80,9 @@ class Deck extends CardCollection
     }
 
     /**
-     * Draw the Card at the given index
+     * Draw the Card at the given index.
      *
-     * @since  {nextRelease}
-     *
-     * @param  int $index The Card's index
+     * @param int $index The Card's index
      *
      * @return Card|null The Card at the given index or null in case of error
      */
@@ -105,6 +93,7 @@ class Deck extends CardCollection
         }
 
         $result = array_splice($this->items, $index, 1);
+
         return is_array($result) ? reset($result) : $result;
     }
 }

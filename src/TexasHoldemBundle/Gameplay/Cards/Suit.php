@@ -4,10 +4,6 @@ namespace TexasHoldemBundle\Gameplay\Cards;
 
 /**
  * A Suit with a name and a symbol
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
  */
 class Suit
 {
@@ -35,8 +31,6 @@ class Suit
     /**
      * Constructor
      *
-     * @since  {nextRelease}
-     *
      * @param  string $name The Suit's name
      * @param  string $symbol The Suit's symbol
      * @param  string $abbr The Suit's abbreviation
@@ -51,8 +45,6 @@ class Suit
     /**
      * Return a string representation of the Suit
      *
-     * @since  {nextRelease}
-     *
      * @return string The Card represented as a string
      */
     public function __toString()
@@ -63,8 +55,6 @@ class Suit
     /**
      * Get the Suit's name
      *
-     * @since  {nextRelease}
-     *
      * @return string The Suit's name
      */
     public function getName()
@@ -74,8 +64,6 @@ class Suit
 
     /**
      * Set the Suit's name
-     *
-     * @since  {nextRelease}
      *
      * @param  string $name The Suit's name
      *
@@ -90,8 +78,6 @@ class Suit
     /**
      * Get the Suit's symbol
      *
-     * @since  {nextRelease}
-     *
      * @return string The Suit's symbol
      */
     public function getSymbol()
@@ -101,8 +87,6 @@ class Suit
 
     /**
      * Set the Suit's symbol
-     *
-     * @since  {nextRelease}
      *
      * @param  string $symbol The Suit's symbol
      *
@@ -117,8 +101,6 @@ class Suit
     /**
      * Get the Suit's abbreviation
      *
-     * @since  {nextRelease}
-     *
      * @return string The Suit's abbreviation
      */
     public function getAbbreviation()
@@ -128,8 +110,6 @@ class Suit
 
     /**
      * Set the Suit's abbreviation
-     *
-     * @since  {nextRelease}
      *
      * @param  string $abbreviation The Suit's abbreviation
      *

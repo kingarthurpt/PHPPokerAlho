@@ -1,6 +1,6 @@
 <?php
 
-namespace TexasHoldemBundle\DesignPatterns;
+namespace TexasHoldemBundle\DataStructures;
 
 /**
  * @since  {nextRelease}

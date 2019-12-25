@@ -3,39 +3,35 @@
 namespace TexasHoldemBundle\Gameplay\Cards;
 
 /**
- * A Suit with a name and a symbol
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
+ * A Suit with a name and a symbol.
  */
 class StandardSuit extends Suit
 {
     /**
-     * Standard Suit Clubs ♣
+     * Standard Suit Clubs ♣.
      *
      * @var string
      */
-    const CLUBS = array("Clubs", '♣', 'c');
+    const CLUBS = ['Clubs', '♣', 'c'];
 
     /**
-     * Standard Suit Diamonds ♦
+     * Standard Suit Diamonds ♦.
      *
      * @var string
      */
-    const DIAMONDS = array("Diamonds", '♦', 'd');
+    const DIAMONDS = ['Diamonds', '♦', 'd'];
 
     /**
-     * Standard Suit Hearts ♥
+     * Standard Suit Hearts ♥.
      *
      * @var string
      */
-    const HEARTS = array("Hearts", '♥', 'h');
+    const HEARTS = ['Hearts', '♥', 'h'];
 
     /**
-     * Standard Suit Spades ♠
+     * Standard Suit Spades ♠.
      *
      * @var string
      */
-    const SPADES = array("Spades", '♠', 's');
+    const SPADES = ['Spades', '♠', 's'];
 }

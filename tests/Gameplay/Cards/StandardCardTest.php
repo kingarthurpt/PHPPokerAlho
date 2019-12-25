@@ -2,32 +2,17 @@
 
 namespace Tests\Gameplay\Cards;
 
-use TexasHoldemBundle\Gameplay\Cards\Suit;
 use TexasHoldemBundle\Gameplay\Cards\StandardCard;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class StandardCardTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::__toString
-     *
-     * @since  nextRelease
-     */
     public function testToString()
     {
         $card = new StandardCard(10, new Suit('Clubs', '♣'));
         $this->assertEquals('[T♣]', $card);
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::toCliOutput
-     *
-     * @since  nextRelease
-     */
     public function testToCliOutput()
     {
         $card = new StandardCard(10, new Suit('Clubs', '♣'));
@@ -43,11 +28,6 @@ class StandardCardTest extends \Tests\BaseTestCase
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::setValue
-     *
-     * @since  nextRelease
-     */
     public function testSetValue()
     {
         $card = new StandardCard();
@@ -62,11 +42,6 @@ class StandardCardTest extends \Tests\BaseTestCase
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::getFaceValue
-     *
-     * @since  nextRelease
-     */
     public function testGetFaceValue()
     {
         $card = new StandardCard(10);
@@ -88,11 +63,6 @@ class StandardCardTest extends \Tests\BaseTestCase
         $this->assertEquals('2', $card->getFaceValue());
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\StandardCard::setFaceValue
-     *
-     * @since  nextRelease
-     */
     public function testSetFaceValue()
     {
         $card = new StandardCard();

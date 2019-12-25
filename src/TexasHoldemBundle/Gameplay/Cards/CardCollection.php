@@ -2,48 +2,40 @@
 
 namespace TexasHoldemBundle\Gameplay\Cards;
 
-use TexasHoldemBundle\DesignPatterns\Collection;
+use TexasHoldemBundle\DataStructures\Collection;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class CardCollection extends Collection
 {
     /**
-     * Return a string representation of the CardCollection
-     *
-     * @since  {nextRelease}
+     * Return a string representation of the CardCollection.
      *
      * @return string The CardCollection represented as a string
      */
     public function __toString()
     {
         if (empty($this->items)) {
-            return "";
+            return '';
         }
 
-        $result = "";
+        $result = '';
         $count = count($this->items);
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $result .= $this->items[$i]->__toString();
         }
+
         return $result;
     }
 
     /**
-     * Return a string representation of the CardCollection, formated with CLI colors
-     *
-     * @since  {nextRelease}
+     * Return a string representation of the CardCollection, formated with CLI colors.
      *
      * @return string The CardCollection represented as a string
      */
     public function toCliOutput()
     {
-        $result = "";
+        $result = '';
         $count = count($this->items);
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             if (!$this->items[$i] instanceof StandardCard) {
                 return $this->__toString();
             }
@@ -55,9 +47,7 @@ class CardCollection extends Collection
     }
 
     /**
-     * Get the array of Cards
-     *
-     * @since  {nextRelease}
+     * Get the array of Cards.
      *
      * @return array The array of Cards
      */
@@ -67,11 +57,9 @@ class CardCollection extends Collection
     }
 
     /**
-     * Get the Card at a given index
+     * Get the Card at a given index.
      *
-     * @since  {nextRelease}
-     *
-     * @param  int $index The index
+     * @param int $index The index
      *
      * @return Card The Card at the given index
      */
@@ -81,11 +69,9 @@ class CardCollection extends Collection
     }
 
     /**
-     * Set the array of Cards
+     * Set the array of Cards.
      *
-     * @since  {nextRelease}
-     *
-     * @param  array $cards The collection of Cards
+     * @param array $cards The collection of Cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -93,22 +79,21 @@ class CardCollection extends Collection
     {
         $count = count($cards);
         // Each array element must be a Card
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             if (!$cards[$i] instanceof Card) {
                 return false;
             }
         }
 
         $this->setItems($cards);
+
         return true;
     }
 
     /**
-     * Add a Card to the CardCollection
+     * Add a Card to the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  Card $card The Card to be added to the CardCollection
+     * @param Card $card The Card to be added to the CardCollection
      */
     public function addCard(Card $card)
     {
@@ -120,11 +105,9 @@ class CardCollection extends Collection
     }
 
     /**
-     * Add an array of Cards to the CardCollection
+     * Add an array of Cards to the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  array $cards The Cards to add
+     * @param array $cards The Cards to add
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -144,11 +127,9 @@ class CardCollection extends Collection
     }
 
     /**
-     * Add an array of Cards to the CardCollection
+     * Add an array of Cards to the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards The CardCollection to add
+     * @param CardCollection $cards The CardCollection to add
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -158,9 +139,7 @@ class CardCollection extends Collection
     }
 
     /**
-     * Remove and get all Cards in the collection
-     *
-     * @since  {nextRelease}
+     * Remove and get all Cards in the collection.
      *
      * @return array The collection Cards
      */

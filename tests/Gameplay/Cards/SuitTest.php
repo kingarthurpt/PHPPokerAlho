@@ -4,18 +4,8 @@ namespace Tests\Gameplay\Cards;
 
 use TexasHoldemBundle\Gameplay\Cards\Suit;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class SuitTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstruct()
     {
         $suit = new Suit('hearts');
@@ -24,22 +14,12 @@ class SuitTest extends \Tests\BaseTestCase
         return $suit;
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructWithoutArgs()
     {
         $suit = new Suit();
         $this->assertEquals(null, $this->getPropertyValue($suit, 'name'));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructOnlyWithName()
     {
         $suit = new Suit('hearts');
@@ -47,11 +27,6 @@ class SuitTest extends \Tests\BaseTestCase
         $this->assertEquals(null, $this->getPropertyValue($suit, 'symbol'));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructOnlyWithSymbol()
     {
         $suit = new Suit(null, "♥");
@@ -59,11 +34,6 @@ class SuitTest extends \Tests\BaseTestCase
         $this->assertEquals("♥", $this->getPropertyValue($suit, 'symbol'));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::__toString
-     *
-     * @since  nextRelease
-     */
     public function testToString()
     {
         $suit = new Suit('Clubs', '♣');
@@ -74,8 +44,6 @@ class SuitTest extends \Tests\BaseTestCase
      * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::getName
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
@@ -91,8 +59,6 @@ class SuitTest extends \Tests\BaseTestCase
      * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setName
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
@@ -110,8 +76,6 @@ class SuitTest extends \Tests\BaseTestCase
      *
      * @depends testConstruct
      *
-     * @since  nextRelease
-     *
      * @param  Suit $suit The Suit
      */
     public function testGetSymbol(Suit $suit)
@@ -126,8 +90,6 @@ class SuitTest extends \Tests\BaseTestCase
      * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setSymbol
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
@@ -145,8 +107,6 @@ class SuitTest extends \Tests\BaseTestCase
      *
      * @depends testConstruct
      *
-     * @since  nextRelease
-     *
      * @param  Suit $suit The Suit
      */
     public function testGetAbbreviation(Suit $suit)
@@ -161,8 +121,6 @@ class SuitTest extends \Tests\BaseTestCase
      * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setAbbreviation
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
