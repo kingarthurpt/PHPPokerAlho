@@ -108,7 +108,7 @@ class PlayHandCommand extends Command
         $dealer->setTable($table);
 
         $player1 = new Player("Player1");
-        $player1->setController(new HumanPlayerConsoleController(
+        $player1->getPlayerActions()->setController(new HumanPlayerConsoleController(
             $this,
             "promptForAction",
             $player1

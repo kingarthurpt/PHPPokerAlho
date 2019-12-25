@@ -171,7 +171,7 @@ class Dealer extends TableObserver
 
         foreach ($players as $player) {
             $player->setHand($deck->drawFromTop(2));
-            $player->update(
+            $player->getPlayerActions()->update(
                 $table,
                 new TableEvent(TableEvent::PLAYER_RECEIVED_CARDS)
             );
