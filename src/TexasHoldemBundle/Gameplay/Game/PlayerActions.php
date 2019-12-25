@@ -26,7 +26,7 @@ class PlayerActions extends TableObserver
     private $player;
 
     /**
-     * The Player's controller
+     * The Player's controller.
      *
      * @var [type]
      */
@@ -98,10 +98,6 @@ class PlayerActions extends TableObserver
      */
     public function returnHand()
     {
-        if (empty($this->table)) {
-            return null;
-        }
-
         $hand = $this->player->getHand();
         $this->player->setHand(new CardCollection());
 
@@ -301,17 +297,18 @@ class PlayerActions extends TableObserver
     }
 
     /**
-     * Sets the Player's controller
+     * Sets the Player's controller.
      *
      * @since  {nextRelease}
      *
-     * @param  object $controller The controller
+     * @param object $controller The controller
      *
      * @return Player
      */
     public function setController($controller)
     {
         $this->controller = $controller;
+
         return $this;
     }
 
