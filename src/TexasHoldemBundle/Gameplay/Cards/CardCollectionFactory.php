@@ -2,7 +2,7 @@
 
 namespace TexasHoldemBundle\Gameplay\Cards;
 
-use TexasHoldemBundle\DesignPatterns\Collection;
+use TexasHoldemBundle\DataStructures\Collection;
 
 /**
  * @since  {nextRelease}
@@ -17,7 +17,7 @@ class CardCollectionFactory extends Collection
     private $cardFactory;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @since  {nextRelease}
      */
@@ -28,23 +28,23 @@ class CardCollectionFactory extends Collection
 
     /**
      * Create a CardCollection from StandardCard's string abbreviation
-     * Use a space to separate each card
+     * Use a space to separate each card.
      *
      * @since  {nextRelease}
      *
-     * @param  string $str The StandardCard's string abbreviation
+     * @param string $str The StandardCard's string abbreviation
      *
      * @return CardCollection|null
      */
     public function makeFromString(string $str)
     {
-        $cardsStr = explode(" ", $str);
+        $cardsStr = explode(' ', $str);
 
         return $this->createInstance($cardsStr);
     }
 
     /**
-     * Creates an instance
+     * Creates an instance.
      *
      * @param array String representation of each card
      *

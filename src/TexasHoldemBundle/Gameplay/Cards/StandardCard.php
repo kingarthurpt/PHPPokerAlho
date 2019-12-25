@@ -3,76 +3,72 @@
 namespace TexasHoldemBundle\Gameplay\Cards;
 
 /**
- * A standard Poker Card
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
+ * A standard Poker Card.
  */
 class StandardCard extends Card
 {
     /**
-     * @var integer
+     * @var int
      */
     const TWO = 2;
 
     /**
-     * @var integer
+     * @var int
      */
     const THREE = 2;
 
     /**
-     * @var integer
+     * @var int
      */
     const FOUR = 4;
 
     /**
-     * @var integer
+     * @var int
      */
     const FIVE = 5;
 
     /**
-     * @var integer
+     * @var int
      */
     const SIX = 6;
 
     /**
-     * @var integer
+     * @var int
      */
     const SEVEN = 7;
 
     /**
-     * @var integer
+     * @var int
      */
     const EIGHT = 8;
 
     /**
-     * @var integer
+     * @var int
      */
     const NINE = 9;
 
     /**
-     * @var integer
+     * @var int
      */
     const TEN = 10;
 
     /**
-     * @var integer
+     * @var int
      */
     const JACK = 11;
 
     /**
-     * @var integer
+     * @var int
      */
     const QUEEN = 12;
 
     /**
-     * @var integer
+     * @var int
      */
     const KING = 13;
 
     /**
-     * @var integer
+     * @var int
      */
     const ACE = 14;
 
@@ -88,21 +84,17 @@ class StandardCard extends Card
     ];
 
     /**
-     * Return a string representation of the Card
-     *
-     * @since  {nextRelease}
+     * Return a string representation of the Card.
      *
      * @return string The Card represented as a string
      */
     public function __toString()
     {
-        return '[' . $this->getFaceValue() . $this->suit->__toString() . ']';
+        return '['.$this->getFaceValue().$this->suit->__toString().']';
     }
 
     /**
-     * Return a string representation of the Card, formated with CLI colors
-     *
-     * @since  {nextRelease}
+     * Return a string representation of the Card, formated with CLI colors.
      *
      * @return string The Card represented as a string
      */
@@ -112,22 +104,21 @@ class StandardCard extends Card
         if ($symbol == StandardSuit::CLUBS[1]
             || $symbol == StandardSuit::SPADES[1]
         ) {
-            $suit = '<bg=white;fg=black>' . $this->suit . "</>";
+            $suit = '<bg=white;fg=black>'.$this->suit.'</>';
         } elseif ($symbol == StandardSuit::HEARTS[1]
             || $symbol == StandardSuit::DIAMONDS[1]
         ) {
-            $suit = '<bg=white;fg=red>' . $this->suit . "</>";
+            $suit = '<bg=white;fg=red>'.$this->suit.'</>';
         }
-        return '<bg=white;fg=black>[' . $this->getFaceValue() . $suit . ']</>';
+
+        return '<bg=white;fg=black>['.$this->getFaceValue().$suit.']</>';
     }
 
     /**
      * Set the Card's value.
-     * The value must be between 1 and 13
+     * The value must be between 1 and 13.
      *
-     * @since  {nextRelease}
-     *
-     * @param  int $value The card's value
+     * @param int $value The card's value
      *
      * @return Card|null Card on success, null on failure
      */
@@ -141,9 +132,7 @@ class StandardCard extends Card
     }
 
     /**
-     * Convert the Card's value to their corresponding face value
-     *
-     * @since  {nextRelease}
+     * Convert the Card's value to their corresponding face value.
      *
      * @return string The Card's face value
      */
@@ -155,11 +144,9 @@ class StandardCard extends Card
     }
 
     /**
-     * Set the Card value by their corresponding face value
+     * Set the Card value by their corresponding face value.
      *
-     * @since  {nextRelease}
-     *
-     * @param  string $value
+     * @param string $value
      */
     public function setFaceValue(string $value)
     {
