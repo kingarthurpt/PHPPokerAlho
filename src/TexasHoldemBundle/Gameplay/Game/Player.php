@@ -3,6 +3,7 @@
 namespace TexasHoldemBundle\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Game\PlayerActions;
 use TexasHoldemBundle\Gameplay\Game\PlayerHand;
 
 /**
@@ -10,7 +11,7 @@ use TexasHoldemBundle\Gameplay\Game\PlayerHand;
  *
  * @author Artur Alves <artur.ze.alves@gmail.com>
  */
-class Player extends TableObserver
+class Player
 {
     /**
      * The Players's name
@@ -34,13 +35,6 @@ class Player extends TableObserver
     private $button = false;
 
     /**
-     * The Table where the Player may be seated
-     *
-     * @var Table
-     */
-    private $table = null;
-
-    /**
      * The Player's chip stack
      *
      * @var Stack
@@ -48,18 +42,18 @@ class Player extends TableObserver
     private $stack = null;
 
     /**
-     * The Player's controller
-     *
-     * @var [type]
-     */
-    private $controller = null;
-
-    /**
      * The Player's seat number at a Table
      *
      * @var integer
      */
     private $seat = 0;
+
+    /**
+     * The Player's available actions
+     *
+     * @var PlayerActions
+     */
+    private $actions;
 
     /**
      * Constructor
@@ -71,6 +65,7 @@ class Player extends TableObserver
     public function __construct($name)
     {
         $this->setName($name);
+        $this->actions = new PlayerActions($this);
     }
 
     /**
@@ -140,26 +135,6 @@ class Player extends TableObserver
     }
 
     /**
-     * Get a notification about changes in the TableSubject
-     *
-     * @since  {nextRelease}
-     *
-     * @param  TableSubject $subject
-     * @param  TableEvent $event The Event being fired
-     */
-    public function update(TableSubject $subject, TableEvent $event)
-    {
-        if (is_null($this->table) && $subject instanceof Table) {
-            $this->table = $subject;
-        }
-
-        if (!is_null($this->controller)) {
-            $this->controller->handleEvent($event);
-        }
-        return true;
-    }
-
-    /**
      * Check if the Player has the button
      *
      * @since  {nextRelease}
@@ -199,8 +174,6 @@ class Player extends TableObserver
     /**
      * Set the Player's Stack
      *
-     * @since  {nextRelease}
-     *
      * @param  Stack $stack The Players's Stack
      *
      * @return Player
@@ -208,16 +181,6 @@ class Player extends TableObserver
     public function setStack(Stack $stack)
     {
         $this->stack = $stack;
-
-        if (empty($this->table)) {
-            return null;
-        }
-
-        $this->table->notify(new TableEvent(
-            TableEvent::PLAYER_ADD_CHIPS,
-            "$this->name added ".$stack->getSize()." chips to his stack"
-        ));
-
         return $this;
     }
 
@@ -233,21 +196,6 @@ class Player extends TableObserver
         $hand = $this->getHand();
         $this->hand = null;
         return $hand;
-    }
-
-    /**
-     * Sets the Player's controller
-     *
-     * @since  {nextRelease}
-     *
-     * @param  object $controller The controller
-     *
-     * @return Player
-     */
-    public function setController($controller)
-    {
-        $this->controller = $controller;
-        return $this;
     }
 
     /**
@@ -278,210 +226,28 @@ class Player extends TableObserver
     }
 
     /**
-     * Places the small blind
+     * Perform a PlayerAction
      *
-     * @since  {nextRelease}
+     * @param string $actionName
      *
-     * @param  float $amount The small blind amount
+     * @return mixed|null
      */
-    public function paySmallBlind(float $amount)
+    public function doAction($actionName)
     {
-        return $this->placeBet($amount, new TableEvent(
-            TableEvent::PLAYER_PAID_SMALL_BLIND,
-            "$this->name placed the small blind ($amount)"
-        ));
+        if (\method_exists(!$this->actions, $actionName)) {
+            return;
+        }
+
+        return $this->actions($actionName);
     }
 
     /**
-     * Places the big blind
+     * Return the PlayerActions
      *
-     * @since  {nextRelease}
-     *
-     * @param  float $amount The big blind amount
+     * @return PlayerActions
      */
-    public function payBigBlind(float $amount)
+    public function getPlayerActions()
     {
-        return $this->placeBet($amount, new TableEvent(
-            TableEvent::PLAYER_PAID_BIG_BLIND,
-            "$this->name placed the big blind ($amount)"
-        ));
-    }
-
-    /**
-     * Fold the Player's cards.
-     *
-     * @since  {nextRelease}
-     *
-     * @return bool TRUE on success, FALSE on failure
-     */
-    public function fold()
-    {
-        if (empty($this->table)) {
-            return false;
-        }
-
-        $handCards = $this->returnHand();
-        if (empty($handCards)) {
-            return false;
-        }
-        $this->table->getMuck()->merge($handCards);
-
-        $this->table->notify(new TableEvent(
-            TableEvent::PLAYER_ACTION_FOLD,
-            "$this->name folded"
-        ));
-
-        return true;
-    }
-
-    /**
-     * Executes the action Check
-     *
-     * @since  {nextRelease}
-     *
-     * @return bool TRUE on success, FALSE on failure
-     */
-    public function check()
-    {
-        if (empty($this->table)) {
-            return false;
-        }
-
-        if (empty($this->getHand())) {
-            return false;
-        }
-
-        $this->table->notify(new TableEvent(
-            TableEvent::PLAYER_ACTION_CHECK,
-            "$this->name checks"
-        ));
-
-        return true;
-    }
-
-    /**
-     * Executes the action Call
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     */
-    public function call(float $amount)
-    {
-        $event = new TableEvent(
-            TableEvent::PLAYER_ACTION_CALL,
-            "$this->name calls"
-        );
-
-        if (!$this->placeBet($amount, $event)) {
-            return $this->allIn();
-        }
-        return true;
-    }
-
-    /**
-     * Executes the action Raise
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     */
-    public function raise(float $amount)
-    {
-        $event = new TableEvent(
-            TableEvent::PLAYER_ACTION_RAISE,
-            "$this->name raises to $amount"
-        );
-
-        if (!$this->placeBet($amount, $event)) {
-            return $this->allIn();
-        }
-        return true;
-    }
-
-    /**
-     * Executes the action goes all-in
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     */
-    public function allIn()
-    {
-        $amount = $this->getStack()->getSize();
-        $event = new TableEvent(
-            TableEvent::PLAYER_ACTION_ALLIN,
-            "$this->name goes all-in ($amount)"
-        );
-
-        return $this->placeBet($amount, $event);
-    }
-
-    /**
-     * Shows the Player's Hand at showdown
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     */
-    public function showHand()
-    {
-        if (empty($this->table)) {
-            return null;
-        }
-
-        $hand = $this->getHand();
-        $this->table->notify(new TableEvent(
-            TableEvent::PLAYER_ACTION_SHOW_HAND,
-            "$this->name shows his hand $hand"
-        ));
-    }
-
-    /**
-     * Mucks the Player's Hand at showdown
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
-     */
-    public function muckHand()
-    {
-        if (empty($this->table)) {
-            return null;
-        }
-
-        $this->table->notify(new TableEvent(
-            TableEvent::PLAYER_ACTION_SHOW_HAND,
-            "$this->name mucks his hand"
-        ));
-    }
-
-    /**
-     * Places a given amount of chips on the Table and notifies the Table
-     *
-     * @since  {nextRelease}
-     *
-     * @param  float $amount The amount of chips to bet
-     * @param  TableEvent $event The TableEvent to be sent as a notification
-     *
-     * @return bool TRUE on success, FALSE on failure
-     */
-    private function placeBet(float $amount, TableEvent $event)
-    {
-        if (empty($this->table)
-            || empty($this->getHand())
-            || !$this->stack->sub($amount)
-        ) {
-            return false;
-        }
-
-        $bettigZone = $this->table->getPlayerBets($this);
-        if (is_null($bettigZone)) {
-            return false;
-        }
-
-        $bettigZone->add($amount);
-        $this->table->notify($event);
-        return true;
+        return $this->actions;
     }
 }

@@ -211,7 +211,7 @@ class Table extends TableSubject
         $player->setSeat(count($this->players));
 
         $this->players[] = $player;
-        $this->attach($player);
+        $this->attach($player->getPlayerActions());
 
         // Creates a new betting zone for the new Player
         $this->playersBets[] = new Stack(0);
