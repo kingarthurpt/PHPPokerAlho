@@ -187,10 +187,6 @@ class PlayerActions extends TableObserver
 
     /**
      * Executes the action Call.
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
      */
     public function call(float $amount)
     {
@@ -212,10 +208,6 @@ class PlayerActions extends TableObserver
 
     /**
      * Executes the action Raise.
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
      */
     public function raise(float $amount)
     {
@@ -237,10 +229,6 @@ class PlayerActions extends TableObserver
 
     /**
      * Executes the action goes all-in.
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
      */
     public function allIn()
     {
@@ -259,10 +247,6 @@ class PlayerActions extends TableObserver
 
     /**
      * Shows the Player's Hand at showdown.
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
      */
     public function showHand()
     {
@@ -279,10 +263,6 @@ class PlayerActions extends TableObserver
 
     /**
      * Mucks the Player's Hand at showdown.
-     *
-     * @since  {nextRelease}
-     *
-     * @author Artur Alves <artur.alves@gatewit.com>
      */
     public function muckHand()
     {
@@ -299,8 +279,6 @@ class PlayerActions extends TableObserver
     /**
      * Sets the Player's controller.
      *
-     * @since  {nextRelease}
-     *
      * @param object $controller The controller
      *
      * @return Player
@@ -314,8 +292,6 @@ class PlayerActions extends TableObserver
 
     /**
      * Places a given amount of chips on the Table and notifies the Table.
-     *
-     * @since  {nextRelease}
      *
      * @param float      $amount The amount of chips to bet
      * @param TableEvent $event  The TableEvent to be sent as a notification
@@ -331,12 +307,12 @@ class PlayerActions extends TableObserver
             return false;
         }
 
-        $bettigZone = $this->table->getPlayerBets($this);
-        if (is_null($bettigZone)) {
+        $bettingZone = $this->table->getPlayerBets($this);
+        if (is_null($bettingZone)) {
             return false;
         }
 
-        $bettigZone->add($amount);
+        $bettingZone->add($amount);
         $this->table->notify($event);
 
         return true;

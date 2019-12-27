@@ -6,10 +6,6 @@ use TexasHoldemBundle\Gameplay\Cards\Deck;
 
 /**
  * A Poker Dealer
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
  */
 class Dealer extends TableObserver
 {
@@ -30,8 +26,6 @@ class Dealer extends TableObserver
     /**
      * Constructor
      *
-     * @since  {nextRelease}
-     *
      * @param  Deck $deck A Deck of Cards
      */
     public function __construct(Deck $deck, Table $table)
@@ -45,8 +39,6 @@ class Dealer extends TableObserver
     /**
      * Get the Dealer's deck
      *
-     * @since  {nextRelease}
-     *
      * @return Deck|null The Dealer's deck
      */
     public function getDeck()
@@ -56,8 +48,6 @@ class Dealer extends TableObserver
 
     /**
      * Set the Dealer's deck
-     *
-     * @since  {nextRelease}
      *
      * @param  Deck $deck A Deck of Cards
      *
@@ -72,8 +62,6 @@ class Dealer extends TableObserver
     /**
      * Get the Dealer's Table
      *
-     * @since  {nextRelease}
-     *
      * @return Table|null The Dealer's Table
      */
     public function getTable()
@@ -83,8 +71,6 @@ class Dealer extends TableObserver
 
     /**
      * Set the Dealer's Table
-     *
-     * @since  {nextRelease}
      *
      * @param  Table $table A Table
      *
@@ -99,8 +85,6 @@ class Dealer extends TableObserver
 
     /**
      * Get a notification about changes in the TableSubject
-     *
-     * @since  {nextRelease}
      *
      * @param  TableSubject $subject
      * @param  TableEvent $event The Event being fired
@@ -129,12 +113,12 @@ class Dealer extends TableObserver
         $bigBlindSeat = $this->getNextPlayerSeat($smallBlindSeat);
         $nextPlayer = $this->getNextPlayerSeat($bigBlindSeat);
 
-        $players[$smallBlindSeat]->paySmallBlind(10);
-        $players[$bigBlindSeat]->payBigBlind(20);
+        $players[$smallBlindSeat]->getPlayerActions()->paySmallBlind(10);
+        $players[$bigBlindSeat]->getPlayerActions()->payBigBlind(20);
 
         $this->deal();
 
-        $players[$nextPlayer]->update(
+        $players[$nextPlayer]->getPlayerActions()->update(
             $this->getTable(),
             new TableEvent(
                 TableEvent::PLAYER_ACTION_NEEDED,
@@ -148,8 +132,6 @@ class Dealer extends TableObserver
     /**
      * Deal cards to each Player seated at the Table
      *
-     * @since  {nextRelease}
-     *
      * @return bool TRUE on success, FALSE on failure
      */
     public function deal()
@@ -160,7 +142,7 @@ class Dealer extends TableObserver
 
         // Return each player's hands back into the deck
         foreach ($players as $player) {
-            $hand = $player->returnHand();
+            $hand = $player->getPlayerActions()->returnHand();
             if (!is_null($hand)) {
                 $deck->addCards($hand->getCards());
             }
@@ -183,8 +165,6 @@ class Dealer extends TableObserver
     /**
      * Deal the flop
      *
-     * @since  {nextRelease}
-     *
      * @return bool TRUE on success, FALSE on failure
      */
     public function dealFlop()
@@ -204,8 +184,6 @@ class Dealer extends TableObserver
     /**
      * Deal the turn
      *
-     * @since  {nextRelease}
-     *
      * @return bool TRUE on success, FALSE on failure
      */
     public function dealTurn()
@@ -224,8 +202,6 @@ class Dealer extends TableObserver
 
     /**
      * Deal the river
-     *
-     * @since  {nextRelease}
      *
      * @return bool TRUE on success, FALSE on failure
      */

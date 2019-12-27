@@ -6,18 +6,11 @@ use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class TableFactory
 {
     /**
      * Create a CardCollection from StandardCard's string abbreviation
      * Use a space to separate each card
-     *
-     * @since  {nextRelease}
      *
      * @param  string $str The StandardCard's string abbreviation
      *

@@ -13,11 +13,6 @@ use TexasHoldemBundle\Gameplay\Cards\Suit;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class PlayerActionsTest extends \Tests\BaseTestCase
 {
     private $player;

@@ -2,52 +2,45 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
-use TexasHoldemBundle\Gameplay\Game\TableSubject;
-
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class Table extends TableSubject
 {
     /**
-     * The Table's name
+     * The Table's name.
      *
      * @var string
      */
     private $name;
 
     /**
-     * The Table's number of seats
+     * The Table's number of seats.
      *
      * @var array
      */
     private $seats = 0;
 
     /**
-     * The Table's Dealer
+     * The Table's Dealer.
      *
      * @var Dealer
      */
     private $dealer = null;
 
     /**
-     * Array of Players seated at the Table
+     * Array of Players seated at the Table.
      *
      * @var array
      */
-    private $players = array();
+    private $players = [];
 
     /**
-     * The community Cards
+     * The community Cards.
      *
      * @var CommunityCards
      */
     private $communityCards = null;
 
     /**
-     * Array of discarded Cards
+     * Array of discarded Cards.
      *
      * @var Muck
      */
@@ -55,26 +48,24 @@ class Table extends TableSubject
 
     /**
      * Array of Stacks.
-     * Each Stack has the same key as the corresponding Player in $this->players
+     * Each Stack has the same key as the corresponding Player in $this->players.
      *
      * @var array
      */
-    private $playersBets = array();
+    private $playersBets = [];
 
     /**
-     * The Hand which is currently being played at the Table
+     * The Hand which is currently being played at the Table.
      *
      * @var Hand
      */
     private $activeHand = null;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @since  {nextRelease}
-     *
-     * @param  string $name The Table's name
-     * @param  int $seats The Table's number of seats
+     * @param string $name  The Table's name
+     * @param int    $seats The Table's number of seats
      */
     public function __construct($name, $seats = null)
     {
@@ -89,9 +80,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Returns a string representation of the Table
-     *
-     * @since  {nextRelease}
+     * Returns a string representation of the Table.
      *
      * @return string The Card represented as a string
      */
@@ -101,9 +90,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Gets the Table's name
-     *
-     * @since  {nextRelease}
+     * Gets the Table's name.
      *
      * @return string The Table's name
      */
@@ -113,24 +100,21 @@ class Table extends TableSubject
     }
 
     /**
-     * Sets the Table's name
+     * Sets the Table's name.
      *
-     * @since  {nextRelease}
-     *
-     * @param  string $name The Table's name
+     * @param string $name The Table's name
      *
      * @return Table
      */
     public function setName(string $name)
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
-     * Gets the Table's number of seats
-     *
-     * @since  {nextRelease}
+     * Gets the Table's number of seats.
      *
      * @return string The Table's number of seats
      */
@@ -140,24 +124,21 @@ class Table extends TableSubject
     }
 
     /**
-     * Sets the Table's number of seats
+     * Sets the Table's number of seats.
      *
-     * @since  {nextRelease}
-     *
-     * @param  int $value The Table's number of seats
+     * @param int $value The Table's number of seats
      *
      * @return Table
      */
     public function setSeatsCount(int $value)
     {
         $this->seats = $value;
+
         return $this;
     }
 
     /**
-     * Gets the Table's Dealer
-     *
-     * @since  {nextRelease}
+     * Gets the Table's Dealer.
      *
      * @return Dealer The Table's Dealer
      */
@@ -167,26 +148,23 @@ class Table extends TableSubject
     }
 
     /**
-     * Sets the Table's Dealer
+     * Sets the Table's Dealer.
      *
-     * @since  {nextRelease}
-     *
-     * @param  Dealer $dealer The Table's Dealer
+     * @param Dealer $dealer The Table's Dealer
      *
      * @return Table
      */
     public function setDealer(Dealer $dealer)
     {
         $this->dealer = $dealer;
+
         return $this;
     }
 
     /**
-     * Adds a Player to the Table
+     * Adds a Player to the Table.
      *
-     * @since  {nextRelease}
-     *
-     * @param  Player $player A Player
+     * @param Player $player A Player
      *
      * @return Table
      */
@@ -219,38 +197,36 @@ class Table extends TableSubject
         // Notifies all TableObservers that a new Player has joined the Table
         $this->notify(new TableEvent(
             TableEvent::PLAYER_JOINS,
-            $player->getName() . " has joined the table."
+            $player->getName().' has joined the table.'
         ));
 
         return $this;
     }
 
     /**
-     * Removes a Player from the Table
+     * Removes a Player from the Table.
      *
-     * @since  {nextRelease}
-     *
-     * @param  Player $player The Player to be removed from the Table
+     * @param Player $player The Player to be removed from the Table
      *
      * @return bool TRUE on success, FALSE on failure
      */
     public function removePlayer(Player $player)
     {
-        if (count($this->getPlayers()) == 0) {
+        if (0 == count($this->getPlayers())) {
             return false;
         }
 
         foreach ($this->players as $key => $value) {
             if ($value == $player) {
-                unset($this->players[$key]);
+                unset($this->players[$key], $this->playersBets[$key]);
 
                 // Removes the Player's betting zone
-                unset($this->playersBets[$key]);
 
                 $this->notify(new TableEvent(
                     TableEvent::PLAYER_LEAVES,
-                    $player->getName() . " has left the table."
+                    $player->getName().' has left the table.'
                 ));
+
                 return true;
             }
         }
@@ -259,9 +235,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Gets the Players seated at the Table
-     *
-     * @since  {nextRelease}
+     * Gets the Players seated at the Table.
      *
      * @return array The seated Players
      */
@@ -271,9 +245,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Gets the Table's CommunityCards
-     *
-     * @since  {nextRelease}
+     * Gets the Table's CommunityCards.
      *
      * @return CommunityCards The Table's CommunityCards
      */
@@ -283,24 +255,21 @@ class Table extends TableSubject
     }
 
     /**
-     * Sets the Table's CommunityCards
+     * Sets the Table's CommunityCards.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CommunityCards $cards The Table's CommunityCards
+     * @param CommunityCards $cards The Table's CommunityCards
      *
      * @return Table
      */
     public function setCommunityCards(CommunityCards $cards)
     {
         $this->communityCards = $cards;
+
         return $this;
     }
 
     /**
-     * Gets the Table's Muck
-     *
-     * @since  {nextRelease}
+     * Gets the Table's Muck.
      *
      * @return CommunityCards The Table's Muck
      */
@@ -310,23 +279,23 @@ class Table extends TableSubject
     }
 
     /**
-     * Sets the Table's Muck
+     * Sets the Table's Muck.
      *
-     * @since  {nextRelease}
-     *
-     * @param  Muck $cards The Table's Muck
+     * @param Muck $cards The Table's Muck
      *
      * @return Table
      */
     public function setMuck(Muck $cards)
     {
         $this->muck = $cards;
+
         return $this;
     }
 
     public function setActiveHand(Hand $hand)
     {
         $this->activeHand = $hand;
+
         return $this;
     }
 
@@ -342,7 +311,7 @@ class Table extends TableSubject
 
     public function getPlayerBets(Player $player)
     {
-        if (count($this->getPlayers()) == 0) {
+        if (0 == count($this->getPlayers())) {
             return null;
         }
 
@@ -356,7 +325,7 @@ class Table extends TableSubject
     }
 
     /**
-     * Gets the index (seat number) of the player with the button
+     * Gets the index (seat number) of the player with the button.
      *
      * @return int
      */

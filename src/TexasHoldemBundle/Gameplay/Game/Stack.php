@@ -3,11 +3,7 @@
 namespace TexasHoldemBundle\Gameplay\Game;
 
 /**
- * A chip stack
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
+ * A chip stack.
  */
 class Stack
 {
@@ -19,9 +15,7 @@ class Stack
     }
 
     /**
-     * Get the Stack's size
-     *
-     * @since  {nextRelease}
+     * Get the Stack's size.
      *
      * @return string The Stack's size
      */
@@ -31,11 +25,9 @@ class Stack
     }
 
     /**
-     * Add chips to the Stack
+     * Add chips to the Stack.
      *
-     * @since  {nextRelease}
-     *
-     * @param  float $value [description]
+     * @param float $value [description]
      */
     public function add(float $value)
     {
@@ -43,11 +35,9 @@ class Stack
     }
 
     /**
-     * Subtract chips from the Stack
+     * Subtract chips from the Stack.
      *
-     * @since  {nextRelease}
-     *
-     * @param  float $value [description]
+     * @param float $value [description]
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -55,9 +45,11 @@ class Stack
     {
         if ($this->size - $value < 0) {
             $this->size = 0;
+
             return false;
         }
         $this->size -= $value;
+
         return true;
     }
 }

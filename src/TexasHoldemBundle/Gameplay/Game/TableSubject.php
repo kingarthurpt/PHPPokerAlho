@@ -2,33 +2,26 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 abstract class TableSubject
 {
     /**
-     * Array of TableObservers
+     * Array of TableObservers.
      *
      * @var array
      */
-    protected $observers = array();
+    protected $observers = [];
 
     /**
-     * The Table's Logger
+     * The Table's Logger.
      *
      * @var TableEventLogger
      */
     protected $logger = null;
 
     /**
-     * Registers a TableObserver
+     * Registers a TableObserver.
      *
-     * @since  {nextRelease}
-     *
-     * @param  TableObserver $observer
+     * @param TableObserver $observer
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -39,15 +32,14 @@ abstract class TableSubject
         }
 
         $this->observers[] = $observer;
+
         return true;
     }
 
     /**
-     * Unregisters a TableObserver
+     * Unregisters a TableObserver.
      *
-     * @since  {nextRelease}
-     *
-     * @param  TableObserver $observer
+     * @param TableObserver $observer
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -56,6 +48,7 @@ abstract class TableSubject
         foreach ($this->observers as $key => $value) {
             if ($value == $observer) {
                 unset($this->observers[$key]);
+
                 return true;
             }
         }
@@ -64,9 +57,7 @@ abstract class TableSubject
     }
 
     /**
-     * Notifies all TableObservers about changes in the TableSubject
-     *
-     * @since  {nextRelease}
+     * Notifies all TableObservers about changes in the TableSubject.
      *
      * @param TableEvent $event The Event being fired
      *
@@ -90,9 +81,9 @@ abstract class TableSubject
     }
 
     /**
-     * Sets the Table's logger
+     * Sets the Table's logger.
      *
-     * @param  TableEventLogger $logger
+     * @param TableEventLogger $logger
      */
     public function setLogger(TableEventLogger $logger)
     {

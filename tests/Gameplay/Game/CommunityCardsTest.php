@@ -7,29 +7,14 @@ use TexasHoldemBundle\Gameplay\Cards\Card;
 use TexasHoldemBundle\Gameplay\Cards\Suit;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class CommunityCardsTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getFlop
-     *
-     * @since  nextRelease
-     */
     public function testGetFlopWithoutCards()
     {
         $communityCards = new CommunityCards();
         $this->assertNull($communityCards->getFlop());
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getFlop
-     *
-     * @since  nextRelease
-     */
     public function testGetFlop()
     {
         $communityCards = new CommunityCards();
@@ -44,11 +29,6 @@ class CommunityCardsTest extends \Tests\BaseTestCase
         $this->assertEquals($collection, $communityCards->getFlop());
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::setFlop
-     *
-     * @since  nextRelease
-     */
     public function testSetFlop()
     {
         $communityCards = new CommunityCards();
@@ -72,11 +52,6 @@ class CommunityCardsTest extends \Tests\BaseTestCase
         $this->assertFalse($communityCards->setFlop($collection2));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getTurn
-     *
-     * @since  nextRelease
-     */
     public function testGetTurn()
     {
         $communityCards = new CommunityCards();
@@ -96,11 +71,6 @@ class CommunityCardsTest extends \Tests\BaseTestCase
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::setTurn
-     *
-     * @since  nextRelease
-     */
     public function testSetTurn()
     {
         $communityCards = new CommunityCards();
@@ -121,11 +91,6 @@ class CommunityCardsTest extends \Tests\BaseTestCase
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::getRiver
-     *
-     * @since  nextRelease
-     */
     public function testGetRiver()
     {
         $communityCards = new CommunityCards();
@@ -146,11 +111,6 @@ class CommunityCardsTest extends \Tests\BaseTestCase
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\CommunityCards::setRiver
-     *
-     * @since  nextRelease
-     */
     public function testSetRiver()
     {
         $communityCards = new CommunityCards();

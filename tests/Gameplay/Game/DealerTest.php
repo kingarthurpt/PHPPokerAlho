@@ -5,112 +5,62 @@ namespace Tests\Gameplay\Game;
 use TexasHoldemBundle\Gameplay\Cards\Deck;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Game\Table;
 use TexasHoldemBundle\Gameplay\Game\TableEvent;
 use TexasHoldemBundle\Gameplay\Game\TableFactory;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class DealerTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::__construct
-     *
-     * @since  nextRelease
-     */
-    public function testConstruct()
+    private $dealer;
+    private $deck;
+
+    protected function setUp(): void
     {
         $suitFactory = new StandardSuitFactory();
-        $deck = new StandardDeck($suitFactory);
+        $this->deck = new StandardDeck($suitFactory);
         $table = new Table('Table1', 10);
-        $dealer = new Dealer($deck, $table);
-        $this->assertSame($deck, $this->getPropertyValue($dealer, 'deck'));
-
-        return $dealer;
+        $this->dealer = new Dealer($this->deck, $table);
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::getDeck
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param Dealer $dealer The Dealer
-     */
-    public function testGetDeck(Dealer $dealer)
+    public function testGetDeck()
     {
         $this->assertSame(
-            $this->getPropertyValue($dealer, 'deck'),
-            $dealer->getDeck()
+            $this->getPropertyValue($this->dealer, 'deck'),
+            $this->dealer->getDeck()
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::setDeck
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param Dealer $dealer The Dealer
-     */
-    public function testSetDeck(Dealer $dealer)
+    public function testSetDeck()
     {
         $deck = new Deck();
-        $dealer->setDeck($deck);
+        $this->dealer->setDeck($deck);
         $this->assertSame(
             $deck,
-            $this->getPropertyValue($dealer, 'deck')
+            $this->getPropertyValue($this->dealer, 'deck')
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::getTable
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param Dealer $dealer The Dealer
-     */
-    public function testGetTable(Dealer $dealer)
+    public function testGetTable()
     {
         $this->assertSame(
-            $this->getPropertyValue($dealer, 'table'),
-            $dealer->getTable()
+            $this->getPropertyValue($this->dealer, 'table'),
+            $this->dealer->getTable()
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::setTable
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param Dealer $dealer The Dealer
-     */
-    public function testSetTable(Dealer $dealer)
+    public function testSetTable()
     {
         $table = new Table('Table2');
-        $dealer->setTable($table);
+        $this->dealer->setTable($table);
         $this->assertSame(
             $table,
-            $this->getPropertyValue($dealer, 'table')
+            $this->getPropertyValue($this->dealer, 'table')
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::deal
-     *
-     * @since  nextRelease
-     */
     public function testDeal()
     {
         $dealer = $this->getDealer();
@@ -122,68 +72,45 @@ class DealerTest extends \Tests\BaseTestCase
 
         $this->assertEmpty($player1->getHand());
         $this->assertEmpty($player2->getHand());
-        $this->assertTrue($dealer->deal());
+
+        $suitFactory = new StandardSuitFactory();
+        $this->deck = new StandardDeck($suitFactory);
+
+        $cards = new CardCollection();
+        $cards->addCard($this->deck->drawRandomCard());
+        $cards->addCard($this->deck->drawRandomCard());
+        $player1->setHand($cards);
 
         $this->assertNotEmpty($player1->getHand());
+        $this->assertEmpty($player2->getHand());
+
+        $this->assertTrue($dealer->deal());
+        $this->assertNotEmpty($player1->getHand());
         $this->assertNotEmpty($player2->getHand());
-        // $this->assertEquals(
-        //     $table,
-        //     $this->getPropertyValue($dealer, 'table')
-        // );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::update
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param Dealer $dealer The Dealer
-     */
-    public function testUpdate(Dealer $dealer)
+    public function testUpdate()
     {
         $table = new Table('Table1', 10);
         $event = new TableEvent(1, 'some message');
-        $this->assertTrue($dealer->update($table, $event));
+        $this->assertTrue($this->dealer->update($table, $event));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::dealFlop
-     *
-     * @since  nextRelease
-     */
     public function testDealFlop()
     {
         $this->doTestDealCommunityCards('dealFlop', 3);
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::dealTurn
-     *
-     * @since  nextRelease
-     */
     public function testDealTurn()
     {
         $this->doTestDealCommunityCards('dealTurn', 1);
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::dealRiver
-     *
-     * @since  nextRelease
-     */
     public function testDealRiver()
     {
         $this->doTestDealCommunityCards('dealRiver', 1);
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::moveButton
-     * @covers \TexasHoldemBundle\Gameplay\Game\Dealer::getNextPlayerSeat
-     *
-     * @since  nextRelease
-     */
     public function testMoveButton()
     {
         $dealer = $this->getDealer();
@@ -247,5 +174,16 @@ class DealerTest extends \Tests\BaseTestCase
         $table = $tableFactory->makeTableWithDealer('Table1', 6);
 
         return $table->getDealer();
+    }
+
+    public function testStartNewHand()
+    {
+        $table = $this->dealer->getTable();
+
+        $player1 = new Player('Player1');
+        $player2 = new Player('Player2');
+        $table->addPlayer($player1)->addPlayer($player2);
+
+        $this->assertTrue($this->dealer->startNewHand());
     }
 }
