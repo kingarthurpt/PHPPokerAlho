@@ -7,12 +7,19 @@ namespace TexasHoldemBundle\Gameplay\Game;
  */
 class Hand
 {
+    const PHASE_PRE_FLOP = 1;
+    const PHASE_FLOP = 2;
+    const PHASE_TURN = 3;
+    const PHASE_RIVER = 4;
+    const PHASE_SHOWDOWN = 5;
+
     protected $id;
     protected $datetime;
     protected $table;
     protected $players;
     protected $smallBlind;
     protected $bigBlind;
+    protected $phase;
 
     public function __construct()
     {
@@ -77,5 +84,17 @@ class Hand
     public function getBigBlind()
     {
         return $this->bigBlind;
+    }
+
+    public function setPhase(int $phase): Hand
+    {
+        $this->phase = $phase;
+
+        return $this;
+    }
+
+    public function getPhase(): int
+    {
+        return $this->phase;
     }
 }

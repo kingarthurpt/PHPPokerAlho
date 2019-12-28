@@ -107,14 +107,30 @@ class Dealer extends TableObserver
             ->setPlayers($players)
             ->setSmallBlind(10)
             ->setBigBlind(20);
+            // ->setPhase(Hand::PHASE_PRE_FLOP);
 
         $buttonSeat = $this->moveButton();
         $smallBlindSeat = $this->getNextPlayerSeat($buttonSeat);
         $bigBlindSeat = $this->getNextPlayerSeat($smallBlindSeat);
         $nextPlayer = $this->getNextPlayerSeat($bigBlindSeat);
 
-        $players[$smallBlindSeat]->getPlayerActions()->paySmallBlind(10);
-        $players[$bigBlindSeat]->getPlayerActions()->payBigBlind(20);
+        // Should be a player's decision
+        $players[$smallBlindSeat]->getPlayerActions()->update(
+            $this->getTable(),
+            new TableEvent(
+                TableEvent::ACTION_PLAYER_PAY_SMALL_BLIND,
+                sprintf("%s you need to pay the small blind", $players[$smallBlindSeat]->getName())
+            )
+        );
+        // ->paySmallBlind(10);
+        $players[$bigBlindSeat]->getPlayerActions()->update(
+            $this->getTable(),
+            new TableEvent(
+                TableEvent::ACTION_PLAYER_PAY_BIG_BLIND,
+                sprintf("%s you need to pay the big blind", $players[$bigBlindSeat]->getName())
+            )
+        );
+        // ->payBigBlind(20);
 
         $this->deal();
 
@@ -122,7 +138,7 @@ class Dealer extends TableObserver
             $this->getTable(),
             new TableEvent(
                 TableEvent::PLAYER_ACTION_NEEDED,
-                "It's your turn $players[$nextPlayer]->getName()"
+                sprintf("It's your turn %s", $players[$nextPlayer]->getName())
             )
         );
 
@@ -171,6 +187,7 @@ class Dealer extends TableObserver
     {
         $deck = $this->getDeck();
         $table = $this->getTable();
+        // $hand = $table->getActiveHand()->setPhase(Hand::PHASE_FLOP);
 
         // Muck a card
         $table->getMuck()->addCard($deck->drawFromTop(1));
@@ -190,6 +207,7 @@ class Dealer extends TableObserver
     {
         $deck = $this->getDeck();
         $table = $this->getTable();
+        // $hand = $table->getActiveHand()->setPhase(Hand::PHASE_TURN);
 
         // Muck a card
         $table->getMuck()->addCard($deck->drawFromTop(1));
@@ -209,6 +227,7 @@ class Dealer extends TableObserver
     {
         $deck = $this->getDeck();
         $table = $this->getTable();
+        // $hand = $table->getActiveHand()->setPhase(Hand::PHASE_RIVER);
 
         // Muck a card
         $table->getMuck()->addCard($deck->drawFromTop(1));

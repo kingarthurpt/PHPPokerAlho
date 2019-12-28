@@ -301,13 +301,13 @@ class PlayerActions extends TableObserver
     private function placeBet(float $amount, TableEvent $event)
     {
         if (empty($this->table)
-            || empty($this->player->getHand())
+            || empty($this->player->getHand()) // fails when paying for blinds
             || !$this->player->getStack()->sub($amount)
         ) {
             return false;
         }
 
-        $bettingZone = $this->table->getPlayerBets($this);
+        $bettingZone = $this->table->getPlayerBets($this->player);
         if (is_null($bettingZone)) {
             return false;
         }

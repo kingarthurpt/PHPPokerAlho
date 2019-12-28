@@ -3,27 +3,26 @@
 namespace TexasHoldemBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-
-use TexasHoldemBundle\Gameplay\Game\Table;
-use TexasHoldemBundle\Gameplay\Game\Dealer;
-use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
+use TexasHoldemBundle\Gameplay\Game\Dealer;
+use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\Table;
 
 class HoleCardsCommand extends Command
 {
+    const NAME = 'pokeralho:hole-cards';
+
     /**
-     * Configure the command
-     *
-     * @since  {nextRelease}
+     * Configure the command.
      */
     protected function configure()
     {
         $this
-            ->setName('pokeralho:hole-cards')
+            ->setName(self::NAME)
             ->setDescription('Deals cards to a player multiple times')
             ->addArgument(
                 'hands',
@@ -39,29 +38,27 @@ class HoleCardsCommand extends Command
     }
 
     /**
-     * Execute the command
+     * Execute the command.
      *
-     * @since  {nextRelease}
-     *
-     * @param  InputInterface $input
-     * @param  OutputInterface $output
+     * @param InputInterface  $input
+     * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $table = new Table("Table1", 2);
+        $table = new Table('Table1', 2);
         $factory = new StandardSuitFactory();
         $dealer = new Dealer(new StandardDeck($factory), $table);
-        $player = new Player("Player1");
+        $player = new Player('Player1');
         $table->addPlayer($player);
 
-        $hands = $input->getArgument("hands");
-        for ($i = 1; $i <= $hands; $i++) {
+        $hands = $input->getArgument('hands');
+        for ($i = 1; $i <= $hands; ++$i) {
             $dealer->deal();
             $hand = $player->getHand();
 
             $output->writeln(
-                "Hand #" . $i . ": "
-                . $hand->toCliOutput()
+                'Hand #'.$i.': '
+                .$hand->toCliOutput()
             );
         }
 

@@ -2,47 +2,29 @@
 
 namespace TexasHoldemBundle\Command;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Logger\ConsoleLogger;
 use Psr\Log\LogLevel;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-
-use TexasHoldemBundle\Gameplay\Game\TableEventLogger;
-use TexasHoldemBundle\Gameplay\Game\Table;
+use TexasHoldemBundle\Controller\HumanPlayerConsoleController;
+use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Game\Player;
-use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Game\Stack;
-use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
-
-use TexasHoldemBundle\Controller\HumanPlayerConsoleController;
+use TexasHoldemBundle\Gameplay\Game\Table;
+use TexasHoldemBundle\Gameplay\Game\TableEventLogger;
 
 class PlayHandCommand extends Command
 {
+    const NAME = 'pokeralho:play-hand';
+
     private $input;
     private $output;
-
-    /**
-     * Configure the command
-     *
-     * @since  {nextRelease}
-     */
-    protected function configure()
-    {
-        $this
-            ->setName('pokeralho:play-hand')
-            ->setDescription('Plays a hand')
-            ->addArgument(
-                'opponents',
-                InputArgument::OPTIONAL,
-                'The number of player opponents.',
-                1
-            )
-        ;
-    }
+    private $table;
 
     public function print(string $message)
     {
@@ -53,7 +35,7 @@ class PlayHandCommand extends Command
     {
         $question = new ChoiceQuestion(
             "$player it's your turn:",
-            array('f' => 'fold', 'c' => 'call', 'r' => 'raise', 'a' => 'all-in'),
+            ['f' => 'fold', 'c' => 'call', 'r' => 'raise', 'a' => 'all-in'],
             1
         );
         $question->setErrorMessage('Your action %s is invalid.');
@@ -63,23 +45,42 @@ class PlayHandCommand extends Command
 
         switch ($action) {
             case 'f':
-                $player->fold();
+                $player->getPlayerActions()->fold();
                 break;
             case 'c':
+                // $hand = $this->table->getActiveHand();
+                $player->getPlayerActions()->call(10);
                 break;
             case 'r':
+                $player->getPlayerActions()->raise(20);
                 break;
             case 'a':
+                $player->getPlayerActions()->allin();
         }
     }
 
     /**
-     * Execute the command
+     * Configure the command.
+     */
+    protected function configure()
+    {
+        $this
+            ->setName(self::NAME)
+            ->setDescription('Plays a hand')
+            ->addArgument(
+                'opponents',
+                InputArgument::OPTIONAL,
+                'The number of player opponents.',
+                1
+            )
+        ;
+    }
+
+    /**
+     * Execute the command.
      *
-     * @since  {nextRelease}
-     *
-     * @param  InputInterface $input
-     * @param  OutputInterface $output
+     * @param InputInterface  $input
+     * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -92,33 +93,33 @@ class PlayHandCommand extends Command
     }
 
     /**
-     * Creates all needed objects and deals a hand
+     * Creates all needed objects and deals a hand.
      */
     private function dealNewHand()
     {
         $logger = new TableEventLogger(new ConsoleLogger(
             $this->output,
-            array(
+            [
                 LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL,
-                LogLevel::INFO   => OutputInterface::VERBOSITY_NORMAL,
-            )
+                LogLevel::INFO => OutputInterface::VERBOSITY_NORMAL,
+            ]
         ));
 
-        $table = new Table("Test Table", 10);
-        $table->setLogger($logger);
+        $this->table = new Table('Test Table', 10);
+        $this->table->setLogger($logger);
 
-        $dealer = new Dealer(new StandardDeck(new StandardSuitFactory()), $table);
-        $dealer->setTable($table);
+        $dealer = new Dealer(new StandardDeck(new StandardSuitFactory()), $this->table);
+        $dealer->setTable($this->table);
 
-        $player1 = new Player("Player1");
+        $player1 = new Player('Player1');
         $player1->getPlayerActions()->setController(new HumanPlayerConsoleController(
             $this,
-            "promptForAction",
+            'promptForAction',
             $player1
         ));
 
-        $player2 = new Player("Player2");
-        $table
+        $player2 = new Player('Player2');
+        $this->table
             ->addPlayer($player1)
             ->addPlayer($player2);
 
