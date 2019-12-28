@@ -6,11 +6,6 @@ use Symfony\Component\Console\Command\Command;
 use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Game\TableEvent;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class HumanPlayerConsoleController implements PlayerControllerInterface
 {
     /**
@@ -31,11 +26,9 @@ class HumanPlayerConsoleController implements PlayerControllerInterface
     /**
      * Constructor
      *
-     * @since  {nextRelease}
-     *
-     * @param  Command $command [description]
-     * @param  string $function [description]
-     * @param  Player $player [description]
+     * @param  Command $command
+     * @param  string $function
+     * @param  Player $player
      */
     public function __construct(
         Command $command,
@@ -50,8 +43,6 @@ class HumanPlayerConsoleController implements PlayerControllerInterface
     /**
      * Handles the Player's behavior when receives a new TableEvent
      *
-     * @since  {nextRelease}
-     *
      * @param  TableEvent $event The event
      */
     public function handleEvent(TableEvent $event)
@@ -64,11 +55,6 @@ class HumanPlayerConsoleController implements PlayerControllerInterface
         }
     }
 
-    /**
-     * [promptForAction description]
-     *
-     * @since  {nextRelease}
-     */
     public function promptForAction()
     {
         $functionName = $this->function;
@@ -77,8 +63,6 @@ class HumanPlayerConsoleController implements PlayerControllerInterface
 
     /**
      * Prints text to the console
-     *
-     * @since  {nextRelease}
      *
      * @param  string $text The message to be printed
      */

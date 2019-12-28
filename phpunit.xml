@@ -3,6 +3,9 @@
     colors="true"
     bootstrap="tests/bootstrap.php"
     processIsolation="true">
+    <php>
+        <server name="KERNEL_CLASS" value="AppKernel" />
+    </php>
     <testsuites>
         <testsuite name="PHPPokerAlho Test Suite">
             <directory

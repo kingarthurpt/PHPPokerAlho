@@ -7,17 +7,11 @@ use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 
 /**
  * The community cards
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
  */
 class CommunityCards extends CardCollection
 {
     /**
      * Set the flop Cards
-     *
-     * @since  {nextRelease}
      *
      * @param  CardCollection $cards The flop Cards
      *
@@ -38,8 +32,6 @@ class CommunityCards extends CardCollection
     /**
      * Get the flop Cards
      *
-     * @since  {nextRelease}
-     *
      * @return CardCollection|null A CardCollection with the flop Cards
      *                               or null if not defined
      */
@@ -59,8 +51,6 @@ class CommunityCards extends CardCollection
     /**
      * Set the turn Card
      *
-     * @since  {nextRelease}
-     *
      * @param  Card $card The turn Card
      */
     public function setTurn(Card $card)
@@ -70,8 +60,6 @@ class CommunityCards extends CardCollection
 
     /**
      * Get the turn Card
-     *
-     * @since  {nextRelease}
      *
      * @return Card The turn Card  or null if not defined
      */
@@ -87,8 +75,6 @@ class CommunityCards extends CardCollection
     /**
      * Set the river Card
      *
-     * @since  {nextRelease}
-     *
      * @param  Card $card The river Card
      */
     public function setRiver(Card $card)
@@ -98,8 +84,6 @@ class CommunityCards extends CardCollection
 
     /**
      * Get the river Card
-     *
-     * @since  {nextRelease}
      *
      * @return Card|null The river Card or null if not defined
      */

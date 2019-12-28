@@ -2,209 +2,121 @@
 
 namespace Tests\Gameplay\Game;
 
+use TexasHoldemBundle\Gameplay\Cards\Card;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
 use TexasHoldemBundle\Gameplay\Game\Player;
-use TexasHoldemBundle\Gameplay\Game\Table;
-use TexasHoldemBundle\Gameplay\Game\TableEvent;
 use TexasHoldemBundle\Gameplay\Game\PlayerHand;
 use TexasHoldemBundle\Gameplay\Game\Stack;
-use TexasHoldemBundle\Gameplay\Cards\Card;
-use TexasHoldemBundle\Gameplay\Cards\Suit;
-use TexasHoldemBundle\Gameplay\Cards\CardCollection;
-use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class PlayerTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::__construct
-     *
-     * @since  nextRelease
-     */
+    private $player;
+
+    protected function setUp(): void
+    {
+        $this->player = new Player('Player1');
+    }
+
     public function testConstruct()
     {
-        $player = new Player('Player1');
-        $this->assertEquals('Player1', $this->getPropertyValue($player, 'name'));
-
-        return $player;
+        $this->assertEquals('Player1', $this->getPropertyValue($this->player, 'name'));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::__toString
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testToString(Player $player)
+    public function testToString()
     {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'name'),
-            $player
+            $this->getPropertyValue($this->player, 'name'),
+            $this->player
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::getName
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testGetName(Player $player)
+    public function testGetName()
     {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'name'),
-            $player->getName()
+            $this->getPropertyValue($this->player, 'name'),
+            $this->player->getName()
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setName
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetName(Player $player)
+    public function testSetName()
     {
-        $player->setName("Player1");
+        $this->player->setName('Player1');
         $this->assertEquals(
-            "Player1",
-            $this->getPropertyValue($player, 'name')
+            'Player1',
+            $this->getPropertyValue($this->player, 'name')
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::getHand
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testGetHand(Player $player)
+    public function testGetHand()
     {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'hand'),
-            $player->getHand()
+            $this->getPropertyValue($this->player, 'hand'),
+            $this->player->getHand()
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setHand
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetHand(Player $player)
+    public function testSetHand()
     {
-        $holeCards = array(
-            0 => new Card(1, new Suit("Diamonds")),
-            1 => new Card(1, new Suit("Hearts"))
-        );
+        $holeCards = [
+            0 => new Card(1, new Suit('Diamonds')),
+            1 => new Card(1, new Suit('Hearts')),
+        ];
         $hand = new CardCollection($holeCards, 2);
-        $player->setHand($hand);
+        $this->player->setHand($hand);
 
         $this->assertInstanceOf(
             PlayerHand::class,
-            $this->getPropertyValue($player, 'hand')
+            $this->getPropertyValue($this->player, 'hand')
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::hasButton
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testHasButton(Player $player)
+    public function testHasButton()
     {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'button'),
-            $player->hasButton()
+            $this->getPropertyValue($this->player, 'button'),
+            $this->player->hasButton()
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setButton
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetButton(Player $player)
+    public function testSetButton()
     {
-        $player->setButton(true);
-        $this->assertTrue($this->getPropertyValue($player, 'button'));
-        $player->setButton(false);
-        $this->assertFalse($this->getPropertyValue($player, 'button'));
+        $this->player->setButton(true);
+        $this->assertTrue($this->getPropertyValue($this->player, 'button'));
+        $this->player->setButton(false);
+        $this->assertFalse($this->getPropertyValue($this->player, 'button'));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::getSeat
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testGetSeat(Player $player)
+    public function testGetSeat()
     {
+        $seat = 2;
+        $this->assertInstanceOf(Player::class, $this->player->setSeat($seat));
+
         $this->assertEquals(
-            $this->getPropertyValue($player, 'seat'),
-            $player->getSeat()
+            $seat,
+            $this->player->getSeat()
         );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::setSeat
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetSeat(Player $player)
+    public function testGetStack()
     {
-        $player->setSeat(2);
-        $this->assertEquals(2, $this->getPropertyValue($player, 'seat'));
+        $stack = new Stack(100);
+        $this->assertInstanceOf(Player::class, $this->player->setStack($stack));
+
+        $this->assertEquals(
+            $stack,
+            $this->player->getStack()
+        );
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\Player::getStack
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testGetStack(Player $player)
+    public function testDoAction()
     {
-        $this->assertEquals(
-            $this->getPropertyValue($player, 'stack'),
-            $player->getStack()
+        $this->assertNull($this->player->doAction('invalidAction'));
+
+        $action = 'showHand';
+        $this->assertSame(
+            $this->player->getPlayerActions()->$action(),
+            $this->player->doAction($action)
         );
     }
 }

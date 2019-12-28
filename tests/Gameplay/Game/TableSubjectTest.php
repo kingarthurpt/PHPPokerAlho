@@ -2,22 +2,13 @@
 
 namespace Tests\Gameplay\Game;
 
-use TexasHoldemBundle\Gameplay\Game\TableSubject;
-use TexasHoldemBundle\Gameplay\Game\TableObserver;
 use TexasHoldemBundle\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\TableEventLogger;
+use TexasHoldemBundle\Gameplay\Game\TableObserver;
+use TexasHoldemBundle\Gameplay\Game\TableSubject;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class TableSubjectTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\TableSubject::attach
-     *
-     * @since  nextRelease
-     */
     public function testAttach()
     {
         $subject = $this->getMockForAbstractClass(TableSubject::class);
@@ -26,11 +17,6 @@ class TableSubjectTest extends \Tests\BaseTestCase
         $this->assertFalse($subject->attach($observer));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\TableSubject::detach
-     *
-     * @since  nextRelease
-     */
     public function testDetach()
     {
         $subject = $this->getMockForAbstractClass(TableSubject::class);
@@ -43,15 +29,14 @@ class TableSubjectTest extends \Tests\BaseTestCase
         $this->assertFalse($subject->detach($observer2));
     }
 
-    /**
-     * @covers \TexasHoldemBundle\Gameplay\Game\TableSubject::notify
-     *
-     * @since  nextRelease
-     */
     public function testNotify()
     {
+        $logger = new \Symfony\Component\HttpKernel\Log\Logger;
+        $tableEventLogger = new TableEventLogger($logger);
         $subject = $this->getMockForAbstractClass(TableSubject::class);
-        $event = new TableEvent(1, "message");
+        $subject->setLogger($tableEventLogger);
+
+        $event = new TableEvent(1, 'message');
         $this->assertFalse($subject->notify($event));
 
         $observer = $this->getMockForAbstractClass(TableObserver::class);

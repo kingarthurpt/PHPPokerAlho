@@ -5,20 +5,12 @@ namespace TexasHoldemBundle\Gameplay\Game;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 
 /**
- * The Muck
- *
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
+ * The Muck.
  */
 class Muck extends CardCollection
 {
     /**
-     * Overrides the parent function to prevent the default behavior
-     *
-     * @since  {nextRelease}
-     *
-     * @return null
+     * Overrides the parent function to prevent the default behavior.
      */
     public function getCards()
     {
@@ -26,11 +18,7 @@ class Muck extends CardCollection
     }
 
     /**
-     * Overrides the parent function to prevent the default behavior
-     *
-     * @since  {nextRelease}
-     *
-     * @return null
+     * Overrides the parent function to prevent the default behavior.
      */
     public function getItems()
     {
@@ -38,13 +26,9 @@ class Muck extends CardCollection
     }
 
     /**
-     * Overrides the parent function to prevent the default behavior
+     * Overrides the parent function to prevent the default behavior.
      *
-     * @since  {nextRelease}
-     *
-     * @param  int $index The index
-     *
-     * @return null
+     * @param int $index The index
      */
     public function getCardAt(int $index)
     {
@@ -54,18 +38,14 @@ class Muck extends CardCollection
     }
 
     /**
-     * Overrides the parent function to prevent the default behavior
+     * Overrides the parent function to prevent the default behavior.
      *
-     * @since  {nextRelease}
-     *
-     * @param  int $index The index
-     *
-     * @return null
+     * @param int $index The index
      */
     public function getItemAt(int $index)
     {
         unset($index);
-        
+
         return null;
     }
 }

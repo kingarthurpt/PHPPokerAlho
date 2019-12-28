@@ -2,11 +2,6 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class TableEvent
 {
     /**
@@ -108,6 +103,20 @@ class TableEvent
     const PLAYER_ACTION_MUCK_HAND = 14;
 
     /**
+     * Fired when a Player needs to pay the small blind
+     *
+     * @var int
+     */
+    const ACTION_PLAYER_PAY_SMALL_BLIND = 15;
+
+    /**
+     * Fired when a Player needs to pay the big blind
+     *
+     * @var int
+     */
+    const ACTION_PLAYER_PAY_BIG_BLIND = 16;
+
+    /**
      * The Event's type
      *
      * @var int
@@ -126,8 +135,6 @@ class TableEvent
     /**
      * Constructor
      *
-     * @since  {nextRelease}
-     *
      * @param  int $event The event type
      * @param  string $message The event's message
      */
@@ -140,8 +147,6 @@ class TableEvent
     /**
      * Get the Event's type
      *
-     * @since  {nextRelease}
-     *
      * @return int The type
      */
     public function getType()
@@ -151,8 +156,6 @@ class TableEvent
 
     /**
      * Get the Event's message
-     *
-     * @since  {nextRelease}
      *
      * @return string The message
      */

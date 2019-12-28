@@ -4,11 +4,6 @@ namespace TexasHoldemBundle\Gameplay\Game;
 
 use Psr\Log\LoggerInterface;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class TableEventLogger
 {
     private $logger;
