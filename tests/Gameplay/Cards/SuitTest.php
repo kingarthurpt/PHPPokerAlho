@@ -1,21 +1,11 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Cards;
 
-use PHPPokerAlho\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
-class SuitTest extends BaseTestCase
+class SuitTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstruct()
     {
         $suit = new Suit('hearts');
@@ -24,22 +14,12 @@ class SuitTest extends BaseTestCase
         return $suit;
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructWithoutArgs()
     {
         $suit = new Suit();
         $this->assertEquals(null, $this->getPropertyValue($suit, 'name'));
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructOnlyWithName()
     {
         $suit = new Suit('hearts');
@@ -47,11 +27,6 @@ class SuitTest extends BaseTestCase
         $this->assertEquals(null, $this->getPropertyValue($suit, 'symbol'));
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstructOnlyWithSymbol()
     {
         $suit = new Suit(null, "♥");
@@ -59,11 +34,6 @@ class SuitTest extends BaseTestCase
         $this->assertEquals("♥", $this->getPropertyValue($suit, 'symbol'));
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::__toString
-     *
-     * @since  nextRelease
-     */
     public function testToString()
     {
         $suit = new Suit('Clubs', '♣');
@@ -71,11 +41,9 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getName
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::getName
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
@@ -88,11 +56,9 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setName
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setName
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
@@ -106,11 +72,9 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getSymbol
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::getSymbol
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
@@ -123,11 +87,9 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setSymbol
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setSymbol
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
@@ -141,11 +103,9 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::getAbbreviation
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::getAbbreviation
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */
@@ -158,11 +118,9 @@ class SuitTest extends BaseTestCase
     }
 
     /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\Suit::setAbbreviation
+     * @covers \TexasHoldemBundle\Gameplay\Cards\Suit::setAbbreviation
      *
      * @depends testConstruct
-     *
-     * @since  nextRelease
      *
      * @param  Suit $suit The Suit
      */

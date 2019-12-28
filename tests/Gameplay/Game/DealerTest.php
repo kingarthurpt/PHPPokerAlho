@@ -1,317 +1,131 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Game;
 
-use PHPPokerAlho\Gameplay\Cards\Deck;
-use PHPPokerAlho\Gameplay\Cards\StandardDeck;
-use PHPPokerAlho\Gameplay\Game\Dealer;
-use PHPPokerAlho\Gameplay\Game\Table;
-use PHPPokerAlho\Gameplay\Game\Player;
-use PHPPokerAlho\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Cards\Deck;
+use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Game\Dealer;
+use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\Table;
+use TexasHoldemBundle\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\TableFactory;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
-class DealerTest extends BaseTestCase
+class DealerTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::__construct
-     *
-     * @since  nextRelease
-     */
-    public function testConstruct()
-    {
-        $deck = new StandardDeck();
-        $dealer = new Dealer($deck);
-        $this->assertEquals($deck, $this->getPropertyValue($dealer, 'deck'));
+    private $dealer;
+    private $deck;
 
-        return $dealer;
+    protected function setUp(): void
+    {
+        $suitFactory = new StandardSuitFactory();
+        $this->deck = new StandardDeck($suitFactory);
+        $table = new Table('Table1', 10);
+        $this->dealer = new Dealer($this->deck, $table);
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::__construct
-     *
-     * @since  nextRelease
-     */
-    public function testConstructWithoutArgs()
+    public function testGetDeck()
     {
-        $dealer = new Dealer();
-        $this->assertNull($this->getPropertyValue($dealer, 'deck'));
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getDeck
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Dealer $dealer The Dealer
-     */
-    public function testGetDeck(Dealer $dealer)
-    {
-        $this->assertEquals(
-            $this->getPropertyValue($dealer, 'deck'),
-            $dealer->getDeck()
+        $this->assertSame(
+            $this->getPropertyValue($this->dealer, 'deck'),
+            $this->dealer->getDeck()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::setDeck
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Dealer $dealer The Dealer
-     */
-    public function testSetDeck(Dealer $dealer)
+    public function testSetDeck()
     {
         $deck = new Deck();
-        $dealer->setDeck($deck);
-        $this->assertEquals(
+        $this->dealer->setDeck($deck);
+        $this->assertSame(
             $deck,
-            $this->getPropertyValue($dealer, 'deck')
+            $this->getPropertyValue($this->dealer, 'deck')
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getTable
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Dealer $dealer The Dealer
-     */
-    public function testGetTable(Dealer $dealer)
+    public function testGetTable()
     {
-        $this->assertEquals(
-            $this->getPropertyValue($dealer, 'table'),
-            $dealer->getTable()
+        $this->assertSame(
+            $this->getPropertyValue($this->dealer, 'table'),
+            $this->dealer->getTable()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::setTable
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Dealer $dealer The Dealer
-     */
-    public function testSetTable(Dealer $dealer)
+    public function testSetTable()
     {
-        $table = new Table("Table2");
-        $dealer->setTable($table);
-        $this->assertEquals(
+        $table = new Table('Table2');
+        $this->dealer->setTable($table);
+        $this->assertSame(
             $table,
-            $this->getPropertyValue($dealer, 'table')
+            $this->getPropertyValue($this->dealer, 'table')
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::hasDeck
-     *
-     * @since  nextRelease
-     */
-    public function testHasDeck()
-    {
-        $dealer = new Dealer();
-        $this->assertFalse($this->invokeMethod($dealer, "hasDeck"));
-
-        $dealer->setDeck(new Deck());
-        $this->assertTrue($this->invokeMethod($dealer, "hasDeck"));
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::hasTable
-     *
-     * @since  nextRelease
-     */
-    public function testHasTable()
-    {
-        $dealer = new Dealer();
-        $this->assertFalse($this->invokeMethod($dealer, "hasTable"));
-
-        $dealer->setTable(new Table("Round"));
-        $this->assertTrue($this->invokeMethod($dealer, "hasTable"));
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
-     *
-     * @since  nextRelease
-     */
-    public function testDealWithoutDeck()
-    {
-        $dealer = new Dealer();
-        $this->assertFalse($dealer->deal());
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
-     *
-     * @since  nextRelease
-     */
-    public function testDealWithoutDeckOrTable()
-    {
-        $dealer = new Dealer();
-        $this->assertFalse($dealer->deal());
-
-        $dealer->setDeck(new Deck());
-        $this->assertFalse($dealer->deal());
-
-        $dealer = new Dealer();
-        $dealer->setTable(new Table("Table1"));
-        $this->assertFalse($dealer->deal());
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::deal
-     *
-     * @since  nextRelease
-     */
     public function testDeal()
     {
-        $dealer = new Dealer();
-        $dealer->setDeck(new StandardDeck());
-        $table = new Table("Table1", 6);
-        $dealer->setTable($table);
+        $dealer = $this->getDealer();
+        $table = $dealer->getTable();
 
-        $player1 = new Player("Player1");
-        $player2 = new Player("Player2");
+        $player1 = new Player('Player1');
+        $player2 = new Player('Player2');
         $table->addPlayer($player1)->addPlayer($player2);
 
         $this->assertEmpty($player1->getHand());
         $this->assertEmpty($player2->getHand());
-        $this->assertTrue($dealer->deal());
+
+        $suitFactory = new StandardSuitFactory();
+        $this->deck = new StandardDeck($suitFactory);
+
+        $cards = new CardCollection();
+        $cards->addCard($this->deck->drawRandomCard());
+        $cards->addCard($this->deck->drawRandomCard());
+        $player1->setHand($cards);
 
         $this->assertNotEmpty($player1->getHand());
+        $this->assertEmpty($player2->getHand());
+
+        $this->assertTrue($dealer->deal());
+        $this->assertNotEmpty($player1->getHand());
         $this->assertNotEmpty($player2->getHand());
-        // $this->assertEquals(
-        //     $table,
-        //     $this->getPropertyValue($dealer, 'table')
-        // );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::update
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Dealer $dealer The Dealer
-     */
-    public function testUpdate(Dealer $dealer)
+    public function testUpdate()
     {
-        $table = new Table("Table1", 10);
-        $event = new TableEvent(1, "some message");
-        $this->assertTrue($dealer->update($table, $event));
+        $table = new Table('Table1', 10);
+        $event = new TableEvent(1, 'some message');
+        $this->assertTrue($this->dealer->update($table, $event));
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealFlop
-     *
-     * @since  nextRelease
-     */
     public function testDealFlop()
     {
-        $dealer = new Dealer();
-        $this->assertFalse($dealer->dealFlop());
-
-        $dealer->setDeck(new StandardDeck());
-        $table = new Table("Table1", 6);
-        $dealer->setTable($table);
-
-        $muckSize = $table->getMuck()->getSize();
-        $communityCardsSize = $table->getCommunityCards()->getSize();
-
-        $this->assertTrue($dealer->dealFlop());
-
-        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
-        $this->assertEquals(
-            $communityCardsSize + 3,
-            $table->getCommunityCards()->getSize()
-        );
+        $this->doTestDealCommunityCards('dealFlop', 3);
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealTurn
-     *
-     * @since  nextRelease
-     */
     public function testDealTurn()
     {
-        $dealer = new Dealer();
-        $this->assertFalse($dealer->dealTurn());
-
-        $dealer->setDeck(new StandardDeck());
-        $table = new Table("Table1", 6);
-        $dealer->setTable($table);
-
-        $muckSize = $table->getMuck()->getSize();
-        $communityCardsSize = $table->getCommunityCards()->getSize();
-
-        $this->assertTrue($dealer->dealTurn());
-
-        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
-        $this->assertEquals(
-            $communityCardsSize + 1,
-            $table->getCommunityCards()->getSize()
-        );
+        $this->doTestDealCommunityCards('dealTurn', 1);
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::dealRiver
-     *
-     * @since  nextRelease
-     */
     public function testDealRiver()
     {
-        $dealer = new Dealer();
-        $this->assertFalse($dealer->dealRiver());
-
-        $dealer->setDeck(new StandardDeck());
-        $table = new Table("Table1", 6);
-        $dealer->setTable($table);
-
-        $muckSize = $table->getMuck()->getSize();
-        $communityCardsSize = $table->getCommunityCards()->getSize();
-
-        $this->assertTrue($dealer->dealRiver());
-
-        $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
-        $this->assertEquals(
-            $communityCardsSize + 1,
-            $table->getCommunityCards()->getSize()
-        );
+        $this->doTestDealCommunityCards('dealRiver', 1);
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::moveButton
-     * @covers \PHPPokerAlho\Gameplay\Game\Dealer::getNextPlayerSeat
-     *
-     * @since  nextRelease
-     */
     public function testMoveButton()
     {
-        $dealer = new Dealer();
+        $dealer = $this->getDealer();
+        $table = $dealer->getTable();
         $this->assertFalse($dealer->moveButton());
 
         // $dealer->setDeck(new StandardDeck());
-        $table = new Table("Table1", 6);
+        $table = new Table('Table1', 6);
         $dealer->setTable($table);
         $this->assertFalse($dealer->moveButton());
 
-        $player1 = new Player("p1");
-        $player2 = new Player("p2");
-        $player3 = new Player("p3");
-        $player4 = new Player("p4");
+        $player1 = new Player('p1');
+        $player2 = new Player('p2');
+        $player3 = new Player('p3');
+        $player4 = new Player('p4');
         $table
             ->addPlayer($player1)
             ->addPlayer($player2)
@@ -319,21 +133,57 @@ class DealerTest extends BaseTestCase
             ->addPlayer($player4);
 
         $this->assertTrue($player1->hasButton());
-        $this->assertEquals($player2->getSeat(), $dealer->moveButton());
+        $this->assertSame($player2->getSeat(), $dealer->moveButton());
         $this->assertFalse($player1->hasButton());
         $this->assertTrue($player2->hasButton());
-
-
-        // $dealer->moveButton()
-
-        //
-        // $this->assertTrue($dealer->dealRiver());
-        //
-        // $this->assertEquals($muckSize + 1, $table->getMuck()->getSize());
-        // $this->assertEquals(
-        //     $communityCardsSize + 1,
-        //     $table->getCommunityCards()->getSize()
-        // );
     }
 
+    /**
+     * Tests the dealFlop, dealTurn and dealRiver functions
+     *
+     * @param string $dealerFunction
+     * @param int    $cardSize
+     */
+    private function doTestDealCommunityCards($dealerFunction, $cardSize)
+    {
+        $dealer = $this->getDealer();
+        $table = $dealer->getTable();
+
+        $muckSize = $table->getMuck()->getSize();
+        $communityCardsSize = $table->getCommunityCards()->getSize();
+
+        $this->assertTrue($dealer->$dealerFunction());
+
+        $this->assertSame($muckSize + 1, $table->getMuck()->getSize());
+        $this->assertSame(
+            $communityCardsSize + $cardSize,
+            $table->getCommunityCards()->getSize()
+        );
+    }
+
+    /**
+     * Creates a Dealer.
+     *
+     * @since  {nextRelease}
+     *
+     * @return Dealer
+     */
+    private function getDealer()
+    {
+        $tableFactory = new TableFactory();
+        $table = $tableFactory->makeTableWithDealer('Table1', 6);
+
+        return $table->getDealer();
+    }
+
+    public function testStartNewHand()
+    {
+        $table = $this->dealer->getTable();
+
+        $player1 = new Player('Player1');
+        $player2 = new Player('Player2');
+        $table->addPlayer($player1)->addPlayer($player2);
+
+        $this->assertTrue($this->dealer->startNewHand());
+    }
 }

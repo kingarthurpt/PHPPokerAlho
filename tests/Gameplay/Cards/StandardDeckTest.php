@@ -1,25 +1,17 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Cards;
 
-use PHPPokerAlho\Gameplay\Cards\StandardDeck;
+use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
-class StandardDeckTest extends BaseTestCase
+class StandardDeckTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Cards\StandardDeck::__construct
-     *
-     * @since  nextRelease
-     */
     public function testConstruct()
     {
-        $deck = new StandardDeck();
-        $this->assertNotEquals(array(), $this->getPropertyValue($deck, 'items'));
+        $suitFactory = new StandardSuitFactory();
+        $deck = new StandardDeck($suitFactory);
+        $this->assertNotEquals([], $this->getPropertyValue($deck, 'items'));
 
         $this->assertEquals(52, $deck->getSize());
 

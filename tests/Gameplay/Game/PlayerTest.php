@@ -1,364 +1,122 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Game;
 
-use PHPPokerAlho\Gameplay\Game\Player;
-use PHPPokerAlho\Gameplay\Game\Table;
-use PHPPokerAlho\Gameplay\Game\TableEvent;
-use PHPPokerAlho\Gameplay\Game\PlayerHand;
-use PHPPokerAlho\Gameplay\Game\Stack;
-use PHPPokerAlho\Gameplay\Cards\Card;
-use PHPPokerAlho\Gameplay\Cards\Suit;
-use PHPPokerAlho\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Cards\Card;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\PlayerHand;
+use TexasHoldemBundle\Gameplay\Game\Stack;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
-class PlayerTest extends BaseTestCase
+class PlayerTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::__construct
-     *
-     * @since  nextRelease
-     */
+    private $player;
+
+    protected function setUp(): void
+    {
+        $this->player = new Player('Player1');
+    }
+
     public function testConstruct()
     {
-        $player = new Player('Player1');
-        $this->assertEquals('Player1', $this->getPropertyValue($player, 'name'));
-
-        return $player;
+        $this->assertEquals('Player1', $this->getPropertyValue($this->player, 'name'));
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::__toString
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testToString(Player $player)
+    public function testToString()
     {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'name'),
-            $player
+            $this->getPropertyValue($this->player, 'name'),
+            $this->player
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::getName
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testGetName(Player $player)
+    public function testGetName()
     {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'name'),
-            $player->getName()
+            $this->getPropertyValue($this->player, 'name'),
+            $this->player->getName()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setName
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetName(Player $player)
+    public function testSetName()
     {
-        $player->setName("Player1");
+        $this->player->setName('Player1');
         $this->assertEquals(
-            "Player1",
-            $this->getPropertyValue($player, 'name')
+            'Player1',
+            $this->getPropertyValue($this->player, 'name')
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::getHand
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testGetHand(Player $player)
+    public function testGetHand()
     {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'hand'),
-            $player->getHand()
+            $this->getPropertyValue($this->player, 'hand'),
+            $this->player->getHand()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setHand
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetHand(Player $player)
+    public function testSetHand()
     {
-        $holeCards = array(
-            0 => new Card(1, new Suit("Diamonds")),
-            1 => new Card(1, new Suit("Hearts"))
-        );
+        $holeCards = [
+            0 => new Card(1, new Suit('Diamonds')),
+            1 => new Card(1, new Suit('Hearts')),
+        ];
         $hand = new CardCollection($holeCards, 2);
-        $player->setHand($hand);
+        $this->player->setHand($hand);
 
         $this->assertInstanceOf(
             PlayerHand::class,
-            $this->getPropertyValue($player, 'hand')
+            $this->getPropertyValue($this->player, 'hand')
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::hasButton
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testHasButton(Player $player)
+    public function testHasButton()
     {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'button'),
-            $player->hasButton()
+            $this->getPropertyValue($this->player, 'button'),
+            $this->player->hasButton()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setButton
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetButton(Player $player)
+    public function testSetButton()
     {
-        $player->setButton(true);
-        $this->assertTrue($this->getPropertyValue($player, 'button'));
-        $player->setButton(false);
-        $this->assertFalse($this->getPropertyValue($player, 'button'));
+        $this->player->setButton(true);
+        $this->assertTrue($this->getPropertyValue($this->player, 'button'));
+        $this->player->setButton(false);
+        $this->assertFalse($this->getPropertyValue($this->player, 'button'));
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::getSeat
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testGetSeat(Player $player)
+    public function testGetSeat()
     {
+        $seat = 2;
+        $this->assertInstanceOf(Player::class, $this->player->setSeat($seat));
+
         $this->assertEquals(
-            $this->getPropertyValue($player, 'seat'),
-            $player->getSeat()
+            $seat,
+            $this->player->getSeat()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setSeat
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetSeat(Player $player)
+    public function testGetStack()
     {
-        $player->setSeat(2);
-        $this->assertEquals(2, $this->getPropertyValue($player, 'seat'));
-    }
+        $stack = new Stack(100);
+        $this->assertInstanceOf(Player::class, $this->player->setStack($stack));
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::getStack
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testGetStack(Player $player)
-    {
         $this->assertEquals(
-            $this->getPropertyValue($player, 'stack'),
-            $player->getStack()
+            $stack,
+            $this->player->getStack()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setStack
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetStack(Player $player)
+    public function testDoAction()
     {
-        $stack = new Stack(1000);
-        $this->assertNull($player->setStack($stack));
+        $this->assertNull($this->player->doAction('invalidAction'));
 
-        $table = new Table("Table1", 2);
-        $player->update($table, new TableEvent(1, "test"));
-        $this->assertNotNull($player->setStack($stack));
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::setController
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testSetController(Player $player)
-    {
-        $player->setController("some controller");
-        $this->assertEquals(
-            "some controller",
-            $this->getPropertyValue($player, 'controller')
+        $action = 'showHand';
+        $this->assertSame(
+            $this->player->getPlayerActions()->$action(),
+            $this->player->doAction($action)
         );
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::update
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testUpdate(Player $player)
-    {
-        $table = new Table("Table1", 10);
-        $event = new TableEvent(1, "message");
-        $this->assertTrue($player->update($table, $event));
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::returnHand
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testReturnHand(Player $player)
-    {
-        $holeCards = array(
-            0 => new Card(1, new Suit("Diamonds")),
-            1 => new Card(1, new Suit("Hearts"))
-        );
-        $hand = new CardCollection($holeCards, 2);
-        $player->setHand($hand);
-
-        $this->assertInstanceOf(PlayerHand::class, $player->returnHand());
-        $this->assertEmpty($player->getHand());
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::paySmallBlind
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::payBigBlind
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testPaySmallBlind(Player $player)
-    {
-        $player->setStack(new Stack(100));
-        $table = new Table("Table1", 10);
-        $table->addPlayer($player);
-        $player->setHand(CardCollection::fromString('As Ac'));
-
-        $this->assertTrue($player->paySmallBlind(10));
-        $this->assertEquals(90, $player->getStack()->getSize());
-
-        $this->assertTrue($player->payBigBlind(20));
-        $this->assertEquals(70, $player->getStack()->getSize());
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::fold
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testFold(Player $player)
-    {
-        $this->assertFalse($player->fold());
-
-        $table = new Table("Table1", 10);
-        $table->addPlayer($player);
-        $this->assertFalse($player->fold());
-
-        $player->setHand(CardCollection::fromString('As Ac'));
-        $this->assertTrue($player->fold());
-    }
-
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::check
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::call
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::raise
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::allIn
-     * @covers \PHPPokerAlho\Gameplay\Game\Player::placeBet
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  Player $player The Player
-     */
-    public function testCheckCallRaiseAllin(Player $player)
-    {
-        $player->setStack(new Stack(500));
-        $this->assertFalse($player->check());
-        $this->assertFalse($player->call(20));
-        $this->assertFalse($player->raise(40));
-        $this->assertFalse($player->allIn());
-
-        $table = new Table("Table1", 10);
-        $table->addPlayer($player);
-        $this->assertFalse($player->check());
-        $this->assertFalse($player->call(20));
-        $this->assertFalse($player->raise(40));
-        $this->assertFalse($player->allIn());
-
-        $player->setHand(CardCollection::fromString('As Ac'));
-        $this->assertTrue($player->check());
-        $this->assertTrue($player->call(20));
-        $this->assertTrue($player->raise(40));
-        $this->assertTrue($player->allIn());
     }
 }

@@ -10,20 +10,21 @@
     ],
     "autoload": {
         "psr-4": {
-            "PHPPokerAlho\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
+            "": "src/",
             "Tests\\": "tests/"
-        }
+        },
+        "classmap": [
+            "app/AppKernel.php"
+        ]
     },
     "require": {
-        "php": ">=5.6",
-        "symfony/console": "*"
+        "php": ">=7",
+        "symfony/console": "*",
+        "symfony/framework-bundle": "^5.0",
+        "doctrine/annotations": "^1.8",
+        "symfony/yaml": "^5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "codeclimate/php-test-reporter": "dev-master"
+        "phpunit/phpunit": "*"
     }
 }

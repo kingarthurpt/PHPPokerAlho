@@ -2,9 +2,10 @@
 A PHP Texas Hold'em Poker library
 
 
-[![Build Status](https://travis-ci.org/kingarthurpt/PHPPokerAlho.svg?branch=master)](https://travis-ci.org/kingarthurpt/PHPPokerAlho)
+[![Build Status](https://travis-ci.com/kingarthurpt/PHPPokerAlho.svg?branch=master)](https://travis-ci.com/kingarthurpt/PHPPokerAlho)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/1009dffa-7ced-42bd-b453-ad860f0e4ca0/mini.png)](https://insight.sensiolabs.com/projects/1009dffa-7ced-42bd-b453-ad860f0e4ca0)
 [![Code Climate](https://codeclimate.com/github/kingarthurpt/PHPPokerAlho/badges/gpa.svg)](https://codeclimate.com/github/kingarthurpt/PHPPokerAlho)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/72dd08bbd2637dbb8d98/test_coverage)](https://codeclimate.com/github/kingarthurpt/PHPPokerAlho/test_coverage)
 
 
 ## Road map
