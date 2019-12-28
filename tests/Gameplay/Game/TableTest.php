@@ -34,14 +34,9 @@ class TableTest extends \Tests\BaseTestCase
             $this->getPropertyValue($this->table, 'muck')
         );
 
-        return $this->table;
-    }
-
-    public function testConstructWithOnlyName()
-    {
-        $this->table = new Table('Table2');
-        $this->assertEquals('Table2', $this->getPropertyValue($this->table, 'name'));
-        $this->assertEquals(0, $this->getPropertyValue($this->table, 'seats'));
+        $table = new Table('Table2');
+        $this->assertEquals('Table2', $this->getPropertyValue($table, 'name'));
+        $this->assertEquals(0, $this->getPropertyValue($table, 'seats'));
     }
 
     public function testToString()
@@ -54,56 +49,35 @@ class TableTest extends \Tests\BaseTestCase
 
     public function testGetName()
     {
+        $name = 'Table10';
+        $this->table->setName($name);
         $this->assertEquals(
-            $this->getPropertyValue($this->table, 'name'),
+            $name,
             $this->table->getName()
-        );
-    }
-
-    public function testSetName()
-    {
-        $this->table->setName('Table1');
-        $this->assertEquals(
-            'Table1',
-            $this->getPropertyValue($this->table, 'name')
         );
     }
 
     public function testGetSeatsCount()
     {
+        $count = 10;
+        $this->table->setSeatsCount($count);
         $this->assertEquals(
-            $this->getPropertyValue($this->table, 'seats'),
+            $count,
             $this->table->getSeatsCount()
-        );
-    }
-
-    public function testSetSeatsCount()
-    {
-        $this->table->setSeatsCount(10);
-        $this->assertEquals(
-            10,
-            $this->getPropertyValue($this->table, 'seats')
         );
     }
 
     public function testGetDealer()
     {
-        $this->assertEquals(
-            $this->getPropertyValue($this->table, 'dealer'),
-            $this->table->getDealer()
-        );
-    }
-
-    public function testSetDealer()
-    {
         $suitFactory = new StandardSuitFactory();
         $deck = new StandardDeck($suitFactory);
         $this->table = new Table('Table1', 10);
         $dealer = new Dealer($deck, $this->table);
+
         $this->table->setDealer($dealer);
         $this->assertEquals(
             $dealer,
-            $this->getPropertyValue($this->table, 'dealer')
+            $this->table->getDealer()
         );
     }
 
@@ -161,37 +135,21 @@ class TableTest extends \Tests\BaseTestCase
 
     public function testGetCommunityCards()
     {
-        $this->assertEquals(
-            $this->getPropertyValue($this->table, 'communityCards'),
-            $this->table->getCommunityCards()
-        );
-    }
-
-    public function testSetCommunityCards()
-    {
         $communityCards = new CommunityCards();
         $this->table->setCommunityCards($communityCards);
         $this->assertEquals(
             $communityCards,
-            $this->getPropertyValue($this->table, 'communityCards')
+            $this->table->getCommunityCards()
         );
     }
 
     public function testGetMuck()
     {
-        $this->assertEquals(
-            $this->getPropertyValue($this->table, 'muck'),
-            $this->table->getMuck()
-        );
-    }
-
-    public function testSetMuck()
-    {
         $muck = new Muck();
         $this->table->setMuck($muck);
         $this->assertEquals(
             $muck,
-            $this->getPropertyValue($this->table, 'muck')
+            $this->table->getMuck()
         );
     }
 

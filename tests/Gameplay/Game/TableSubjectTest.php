@@ -42,7 +42,5 @@ class TableSubjectTest extends \Tests\BaseTestCase
         $observer = $this->getMockForAbstractClass(TableObserver::class);
         $subject->attach($observer);
         $this->assertTrue($subject->notify($event));
-
-
     }
 }
