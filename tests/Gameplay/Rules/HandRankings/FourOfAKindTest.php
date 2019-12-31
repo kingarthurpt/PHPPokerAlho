@@ -8,12 +8,31 @@ use TexasHoldemBundle\Gameplay\Rules\HandRankings\FourOfAKind;
 
 class FourOfAKindTest extends \Tests\BaseTestCase
 {
+    private $rank;
+    private $handStr;
+
+    protected function setUp(): void
+    {
+        $this->rank = new FourOfAKind();
+        $this->handStr = 'Kh 3s 3h 3c 3d 6s 5s';
+    }
+
     public function testHasRanking()
     {
         $factory = new CardCollectionFactory();
-        $cards = $factory->makeFromString('Kh 3s 3h 3c 3d 6s 5s');
+        $cards = $factory->makeFromString($this->handStr);
 
-        $handRanking = new FourOfAKind();
-        $this->assertTrue($handRanking->hasRanking($cards));
+        $this->assertTrue($this->rank->hasRanking($cards));
+    }
+
+    public function testGetValue()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [3],
+            $this->rank->getValue($cards)
+        );
     }
 }

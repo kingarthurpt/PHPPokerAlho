@@ -86,4 +86,60 @@ abstract class AbstractRanking
 
         return $values;
     }
+
+    protected function getStraightValue(CardCollection $cards)
+    {
+        $occurrences = $this->getCardOccurrencesAddWheel($cards);
+        for ($i = count($occurrences); $i >= 5; --$i) {
+            if (0 == $occurrences[$i]) {
+                continue;
+            }
+
+            if ($occurrences[$i] && $occurrences[$i - 1] && $occurrences[$i - 2]
+                && $occurrences[$i - 3] && $occurrences[$i - 4]
+            ) {
+                $rankCards = [$i--, $i--, $i--, $i--, $i--];
+                break;
+            }
+        }
+        $rankCards[4] = (1 === $rankCards[4]) ? 14 : $rankCards[4];
+
+        return $rankCards;
+    }
+
+    protected function getCardOccurrencesAddWheel(CardCollection $cards)
+    {
+        $occurrences = $this->getOccurrences($cards);
+        $occurrences[1] = $occurrences[14];
+
+        return $occurrences;
+    }
+
+    protected function getCardOccurrences(CardCollection $cards)
+    {
+        $occurrences = $this->getOccurrences($cards);
+
+        // Sort occurrences by value
+        arsort($occurrences);
+        // Sort keys in reverse to get highest value first
+        krsort($occurrences);
+        // Remove keys with empty occurrences
+        $occurrences = array_filter($occurrences, function($element) {
+            return $element !== 0;
+        });
+        // Re sort occurrences by value
+        arsort($occurrences);
+
+        return $occurrences;
+    }
+
+    protected function getOccurrences(CardCollection $cards)
+    {
+        $occurrences = array_fill_keys(range(14, 2), 0);
+        foreach ($cards->getCards() as $card) {
+            ++$occurrences[$card->getValue()];
+        }
+
+        return $occurrences;
+    }
 }

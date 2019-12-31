@@ -37,4 +37,16 @@ class RoyalFlush extends AbstractRanking
 
         return $hasAllRoyalCards && $this->hasFlush($cards) ? true : false;
     }
+
+    /**
+     * Gets this ranking's card values
+     *
+     * @param CardCollection $cards
+     *
+     * @return array Card values
+     */
+    public function getValue(CardCollection $cards): array
+    {
+        return $this->getStraightValue($cards);
+    }
 }

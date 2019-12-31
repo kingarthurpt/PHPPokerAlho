@@ -21,4 +21,31 @@ class Flush extends AbstractRanking
     {
         return $this->hasFlush($cards);
     }
+
+    /**
+     * Gets this ranking's card values
+     *
+     * @param CardCollection $cards
+     *
+     * @return array Card values
+     */
+    public function getValue(CardCollection $cards): array
+    {
+        $collection = [];
+        $values = [];
+        foreach ($cards->getCards() as $card) {
+            $collection[] = $card->getSuit()->getName();
+            $values[] = $card->getValue();
+        }
+        $suits = array_count_values($collection);
+        arsort($suits);
+        $keys = array_keys($collection, key($suits));
+        $rankCards = [];
+        foreach ($keys as $key) {
+            $rankCards[] = $values[$key];
+        }
+        rsort($rankCards);
+
+        return $rankCards;
+    }
 }

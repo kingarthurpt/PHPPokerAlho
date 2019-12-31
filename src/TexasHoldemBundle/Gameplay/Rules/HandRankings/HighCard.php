@@ -17,4 +17,19 @@ class HighCard extends AbstractRanking
     {
         return true;
     }
+
+    /**
+     * Gets this ranking's card values
+     *
+     * @param CardCollection $cards
+     *
+     * @return array Card values
+     */
+    public function getValue(CardCollection $cards): array
+    {
+        $occurrences = $this->getCardOccurrences($cards);
+        $rankCards = key($occurrences);
+
+        return [$rankCards];
+    }
 }

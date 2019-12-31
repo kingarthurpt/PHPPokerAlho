@@ -8,12 +8,31 @@ use TexasHoldemBundle\Gameplay\Rules\HandRankings\RoyalFlush;
 
 class RoyalFlushTest extends \Tests\BaseTestCase
 {
+    private $rank;
+    private $handStr;
+
+    protected function setUp(): void
+    {
+        $this->rank = new RoyalFlush();
+        $this->handStr = 'Ah Kh Th Jh Qh';
+    }
+
     public function testHasRanking()
     {
         $factory = new CardCollectionFactory();
-        $cards = $factory->makeFromString('Ah Kh Th Jh Qh');
+        $cards = $factory->makeFromString($this->handStr);
 
-        $handRanking = new RoyalFlush();
-        $this->assertTrue($handRanking->hasRanking($cards));
+        $this->assertTrue($this->rank->hasRanking($cards));
+    }
+
+    public function testGetValue()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [14, 13, 12, 11, 10],
+            $this->rank->getValue($cards)
+        );
     }
 }

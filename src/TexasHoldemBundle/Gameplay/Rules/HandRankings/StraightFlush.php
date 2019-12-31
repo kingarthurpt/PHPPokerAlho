@@ -21,4 +21,16 @@ class StraightFlush extends AbstractRanking
     {
         return $this->hasStraight($cards) && $this->hasFlush($cards);
     }
+
+    /**
+     * Gets this ranking's card values
+     *
+     * @param CardCollection $cards
+     *
+     * @return array Card values
+     */
+    public function getValue(CardCollection $cards): array
+    {
+        return $this->getStraightValue($cards);
+    }
 }

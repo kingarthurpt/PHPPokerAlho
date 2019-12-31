@@ -23,4 +23,21 @@ class TwoPairs extends AbstractRanking
 
         return 2 == $values[0] && 2 == $values[1];
     }
+
+    /**
+     * Gets this ranking's card values
+     *
+     * @param CardCollection $cards
+     *
+     * @return array Card values
+     */
+    public function getValue(CardCollection $cards): array
+    {
+        $occurrences = $this->getCardOccurrences($cards);
+        $pairs = array_slice($occurrences, 0, 2, true);
+        $rankCards = array_keys($pairs);
+        arsort($rankCards);
+
+        return $rankCards;
+    }
 }

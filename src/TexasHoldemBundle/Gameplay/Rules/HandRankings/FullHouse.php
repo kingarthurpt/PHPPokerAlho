@@ -23,4 +23,21 @@ class FullHouse extends AbstractRanking
 
         return 3 == $values[0] && $values[1] >= 2;
     }
+
+    /**
+     * Gets this ranking's card values
+     *
+     * @param CardCollection $cards
+     *
+     * @return array Card values
+     */
+    public function getValue(CardCollection $cards): array
+    {
+        $occurrences = $this->getCardOccurrences($cards);
+        $fullHouse = array_slice($occurrences, 0, 2, true);
+        $rankCards = array_keys($fullHouse);
+        arsort($rankCards);
+
+        return $rankCards;
+    }
 }

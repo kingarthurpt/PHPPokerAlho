@@ -8,12 +8,31 @@ use TexasHoldemBundle\Gameplay\Rules\HandRankings\HighCard;
 
 class HighCardTest extends \Tests\BaseTestCase
 {
+    private $rank;
+    private $handStr;
+
+    protected function setUp(): void
+    {
+        $this->rank = new HighCard();
+        $this->handStr = '2s 3s 4c 8c 9h';
+    }
+
     public function testHasRanking()
     {
         $factory = new CardCollectionFactory();
-        $cards = $factory->makeFromString('2s 3s 4c 8c 9h');
+        $cards = $factory->makeFromString($this->handStr);
 
-        $handRanking = new HighCard();
-        $this->assertTrue($handRanking->hasRanking($cards));
+        $this->assertTrue($this->rank->hasRanking($cards));
+    }
+
+    public function testGetValue()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [9],
+            $this->rank->getValue($cards)
+        );
     }
 }

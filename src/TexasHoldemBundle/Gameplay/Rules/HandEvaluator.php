@@ -44,9 +44,8 @@ class HandEvaluator
 
         $rankingMediator = new RankingMediator();
         $ranking = $rankingMediator->getRanking($cards);
-
-        // $ranking = $this->getRanking($cards);
-        $rankCardValues = $this->getRankCardsValues($cards, $ranking);
+        $rankCardValues = $rankingMediator->getRankCardsValues($cards, $ranking);
+        // $kickers = $rankingMediator->getKickers($cards, $ranking, $rankCardValues);
         $kickers = $this->getKickers($cards, $ranking, $rankCardValues);
 
         return new HandStrength($ranking, $rankCardValues, $kickers);
@@ -84,53 +83,6 @@ class HandEvaluator
         }
 
         return $ranking;
-    }
-
-    /**
-     * Gets the card values of the given ranking.
-     *
-     * @param CardCollection $cards
-     * @param int            $ranking
-     *
-     * @return array Card values
-     */
-    private function getRankCardsValues(CardCollection $cards, int $ranking)
-    {
-        $rankingCrads = [];
-        switch ($ranking) {
-            case HandRanking::ROYAL_FLUSH:
-                $rankingCrads = $this->getStraightValue($cards);
-                break;
-            case HandRanking::STRAIGHT_FLUSH:
-                $rankingCrads = $this->getStraightValue($cards);
-                break;
-            case HandRanking::FOUR_OF_A_KIND:
-                $rankingCrads = $this->getFourOfAKindValue($cards);
-                break;
-            case HandRanking::FULL_HOUSE:
-                $rankingCrads = $this->getFullHouseValue($cards);
-                break;
-            case HandRanking::FLUSH:
-                $rankingCrads = $this->getFlushValue($cards);
-                break;
-            case HandRanking::STRAIGHT:
-                $rankingCrads = $this->getStraightValue($cards);
-                break;
-            case HandRanking::THREE_OF_A_KIND:
-                $rankingCrads = $this->getThreeOfAKindValue($cards);
-                break;
-            case HandRanking::TWO_PAIR:
-                $rankingCrads = $this->getTwoPairValue($cards);
-                break;
-            case HandRanking::ONE_PAIR:
-                $rankingCrads = $this->getOnePairValue($cards);
-                break;
-            case HandRanking::HIGH_CARD:
-                $rankingCrads = $this->getHighCardValue($cards);
-                break;
-        }
-
-        return $rankingCrads;
     }
 
     /**
@@ -370,124 +322,6 @@ class HandEvaluator
         rsort($values);
 
         return $values;
-    }
-
-    private function getFourOfAKindValue(CardCollection $cards)
-    {
-        $occurrences = $this->getCardOccurrences($cards);
-        $rankCards = key($occurrences);
-
-        return [$rankCards];
-    }
-
-    private function getFullHouseValue(CardCollection $cards)
-    {
-        $occurrences = $this->getCardOccurrences($cards);
-        $fullHouse = array_slice($occurrences, 0, 2, true);
-        $rankCards = array_keys($fullHouse);
-        arsort($rankCards);
-
-        return $rankCards;
-    }
-
-    private function getFlushValue(CardCollection $cards)
-    {
-        $collection = [];
-        $values = [];
-        foreach ($cards->getCards() as $card) {
-            $collection[] = $card->getSuit()->getName();
-            $values[] = $card->getValue();
-        }
-        $suits = array_count_values($collection);
-        arsort($suits);
-        $keys = array_keys($collection, key($suits));
-        $rankCards = [];
-        foreach ($keys as $key) {
-            $rankCards[] = $values[$key];
-        }
-        rsort($rankCards);
-
-        return $rankCards;
-    }
-
-    private function getStraightValue(CardCollection $cards)
-    {
-        $occurrences = $this->getCardOccurrencesAddWheel($cards);
-        for ($i = count($occurrences); $i >= 5; --$i) {
-            if (0 == $occurrences[$i]) {
-                continue;
-            }
-
-            if ($occurrences[$i] && $occurrences[$i - 1] && $occurrences[$i - 2]
-                && $occurrences[$i - 3] && $occurrences[$i - 4]
-            ) {
-                $rankCards = [$i--, $i--, $i--, $i--, $i--];
-                break;
-            }
-        }
-        $rankCards[4] = (1 === $rankCards[4]) ? 14 : $rankCards[4];
-
-        return $rankCards;
-    }
-
-    private function getThreeOfAKindValue(CardCollection $cards)
-    {
-        $occurrences = $this->getCardOccurrences($cards);
-        $rankCards = key($occurrences);
-
-        return [$rankCards];
-    }
-
-    private function getTwoPairValue(CardCollection $cards)
-    {
-        $occurrences = $this->getCardOccurrences($cards);
-        $pairs = array_slice($occurrences, 0, 2, true);
-        $rankCards = array_keys($pairs);
-        arsort($rankCards);
-
-        return $rankCards;
-    }
-
-    private function getOnePairValue(CardCollection $cards)
-    {
-        $occurrences = $this->getCardOccurrences($cards);
-        $rankCards = key($occurrences);
-
-        return [$rankCards];
-    }
-
-    private function getHighCardValue(CardCollection $cards)
-    {
-        $occurrences = $this->getCardOccurrences($cards);
-        $rankCards = key($occurrences);
-
-        return [$rankCards];
-    }
-
-    private function getCardOccurrences(CardCollection $cards)
-    {
-        $occurrences = $this->getOccurrences($cards);
-        arsort($occurrences);
-
-        return $occurrences;
-    }
-
-    private function getCardOccurrencesAddWheel(CardCollection $cards)
-    {
-        $occurrences = $this->getOccurrences($cards);
-        $occurrences[1] = $occurrences[14];
-
-        return $occurrences;
-    }
-
-    private function getOccurrences(CardCollection $cards)
-    {
-        $occurrences = array_fill_keys(range(14, 2), 0);
-        foreach ($cards->getCards() as $card) {
-            ++$occurrences[$card->getValue()];
-        }
-
-        return $occurrences;
     }
 
     private function getPossibleKickers(CardCollection $cards, array $rankCards)
