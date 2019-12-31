@@ -1,201 +1,143 @@
 <?php
 
-namespace Tests;
+namespace Tests\Gameplay\Game;
 
-use PHPPokerAlho\Gameplay\Game\HandStrength;
-use PHPPokerAlho\Gameplay\Rules\HandRanking;
-use PHPPokerAlho\Gameplay\Cards\StandardCard;
+use TexasHoldemBundle\Gameplay\Cards\StandardCard;
+use TexasHoldemBundle\Gameplay\Game\HandStrength;
+use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 
-/**
- * @since  nextRelease
- *
- * @author Flávio Diniz <f.diniz14@gmail.com>
- */
-class HandStrengthTest extends BaseTestCase
+class HandStrengthTest extends \Tests\BaseTestCase
 {
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::__construct()
-     *
-     * @since  nextRelease
-     */
+    private $handStrength;
+
+    protected function setUp(): void
+    {
+        $this->handStrength = new HandStrength(
+            HandRanking::TWO_PAIR,
+            [StandardCard::ACE, StandardCard::KING],
+            [StandardCard::NINE]
+        );
+    }
+    
     public function testConstruct()
     {
-        $handStrength = new HandStrength(
-            HandRanking::TWO_PAIR,
-            array(StandardCard::ACE, StandardCard::KING),
-            array(StandardCard::NINE)
-        );
-
         $this->assertEquals(
             HandRanking::TWO_PAIR,
-            $this->getPropertyValue($handStrength, 'ranking')
+            $this->getPropertyValue($this->handStrength, 'ranking')
         );
         $this->assertEquals(
-            array(StandardCard::ACE, StandardCard::KING),
-            $this->getPropertyValue($handStrength, 'rankCardValues')
+            [StandardCard::ACE, StandardCard::KING],
+            $this->getPropertyValue($this->handStrength, 'rankCardValues')
         );
         $this->assertEquals(
-            array(StandardCard::NINE),
-            $this->getPropertyValue($handStrength, 'kickers')
+            [StandardCard::NINE],
+            $this->getPropertyValue($this->handStrength, 'kickers')
         );
-
-        return $handStrength;
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::getRanking()
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  HandStrength $handStrength The Hand strength
-     */
-    public function testGetRanking(HandStrength $handStrength)
+    public function testGetRanking()
     {
         $this->assertEquals(
-            $this->getPropertyValue($handStrength, 'ranking'),
-            $handStrength->getRanking()
+            $this->getPropertyValue($this->handStrength, 'ranking'),
+            $this->handStrength->getRanking()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::getRankingCardValues()
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  HandStrength $handStrength The Hand strength
-     */
-    public function testGetRankCardValues(HandStrength $handStrength)
+    public function testGetRankCardValues()
     {
         $this->assertEquals(
-            $this->getPropertyValue($handStrength, 'rankCardValues'),
-            $handStrength->getRankingCardValues()
+            $this->getPropertyValue($this->handStrength, 'rankCardValues'),
+            $this->handStrength->getRankingCardValues()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::getKickers()
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  HandStrength $handStrength The Hand strength
-     */
-    public function testGetKikers(HandStrength $handStrength)
+    public function testGetKikers()
     {
         $this->assertEquals(
-            $this->getPropertyValue($handStrength, 'kickers'),
-            $handStrength->getKickers()
+            $this->getPropertyValue($this->handStrength, 'kickers'),
+            $this->handStrength->getKickers()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::__toString()
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  HandStrength $handStrength The Hand strength
-     */
-    public function testToString(HandStrength $handStrength)
+    public function testToString()
     {
         $this->assertEquals(
-            "Two Pair: Aces and Kings. Kickers: Nine.",
-            $handStrength->__toString()
+            'Two Pair: Aces and Kings. Kickers: Nine.',
+            $this->handStrength->__toString()
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::getRankingCardValuesString()
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::rankingCardValuesToStr()
-     *
-     * @since  nextRelease
-     */
     public function testGetRankingCardValuesString()
     {
         $handStrength1 = new HandStrength(
             HandRanking::TWO_PAIR,
-            array(StandardCard::ACE, StandardCard::KING),
-            array(StandardCard::NINE)
+            [StandardCard::ACE, StandardCard::KING],
+            [StandardCard::NINE]
         );
         $this->assertEquals(
-            "Aces and Kings",
-            $this->invokeMethod($handStrength1, "getRankingCardValuesString")
+            'Aces and Kings',
+            $this->invokeMethod($handStrength1, 'getRankingCardValuesString')
         );
 
         $handStrength2 = new HandStrength(
             HandRanking::FLUSH,
-            array(
+            [
                 StandardCard::ACE,
                 StandardCard::KING,
                 StandardCard::EIGHT,
                 StandardCard::FOUR,
-                StandardCard::THREE
-            ),
-            array(
+                StandardCard::THREE,
+            ],
+            [
                 StandardCard::ACE,
                 StandardCard::KING,
                 StandardCard::EIGHT,
                 StandardCard::FOUR,
-                StandardCard::THREE
-            )
+                StandardCard::THREE,
+            ]
         );
         $this->assertEquals(
-            "",
-            $this->invokeMethod($handStrength2, "getRankingCardValuesString")
+            '',
+            $this->invokeMethod($handStrength2, 'getRankingCardValuesString')
         );
 
         $handStrength3 = new HandStrength(
             HandRanking::HIGH_CARD,
-            array(StandardCard::ACE),
-            array(
+            [StandardCard::ACE],
+            [
                 StandardCard::KING,
                 StandardCard::EIGHT,
                 StandardCard::FOUR,
-                StandardCard::THREE
-            )
+                StandardCard::THREE,
+            ]
         );
         $this->assertEquals(
-            "Ace",
-            $this->invokeMethod($handStrength3, "getRankingCardValuesString")
+            'Ace',
+            $this->invokeMethod($handStrength3, 'getRankingCardValuesString')
         );
     }
 
-    /**
-     * @covers \PHPPokerAlho\Gameplay\Game\HandStrength::kickersToStr()
-     *
-     * @depends testConstruct
-     *
-     * @since  nextRelease
-     *
-     * @param  HandStrength $handStrength The Hand strength
-     */
-    public function testKickersToStr(HandStrength $handStrength)
+    public function testKickersToStr()
     {
         $this->assertEquals(
-            "Nine",
-            $this->invokeMethod($handStrength, "kickersToStr")
+            'Nine',
+            $this->invokeMethod($this->handStrength, 'kickersToStr')
         );
 
         $handStrength2 = new HandStrength(
             HandRanking::ROYAL_FLUSH,
-            array(
+            [
                 StandardCard::ACE,
                 StandardCard::KING,
                 StandardCard::QUEEN,
                 StandardCard::JACK,
-                StandardCard::TEN
-            ),
-            array()
+                StandardCard::TEN,
+            ],
+            []
         );
         $this->assertEquals(
-            "",
-            $this->invokeMethod($handStrength2, "kickersToStr")
+            '',
+            $this->invokeMethod($handStrength2, 'kickersToStr')
         );
     }
 }

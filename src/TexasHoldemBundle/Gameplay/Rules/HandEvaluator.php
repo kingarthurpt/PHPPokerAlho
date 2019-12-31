@@ -1,42 +1,40 @@
 <?php
 
-namespace PHPPokerAlho\Gameplay\Rules;
+namespace TexasHoldemBundle\Gameplay\Rules;
 
-use PHPPokerAlho\Gameplay\Cards\CardCollection;
-use PHPPokerAlho\Gameplay\Game\HandStrength;
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Game\HandStrength;
+use TexasHoldemBundle\Gameplay\Rules\HandRankings\RankingMediator;
+use TexasHoldemBundle\Gameplay\Rules\HandRankings\RoyalFlush;
+use TexasHoldemBundle\Gameplay\Rules\HandRankings\StraightFlush;
 
 /**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- * @author Flávio Diniz <f.diniz14@gmail.com>
+ * @todo: refactor this class by implementing the mediator design pattern to evaluate a hand
+ * https://refactoring.guru/design-patterns/mediator/php/example
  */
 class HandEvaluator
 {
     /**
      * Compare an array of HandStrengths and return the same array sorted by
-     * the best HandStrengths
+     * the best HandStrengths.
      *
-     * @since   {nextRelease}
+     * @param array $hands
      *
-     * @param   array $hands [description]
-     *
-     * @return  array The sorted array of HandStrengths
+     * @return array The sorted array of HandStrengths
      */
     public function compareHands(array $hands)
     {
-        usort($hands, array($this, "compareTwoHands"));
+        usort($hands, [$this, 'compareTwoHands']);
+
         return $hands;
     }
 
     /**
-     * Gets the strength
+     * Gets the strength.
      *
-     * @since   {nextRelease}
+     * @param CardCollection $cards
      *
-     * @param   CardCollection $cards
-     *
-     * @return  HandStrength|null
+     * @return HandStrength|null
      */
     public function getStrength(CardCollection $cards)
     {
@@ -44,7 +42,10 @@ class HandEvaluator
             return null;
         }
 
-        $ranking = $this->getRanking($cards);
+        $rankingMediator = new RankingMediator();
+        $ranking = $rankingMediator->getRanking($cards);
+
+        // $ranking = $this->getRanking($cards);
         $rankCardValues = $this->getRankCardsValues($cards, $ranking);
         $kickers = $this->getKickers($cards, $ranking, $rankCardValues);
 
@@ -54,11 +55,9 @@ class HandEvaluator
     /**
      * Gets the ranking of a CardCollection.
      *
-     * @since   {nextRelease}
+     * @param CardCollection $cards
      *
-     * @param   CardCollection $cards
-     *
-     * @return  int The value the ranking
+     * @return int The value the ranking
      */
     private function getRanking(CardCollection $cards)
     {
@@ -90,16 +89,14 @@ class HandEvaluator
     /**
      * Gets the card values of the given ranking.
      *
-     * @since   {nextRelease}
+     * @param CardCollection $cards
+     * @param int            $ranking
      *
-     * @param   CardCollection $cards
-     * @param   int $ranking
-     *
-     * @return  array Card values
+     * @return array Card values
      */
     private function getRankCardsValues(CardCollection $cards, int $ranking)
     {
-        $rankingCrads = array();
+        $rankingCrads = [];
         switch ($ranking) {
             case HandRanking::ROYAL_FLUSH:
                 $rankingCrads = $this->getStraightValue($cards);
@@ -132,23 +129,22 @@ class HandEvaluator
                 $rankingCrads = $this->getHighCardValue($cards);
                 break;
         }
+
         return $rankingCrads;
     }
 
     /**
      * Gets the kickers for a given ranking and card values.
      *
-     * @since   {nextRelease}
+     * @param CardCollection $cards
+     * @param int            $ranking
+     * @param array          $rankCards
      *
-     * @param   CardCollection $cards
-     * @param   int $ranking
-     * @param   array $rankCards
-     *
-     * @return  array The kickers
+     * @return array The kickers
      */
     private function getKickers(CardCollection $cards, int $ranking, array $rankCards)
     {
-        $kickers = array();
+        $kickers = [];
         $possibleKickers = $this->getPossibleKickers($cards, $rankCards);
         switch ($ranking) {
             case HandRanking::ROYAL_FLUSH:
@@ -182,27 +178,26 @@ class HandEvaluator
                 $kickers = $this->getHighCardKickers($possibleKickers);
                 break;
         }
+
         return $kickers;
     }
 
     /**
-     * Check if there is a Royal Flush in the CardCollection
+     * Check if there is a Royal Flush in the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
     private function hasRoyalFlush(CardCollection $cards)
     {
-        $royalCards = array(
+        $royalCards = [
             'A' => null,
             'K' => null,
             'Q' => null,
             'J' => null,
             'T' => null,
-        );
+        ];
 
         foreach ($cards->getCards() as $card) {
             if (array_key_exists($card->getFaceValue(), $royalCards)) {
@@ -211,17 +206,15 @@ class HandEvaluator
         }
 
         // TRUE if all $royalCards elements are not null
-        $hasAllRoyalCards = count(array_filter($royalCards)) == 5;
+        $hasAllRoyalCards = 5 == count(array_filter($royalCards));
 
         return $hasAllRoyalCards && $this->hasFlush($cards) ? true : false;
     }
 
     /**
-     * Check if there is a Straight Flush in the CardCollection
+     * Check if there is a Straight Flush in the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -231,11 +224,9 @@ class HandEvaluator
     }
 
     /**
-     * Check if there is a Four of a kind in the CardCollection
+     * Check if there is a Four of a kind in the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -243,15 +234,13 @@ class HandEvaluator
     {
         $values = $this->countCardOccurrences($cards);
 
-        return $values[0] == 4;
+        return 4 == $values[0];
     }
 
     /**
-     * Check if there is a Full House in the CardCollection
+     * Check if there is a Full House in the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -259,22 +248,20 @@ class HandEvaluator
     {
         $values = $this->countCardOccurrences($cards);
 
-        return $values[0] == 3 && $values[1] >= 2;
+        return 3 == $values[0] && $values[1] >= 2;
     }
 
-    /**
-     * Check if there is a Flush in the CardCollection
-     *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
-     *
-     * @return bool TRUE on success, FALSE on failure
-     */
+    // /**
+    //  * Check if there is a Flush in the CardCollection.
+    //  *
+    //  * @param CardCollection $cards
+    //  *
+    //  * @return bool TRUE on success, FALSE on failure
+    //  */
     private function hasFlush(CardCollection $cards)
     {
         // Array of occurrences of each card's value
-        $suits = array();
+        $suits = [];
         foreach ($cards->getCards() as $card) {
             $suits[] = $card->getSuit()->getName();
         }
@@ -289,11 +276,9 @@ class HandEvaluator
     }
 
     /**
-     * Check if there is a Straight in the CardCollection
+     * Check if there is a Straight in the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -302,15 +287,15 @@ class HandEvaluator
         // Array of occurrences of each card's value
         $values = array_fill(2, 13, 0);
         foreach ($cards->getCards() as $card) {
-            $values[$card->getValue()]++;
+            ++$values[$card->getValue()];
         }
 
         // Duplicates the Ace to the end of the array
         $values[1] = $values[14];
 
         $hasStraight = false;
-        for ($i = 1; $i <= count($values) - 4; $i++) {
-            if ($values[$i] == 0) {
+        for ($i = 1; $i <= count($values) - 4; ++$i) {
+            if (0 == $values[$i]) {
                 continue;
             }
 
@@ -326,11 +311,9 @@ class HandEvaluator
     }
 
     /**
-     * Check if there is a Three of a kind in the CardCollection
+     * Check if there is a Three of a kind in the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -338,15 +321,13 @@ class HandEvaluator
     {
         $values = $this->countCardOccurrences($cards);
 
-        return $values[0] == 3;
+        return 3 == $values[0];
     }
 
     /**
-     * Check if there is a Two pair in the CardCollection
+     * Check if there is a Two pair in the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -354,15 +335,13 @@ class HandEvaluator
     {
         $values = $this->countCardOccurrences($cards);
 
-        return $values[0] == 2 && $values[1] == 2;
+        return 2 == $values[0] && 2 == $values[1];
     }
 
     /**
-     * Check if there is a One pair in the CardCollection
+     * Check if there is a One pair in the CardCollection.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
      */
@@ -370,15 +349,13 @@ class HandEvaluator
     {
         $values = $this->countCardOccurrences($cards);
 
-        return $values[0] == 2 && $values[1] == 1;
+        return 2 == $values[0] && 1 == $values[1];
     }
 
     /**
-     * Count the occurrences of each Card's value
+     * Count the occurrences of each Card's value.
      *
-     * @since  {nextRelease}
-     *
-     * @param  CardCollection $cards [description]
+     * @param CardCollection $cards
      *
      * @return array A sorted array in reverse order
      */
@@ -387,7 +364,7 @@ class HandEvaluator
         // Array of occurrences of each card's value
         $values = array_fill(2, 13, 0);
         foreach ($cards->getCards() as $card) {
-            $values[$card->getValue()]++;
+            ++$values[$card->getValue()];
         }
         // The occurrence array gets sorted in reverse order
         rsort($values);
@@ -399,7 +376,8 @@ class HandEvaluator
     {
         $occurrences = $this->getCardOccurrences($cards);
         $rankCards = key($occurrences);
-        return array($rankCards);
+
+        return [$rankCards];
     }
 
     private function getFullHouseValue(CardCollection $cards)
@@ -414,8 +392,8 @@ class HandEvaluator
 
     private function getFlushValue(CardCollection $cards)
     {
-        $collection = array();
-        $values = array();
+        $collection = [];
+        $values = [];
         foreach ($cards->getCards() as $card) {
             $collection[] = $card->getSuit()->getName();
             $values[] = $card->getValue();
@@ -423,30 +401,31 @@ class HandEvaluator
         $suits = array_count_values($collection);
         arsort($suits);
         $keys = array_keys($collection, key($suits));
-        $rankCards = array();
+        $rankCards = [];
         foreach ($keys as $key) {
             $rankCards[] = $values[$key];
         }
         rsort($rankCards);
+
         return $rankCards;
     }
 
     private function getStraightValue(CardCollection $cards)
     {
         $occurrences = $this->getCardOccurrencesAddWheel($cards);
-        for ($i = count($occurrences); $i >= 5; $i--) {
-            if ($occurrences[$i] == 0) {
+        for ($i = count($occurrences); $i >= 5; --$i) {
+            if (0 == $occurrences[$i]) {
                 continue;
             }
 
             if ($occurrences[$i] && $occurrences[$i - 1] && $occurrences[$i - 2]
                 && $occurrences[$i - 3] && $occurrences[$i - 4]
             ) {
-                $rankCards = array($i--, $i--, $i--, $i--, $i--);
+                $rankCards = [$i--, $i--, $i--, $i--, $i--];
                 break;
             }
         }
-        $rankCards[4] = ($rankCards[4] === 1) ? 14 : $rankCards[4];
+        $rankCards[4] = (1 === $rankCards[4]) ? 14 : $rankCards[4];
 
         return $rankCards;
     }
@@ -455,7 +434,8 @@ class HandEvaluator
     {
         $occurrences = $this->getCardOccurrences($cards);
         $rankCards = key($occurrences);
-        return array($rankCards);
+
+        return [$rankCards];
     }
 
     private function getTwoPairValue(CardCollection $cards)
@@ -472,21 +452,23 @@ class HandEvaluator
     {
         $occurrences = $this->getCardOccurrences($cards);
         $rankCards = key($occurrences);
-        return array($rankCards);
+
+        return [$rankCards];
     }
 
     private function getHighCardValue(CardCollection $cards)
     {
         $occurrences = $this->getCardOccurrences($cards);
         $rankCards = key($occurrences);
-        return array($rankCards);
+
+        return [$rankCards];
     }
 
     private function getCardOccurrences(CardCollection $cards)
     {
         $occurrences = $this->getOccurrences($cards);
         arsort($occurrences);
-        
+
         return $occurrences;
     }
 
@@ -502,7 +484,7 @@ class HandEvaluator
     {
         $occurrences = array_fill_keys(range(14, 2), 0);
         foreach ($cards->getCards() as $card) {
-            $occurrences[$card->getValue()]++;
+            ++$occurrences[$card->getValue()];
         }
 
         return $occurrences;
@@ -510,7 +492,7 @@ class HandEvaluator
 
     private function getPossibleKickers(CardCollection $cards, array $rankCards)
     {
-        $kickers = array();
+        $kickers = [];
         foreach ($cards->getCards() as $card) {
             $kickers[$card->getValue()] = $card->getValue();
         }
@@ -554,12 +536,10 @@ class HandEvaluator
     }
 
     /**
-     * Compare two HandStrengths
+     * Compare two HandStrengths.
      *
-     * @since  {nextRelease}
-     *
-     * @param  HandStrength $first The first HandStrength
-     * @param  HandStrength $second The second HandStrength
+     * @param HandStrength $first  The first HandStrength
+     * @param HandStrength $second The second HandStrength
      *
      * @return int 1 if the second hand is stronger than the first,
      *             -1 if the first hand is stronger than the second,
@@ -580,7 +560,7 @@ class HandEvaluator
             $first->getRankingCardValues(),
             $second->getRankingCardValues()
         );
-        if ($result != 0) {
+        if (0 != $result) {
             return $result;
         }
 
@@ -592,18 +572,16 @@ class HandEvaluator
     /**
      * Compare two arrays of Card values.
      * Each array is sorted with a reverse order and contain the
-     * values of each Card
+     * values of each Card.
      *
-     * @since  {nextRelease}
-     *
-     * @param  array $firstKickers [description]
-     * @param  array $secondKickers [description]
+     * @param array $firstKickers
+     * @param array $secondKickers
      *
      * @return int
      */
     private function compareCardValues(array $firstKickers, array $secondKickers)
     {
-        for ($i = 0; $i < count($firstKickers) || $i < count($secondKickers); $i++) {
+        for ($i = 0; $i < count($firstKickers) || $i < count($secondKickers); ++$i) {
             if ($firstKickers[$i] > $secondKickers[$i]) {
                 return -1;
             } elseif ($firstKickers[$i] < $secondKickers[$i]) {

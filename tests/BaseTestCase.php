@@ -4,17 +4,10 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class BaseTestCase extends TestCase
 {
     /**
      * Allow access to protected or private functions of an object
-     *
-     * @since  {nextRelease}
      *
      * @param object &$object    The object
      * @param string $methodName The protected or private function's name
@@ -33,8 +26,6 @@ class BaseTestCase extends TestCase
 
     /**
      * Get the value of a protected or private property
-     *
-     * @since  {nextRelease}
      *
      * @param  object &$object The object of the protected or private property
      * @param  string $propertyName The property's name
