@@ -116,7 +116,7 @@ class StandardCard extends Card
 
     /**
      * Set the Card's value.
-     * The value must be between 2 and 14
+     * The value must be between 2 and 14.
      *
      * @param int $value The card's value
      *
@@ -138,28 +138,6 @@ class StandardCard extends Card
      */
     public function getFaceValue()
     {
-        /*
-        switch ($this->value) {
-            case 10:
-                $value = "T";
-                break;
-            case 11:
-                $value = "J";
-                break;
-            case 12:
-                $value = "Q";
-                break;
-            case 13:
-                $value = "K";
-                break;
-            case 14:
-                $value = "A";
-                break;
-            default:
-                $value = $this->value;
-        }
-        return $value;
-        */
         return isset($this->faceValues[$this->value])
             ? $this->faceValues[$this->value]
             : $this->value;
@@ -179,61 +157,5 @@ class StandardCard extends Card
                 $this->setValue($key);
             }
         }
-    }
-
-    /**
-     * Gets the Card name given its value.<br/>
-     * If invalid value of Card is given returns "Unknown".
-     *
-     * @param   int $value Card value.
-     *
-     * @return  string Card name | "Unknown".
-     */
-    public static function getName(int $value)
-    {
-        switch ($value) {
-            case self::TWO:
-                $name = "Two";
-                break;
-            case self::THREE:
-                $name = "Three";
-                break;
-            case self::FOUR:
-                $name = "Four";
-                break;
-            case self::FIVE:
-                $name = "Five";
-                break;
-            case self::SIX:
-                $name = "Six";
-                break;
-            case self::SEVEN:
-                $name = "Seven";
-                break;
-            case self::EIGHT:
-                $name = "Eight";
-                break;
-            case self::NINE:
-                $name = "Nine";
-                break;
-            case self::TEN:
-                $name = "Ten";
-                break;
-            case self::JACK:
-                $name = "Jack";
-                break;
-            case self::QUEEN:
-                $name = "Queen";
-                break;
-            case self::KING:
-                $name = "King";
-                break;
-            case self::ACE:
-                $name = "Ace" ;
-                break;
-            default:
-                $name = "Unknown";
-        }
-        return $name;
     }
 }

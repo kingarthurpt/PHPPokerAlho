@@ -2,7 +2,9 @@
 
 namespace TexasHoldemBundle\Gameplay\Rules;
 
-class HandRanking
+use TexasHoldemBundle\DesignPatterns\Singleton;
+
+class HandRanking extends Singleton
 {
     const ROYAL_FLUSH = 10;
     const STRAIGHT_FLUSH = 9;
@@ -15,43 +17,30 @@ class HandRanking
     const ONE_PAIR = 2;
     const HIGH_CARD = 1;
 
-    public static function getName(int $ranking)
-    {
-        switch ($ranking) {
-            case self::HIGH_CARD:
-                $name = 'High Card';
-                break;
-            case self::ONE_PAIR:
-                $name = 'One Pair';
-                break;
-            case self::TWO_PAIR:
-                $name = 'Two Pair';
-                break;
-            case self::THREE_OF_A_KIND:
-                $name = 'Three of a kind';
-                break;
-            case self::STRAIGHT:
-                $name = 'Straight';
-                break;
-            case self::FLUSH:
-                $name = 'Flush';
-                break;
-            case self::FULL_HOUSE:
-                $name = 'Full House';
-                break;
-            case self::FOUR_OF_A_KIND:
-                $name = 'Four of a kind';
-                break;
-            case self::STRAIGHT_FLUSH:
-                $name = 'Straight Flush';
-                break;
-            case self::ROYAL_FLUSH:
-                $name = 'Royal Flush';
-                break;
-            default:
-                $name = 'Invalid';
-        }
+    protected $rankingNames = [
+        self::ROYAL_FLUSH => 'Royal Flush',
+        self::STRAIGHT_FLUSH => 'Straight Flush',
+        self::FOUR_OF_A_KIND => 'Four of a kind',
+        self::FULL_HOUSE => 'Full House',
+        self::FLUSH => 'Flush',
+        self::STRAIGHT => 'Straight',
+        self::THREE_OF_A_KIND => 'Three of a kind',
+        self::TWO_PAIR => 'Two Pair',
+        self::ONE_PAIR => 'One Pair',
+        self::HIGH_CARD => 'High Card',
+    ];
 
-        return $name;
+    /**
+     * Get the name of a given ranking
+     *
+     * @param int $ranking
+     *
+     * @return string
+     */
+    public function getName(int $ranking): string
+    {
+        return isset($this->rankingNames[$ranking])
+            ? $this->rankingNames[$ranking]
+            : 'Invalid';
     }
 }

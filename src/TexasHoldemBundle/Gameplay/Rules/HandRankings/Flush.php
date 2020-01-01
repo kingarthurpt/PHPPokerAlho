@@ -55,6 +55,8 @@ class Flush extends AbstractRanking
      * @param array          $rankCards
      *
      * @return array The kickers
+     *
+     * @SuppressWarnings("unused")
      */
     public function getKickers(CardCollection $cards, array $rankCards)
     {

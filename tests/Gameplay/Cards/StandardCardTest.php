@@ -4,6 +4,7 @@ namespace Tests\Gameplay\Cards;
 
 use TexasHoldemBundle\Gameplay\Cards\StandardCard;
 use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Stringifier\StandardCardValue;
 
 class StandardCardTest extends \Tests\BaseTestCase
 {
@@ -105,7 +106,8 @@ class StandardCardTest extends \Tests\BaseTestCase
         );
 
         for ($i = 1; $i < 15; $i++) {
-            $this->assertEquals($expectedValues[$i], StandardCard::getName($i));
+            $standardCardValue = StandardCardValue::getInstance();
+            $this->assertEquals($expectedValues[$i], $standardCardValue->stringify($i));
         }
     }
 }

@@ -38,6 +38,17 @@ class HandStrengthCommand extends Command
     {
         unset($input);
 
+        $cards = $this->prepare($output);
+
+        $calculator = new HandEvaluator();
+        $handStrength = $calculator->getStrength($cards);
+        $output->writeln('Hand Strength: '.$handStrength->__toString());
+
+        return 0;
+    }
+
+    private function prepare(OutputInterface $output): CardCollection
+    {
         $table = new Table('Table1', 1);
         $dealer = new Dealer(new StandardDeck(new StandardSuitFactory()), $table);
         $dealer->setTable($table);
@@ -66,10 +77,6 @@ class HandStrengthCommand extends Command
         $cards->mergeCards($player->getHand());
         $cards->mergeCards($table->getCommunityCards());
 
-        $calculator = new HandEvaluator();
-        $handStrength = $calculator->getStrength($cards);
-        $output->writeln('Hand Strength: '.$handStrength->__toString());
-
-        return 0;
+        return $cards;
     }
 }

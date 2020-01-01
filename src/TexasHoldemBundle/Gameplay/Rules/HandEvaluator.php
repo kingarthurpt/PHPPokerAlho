@@ -8,10 +8,6 @@ use TexasHoldemBundle\Gameplay\Rules\HandRankings\RankingMediator;
 use TexasHoldemBundle\Gameplay\Rules\HandRankings\RoyalFlush;
 use TexasHoldemBundle\Gameplay\Rules\HandRankings\StraightFlush;
 
-/**
- * @todo: refactor this class by implementing the mediator design pattern to evaluate a hand
- * https://refactoring.guru/design-patterns/mediator/php/example
- */
 class HandEvaluator
 {
     /**
@@ -30,7 +26,7 @@ class HandEvaluator
     }
 
     /**
-     * Gets the strength.
+     * Gets the strength of a collection of cards.
      *
      * @param CardCollection $cards
      *

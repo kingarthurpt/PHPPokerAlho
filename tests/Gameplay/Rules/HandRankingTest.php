@@ -21,11 +21,13 @@ class HandRankingTest extends \Tests\BaseTestCase
             'Royal Flush',
         ];
 
+        $handRanking = HandRanking::getInstance();
+
         for ($i = 1; $i <= 10; ++$i) {
-            $this->assertEquals($expectedNames[$i - 1], HandRanking::getName($i));
+            $this->assertEquals($expectedNames[$i - 1], $handRanking->getName($i));
         }
 
-        $this->assertEquals('Invalid', HandRanking::getName(0));
-        $this->assertEquals('Invalid', HandRanking::getName(12));
+        $this->assertEquals('Invalid', $handRanking->getName(0));
+        $this->assertEquals('Invalid', $handRanking->getName(12));
     }
 }

@@ -12,6 +12,8 @@ class HighCard extends AbstractRanking
      * @param CardCollection $cards
      *
      * @return bool TRUE on success, FALSE on failure
+     *
+     * @SuppressWarnings("unused")
      */
     public function hasRanking(CardCollection $cards): bool
     {

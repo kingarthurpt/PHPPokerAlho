@@ -18,7 +18,7 @@ class HandStrengthTest extends \Tests\BaseTestCase
             [StandardCard::NINE]
         );
     }
-    
+
     public function testConstruct()
     {
         $this->assertEquals(
@@ -64,56 +64,6 @@ class HandStrengthTest extends \Tests\BaseTestCase
         $this->assertEquals(
             'Two Pair: Aces and Kings. Kickers: Nine.',
             $this->handStrength->__toString()
-        );
-    }
-
-    public function testGetRankingCardValuesString()
-    {
-        $handStrength1 = new HandStrength(
-            HandRanking::TWO_PAIR,
-            [StandardCard::ACE, StandardCard::KING],
-            [StandardCard::NINE]
-        );
-        $this->assertEquals(
-            'Aces and Kings',
-            $this->invokeMethod($handStrength1, 'getRankingCardValuesString')
-        );
-
-        $handStrength2 = new HandStrength(
-            HandRanking::FLUSH,
-            [
-                StandardCard::ACE,
-                StandardCard::KING,
-                StandardCard::EIGHT,
-                StandardCard::FOUR,
-                StandardCard::THREE,
-            ],
-            [
-                StandardCard::ACE,
-                StandardCard::KING,
-                StandardCard::EIGHT,
-                StandardCard::FOUR,
-                StandardCard::THREE,
-            ]
-        );
-        $this->assertEquals(
-            '',
-            $this->invokeMethod($handStrength2, 'getRankingCardValuesString')
-        );
-
-        $handStrength3 = new HandStrength(
-            HandRanking::HIGH_CARD,
-            [StandardCard::ACE],
-            [
-                StandardCard::KING,
-                StandardCard::EIGHT,
-                StandardCard::FOUR,
-                StandardCard::THREE,
-            ]
-        );
-        $this->assertEquals(
-            'Ace',
-            $this->invokeMethod($handStrength3, 'getRankingCardValuesString')
         );
     }
 

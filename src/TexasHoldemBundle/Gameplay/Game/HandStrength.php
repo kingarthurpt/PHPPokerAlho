@@ -2,8 +2,9 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
-use TexasHoldemBundle\Gameplay\Cards\StandardCard;
 use TexasHoldemBundle\Gameplay\Rules\HandRanking;
+use TexasHoldemBundle\Stringifier\RankingCardValue;
+use TexasHoldemBundle\Stringifier\StandardCardValue;
 
 class HandStrength
 {
@@ -43,6 +44,8 @@ class HandStrength
         $this->ranking = $rank;
         $this->rankCardValues = $rankCardValues;
         $this->kickers = $kickers;
+
+        $this->handRanking = HandRanking::getInstance();
     }
 
     /**
@@ -52,9 +55,10 @@ class HandStrength
      */
     public function __toString()
     {
-        // @todo Avoid using static access
-        return HandRanking::getName($this->ranking).': '
-            .$this->getRankingCardValuesString().'. '
+        $rankingCardValue = RankingCardValue::getInstance();
+
+        return $this->handRanking->getName($this->ranking).': '
+            .$rankingCardValue->stringify($this->ranking, $this->rankCardValues).'. '
             .'Kickers: '.$this->kickersToStr().'.';
     }
 
@@ -89,61 +93,6 @@ class HandStrength
     }
 
     /**
-     * Based on the HandStrength ranking gets the name
-     * of the HandStrength rankingCardValues.
-     *
-     * @return string the ranking Crads names
-     */
-    private function getRankingCardValuesString()
-    {
-        $rankCardStr = '';
-        switch ($this->ranking) {
-            case HandRanking::ONE_PAIR:
-            case HandRanking::TWO_PAIR:
-            case HandRanking::THREE_OF_A_KIND:
-            case HandRanking::FULL_HOUSE:
-            case HandRanking::FOUR_OF_A_KIND:
-                $rankCardStr = $this->rankingCardValuesToStr(true);
-                break;
-            case HandRanking::FLUSH:
-                break;
-            default:
-                $rankCardStr = $this->rankingCardValuesToStr();
-        }
-
-        return $rankCardStr;
-    }
-
-    /**
-     * Gets the name(s) of the HandStrength ranking Card(s).
-     *
-     * @todo The method rankingCardValuesToStr has a boolean flag argument $plural,
-     * which is a certain sign of a Single Responsibility Principle violation.
-     *
-     * @param bool $plural [optional] <p>
-     *                     If given and is <b>TRUE</b>, gets the Card name in the plural form,
-     *                     <b>FALSE</b> otherwise
-     *
-     * @return string The ranking Cards name
-     */
-    private function rankingCardValuesToStr(bool $plural = false)
-    {
-        $str = '';
-        foreach ($this->rankCardValues as $cardValue) {
-            // @todo Avoid using static access
-            $str .= StandardCard::getName($cardValue);
-            $str .= $plural ? 's, ' : ', ';
-        }
-        $str = rtrim($str, ', ');
-        $pos = strrpos($str, ', ');
-        if (false !== $pos) {
-            $str = substr_replace($str, ' and ', $pos, strlen(', '));
-        }
-
-        return $str;
-    }
-
-    /**
      * Gets the name(s) of the HandStrength kicker(s).
      *
      * @return string the kickers names
@@ -151,9 +100,9 @@ class HandStrength
     private function kickersToStr()
     {
         $str = '';
+        $standardCardValue = StandardCardValue::getInstance();
         foreach ($this->kickers as $kicker) {
-            // @todo Avoid using static access
-            $str .= StandardCard::getName($kicker).', ';
+            $str .= $standardCardValue->stringify($kicker).', ';
         }
         $str = rtrim($str, ', ');
 
