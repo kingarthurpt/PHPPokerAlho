@@ -35,4 +35,15 @@ class FourOfAKindTest extends \Tests\BaseTestCase
             $this->rank->getValue($cards)
         );
     }
+
+    public function testGetKickers()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [13],
+            $this->rank->getKickers($cards, [3])
+        );
+    }
 }

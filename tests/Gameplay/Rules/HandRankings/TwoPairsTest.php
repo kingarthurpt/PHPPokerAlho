@@ -35,4 +35,15 @@ class TwoPairsTest extends \Tests\BaseTestCase
             $this->rank->getValue($cards)
         );
     }
+
+    public function testGetKickers()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [4],
+            $this->rank->getKickers($cards, [8, 3])
+        );
+    }
 }

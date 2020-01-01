@@ -40,4 +40,17 @@ class FullHouse extends AbstractRanking
 
         return $rankCards;
     }
+
+    /**
+     * Gets the kickers
+     *
+     * @param CardCollection $cards
+     * @param array          $rankCards
+     *
+     * @return array The kickers
+     */
+    public function getKickers(CardCollection $cards, array $rankCards)
+    {
+        return $rankCards;
+    }
 }

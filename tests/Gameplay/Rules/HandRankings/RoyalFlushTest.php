@@ -35,4 +35,15 @@ class RoyalFlushTest extends \Tests\BaseTestCase
             $this->rank->getValue($cards)
         );
     }
+
+    public function testGetKickers()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [],
+            $this->rank->getKickers($cards, [14, 13, 12, 11, 10])
+        );
+    }
 }

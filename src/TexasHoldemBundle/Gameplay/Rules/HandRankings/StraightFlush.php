@@ -33,4 +33,21 @@ class StraightFlush extends AbstractRanking
     {
         return $this->getStraightValue($cards);
     }
+
+    /**
+     * Gets the kickers
+     *
+     * @param CardCollection $cards
+     * @param array          $rankCards
+     *
+     * @return array The kickers
+     */
+    public function getKickers(CardCollection $cards, array $rankCards)
+    {
+        return array_slice(
+            $this->getPossibleKickers($cards, $rankCards),
+            0,
+            1
+        );
+    }
 }

@@ -35,4 +35,15 @@ class FullHouseTest extends \Tests\BaseTestCase
             $this->rank->getValue($cards)
         );
     }
+
+    public function testGetKickers()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [5, 3],
+            $this->rank->getKickers($cards, [5, 3])
+        );
+    }
 }

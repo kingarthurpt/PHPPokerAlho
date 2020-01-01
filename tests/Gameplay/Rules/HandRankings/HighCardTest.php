@@ -35,4 +35,15 @@ class HighCardTest extends \Tests\BaseTestCase
             $this->rank->getValue($cards)
         );
     }
+
+    public function testGetKickers()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [8, 4, 3, 2],
+            $this->rank->getKickers($cards, [9])
+        );
+    }
 }

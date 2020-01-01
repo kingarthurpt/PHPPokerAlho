@@ -53,41 +53,8 @@ class RankingMediator
      */
     public function getKickers(CardCollection $cards, int $ranking, array $rankCards)
     {
-        $kickers = [];
-        $possibleKickers = $this->getPossibleKickers($cards, $rankCards);
-        switch ($ranking) {
-            case HandRanking::ROYAL_FLUSH:
-                $kickers = $this->getStraightKickers($rankCards);
-                break;
-            case HandRanking::STRAIGHT_FLUSH:
-                $kickers = $this->getStraightKickers($rankCards);
-                break;
-            case HandRanking::FOUR_OF_A_KIND:
-                $kickers = $this->getFourOfAKindKickers($possibleKickers);
-                break;
-            case HandRanking::FULL_HOUSE:
-                $kickers = $rankCards;
-                break;
-            case HandRanking::FLUSH:
-                $kickers = $rankCards;
-                break;
-            case HandRanking::STRAIGHT:
-                $kickers = $this->getStraightKickers($rankCards);
-                break;
-            case HandRanking::THREE_OF_A_KIND:
-                $kickers = $this->getThreeOfAKindKickers($possibleKickers);
-                break;
-            case HandRanking::TWO_PAIR:
-                $kickers = $this->getTwoPairKickers($possibleKickers);
-                break;
-            case HandRanking::ONE_PAIR:
-                $kickers = $this->getOnePairKickers($possibleKickers);
-                break;
-            case HandRanking::HIGH_CARD:
-                $kickers = $this->getHighCardKickers($possibleKickers);
-                break;
-        }
-
-        return $kickers;
+        return isset($this->combinations[$ranking])
+            ? $this->combinations[$ranking]->getKickers($cards, $rankCards)
+            : [];
     }
 }

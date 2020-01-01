@@ -142,4 +142,19 @@ abstract class AbstractRanking
 
         return $occurrences;
     }
+
+    protected function getPossibleKickers(CardCollection $cards, array $rankCards)
+    {
+        $kickers = [];
+        foreach ($cards->getCards() as $card) {
+            $kickers[$card->getValue()] = $card->getValue();
+        }
+
+        foreach ($rankCards as $card) {
+            unset($kickers[$card]);
+        }
+        krsort($kickers);
+
+        return $kickers;
+    }
 }

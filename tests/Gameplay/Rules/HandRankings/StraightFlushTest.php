@@ -35,4 +35,15 @@ class StraightFlushTest extends \Tests\BaseTestCase
             $this->rank->getValue($cards)
         );
     }
+
+    public function testGetKickers()
+    {
+        $factory = new CardCollectionFactory();
+        $cards = $factory->makeFromString($this->handStr);
+
+        $this->assertEquals(
+            [],
+            $this->rank->getKickers($cards, [8, 7, 6, 5, 4])
+        );
+    }
 }
