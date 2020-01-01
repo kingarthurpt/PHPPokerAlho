@@ -124,7 +124,7 @@ abstract class AbstractRanking
         // Sort keys in reverse to get highest value first
         krsort($occurrences);
         // Remove keys with empty occurrences
-        $occurrences = array_filter($occurrences, function($element) {
+        $occurrences = array_filter($occurrences, function ($element) {
             return $element !== 0;
         });
         // Re sort occurrences by value

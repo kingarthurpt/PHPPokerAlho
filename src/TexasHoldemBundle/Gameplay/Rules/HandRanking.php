@@ -17,7 +17,7 @@ class HandRanking
 
     public static function getName(int $ranking)
     {
-        switch($ranking) {
+        switch ($ranking) {
             case self::HIGH_CARD:
                 $name = 'High Card';
                 break;

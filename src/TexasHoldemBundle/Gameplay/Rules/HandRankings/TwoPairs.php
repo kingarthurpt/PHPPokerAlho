@@ -2,7 +2,6 @@
 
 namespace TexasHoldemBundle\Gameplay\Rules\HandRankings;
 
-
 use TexasHoldemBundle\Gameplay\Rules\HandRankings\AbstractRanking;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 use TexasHoldemBundle\DesignPatterns\MediatorInterface;

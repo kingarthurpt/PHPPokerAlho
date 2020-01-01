@@ -107,7 +107,7 @@ class Dealer extends TableObserver
             ->setPlayers($players)
             ->setSmallBlind(10)
             ->setBigBlind(20);
-            // ->setPhase(Hand::PHASE_PRE_FLOP);
+        // ->setPhase(Hand::PHASE_PRE_FLOP);
 
         $buttonSeat = $this->moveButton();
         $smallBlindSeat = $this->getNextPlayerSeat($buttonSeat);
