@@ -55,6 +55,8 @@ class HandEvaluator
      * @return int 1 if the second hand is stronger than the first,
      *             -1 if the first hand is stronger than the second,
      *             0 if both hands have the same strength
+     *
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      */
     private function compareTwoHands(HandStrength $first, HandStrength $second)
     {

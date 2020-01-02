@@ -62,7 +62,7 @@ class HandStrengthTest extends \Tests\BaseTestCase
     public function testToString()
     {
         $this->assertEquals(
-            'Two Pair: Aces and Kings. Kickers: Nine.',
+            'Two Pair: Ace and King. Kickers: Nine.',
             $this->handStrength->__toString()
         );
     }

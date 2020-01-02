@@ -20,7 +20,9 @@ class Singleton
      * Singleton's constructor should not be public. However, it can't be
      * private either if we want to allow subclassing.
      */
-    protected function __construct() { }
+    protected function __construct()
+    {
+    }
 
     /**
      * The method you use to get the Singleton's instance.
@@ -35,8 +37,9 @@ class Singleton
             // method is called on the subclass, we want an instance of that
             // subclass to be created here.
 
-            self::$instances[$subclass] = new static;
+            self::$instances[$subclass] = new static();
         }
+
         return self::$instances[$subclass];
     }
 }

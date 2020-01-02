@@ -48,7 +48,7 @@ class FullHouse extends AbstractRanking
      *
      * @return array The kickers
      *
-     * @SuppressWarnings("unused")
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getKickers(CardCollection $cards, array $rankCards)
     {

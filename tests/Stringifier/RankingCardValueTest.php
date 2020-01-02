@@ -9,6 +9,9 @@ class RankingCardValueTest extends \Tests\BaseTestCase
 {
     private $instance;
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function setUp(): void
     {
         $this->instance = RankingCardValue::getInstance();
@@ -17,15 +20,14 @@ class RankingCardValueTest extends \Tests\BaseTestCase
     /**
      * @dataProvider getStringifyData
      *
-     * @param mixed $ranking
      * @param mixed $cards
      * @param mixed $expected
      */
-    public function testStringify($ranking, $cards, $expected)
+    public function testStringify($cards, $expected)
     {
         $this->assertEquals(
             $expected,
-            $this->instance->stringify($ranking, $cards)
+            $this->instance->stringify($cards)
         );
     }
 
@@ -33,32 +35,14 @@ class RankingCardValueTest extends \Tests\BaseTestCase
     {
         return [
             'onePair' => [
-                'ranking' => HandRanking::ONE_PAIR,
                 'rankingCards' => [4],
-                'expected' => 'Fours',
-            ],
-            'twoPairs' => [
-                'ranking' => HandRanking::TWO_PAIR,
-                'rankingCards' => [4, 8],
-                'expected' => 'Fours and Eights',
-            ],
-            'threeOfAKind' => [
-                'ranking' => HandRanking::THREE_OF_A_KIND,
-                'rankingCards' => [9],
-                'expected' => 'Nines',
-            ],
-            'threeOfAKind' => [
-                'ranking' => HandRanking::THREE_OF_A_KIND,
-                'rankingCards' => [9],
-                'expected' => 'Nines',
+                'expected' => 'Four',
             ],
             'flush' => [
-                'ranking' => HandRanking::FLUSH,
                 'rankingCards' => [13],
-                'expected' => '',
+                'expected' => 'King',
             ],
             'straight' => [
-                'ranking' => HandRanking::STRAIGHT,
                 'rankingCards' => [6, 5, 4, 3, 2],
                 'expected' => 'Six, Five, Four, Three and Two',
             ],

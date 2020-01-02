@@ -8,6 +8,9 @@ class StandardCardValueTest extends \Tests\BaseTestCase
 {
     private $instance;
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function setUp(): void
     {
         $this->instance = StandardCardValue::getInstance();
@@ -30,30 +33,12 @@ class StandardCardValueTest extends \Tests\BaseTestCase
     public function getStringifyData()
     {
         return [
-            'three' => [
-                'ranking' => 3,
-                'expected' => 'Three',
-            ],
-            'jack' => [
-                'ranking' => 11,
-                'expected' => 'Jack',
-            ],
-            'queen' => [
-                'ranking' => 12,
-                'expected' => 'Queen',
-            ],
-            'king' => [
-                'ranking' => 13,
-                'expected' => 'King',
-            ],
-            'ace' => [
-                'ranking' => 14,
-                'expected' => 'Ace',
-            ],
-            'unknown' => [
-                'ranking' => 1,
-                'expected' => 'Unknown',
-            ],
+            'three' => ['ranking' => 3, 'expected' => 'Three'],
+            'jack' => ['ranking' => 11, 'expected' => 'Jack'],
+            'queen' => ['ranking' => 12, 'expected' => 'Queen'],
+            'king' => ['ranking' => 13, 'expected' => 'King'],
+            'ace' => ['ranking' => 14, 'expected' => 'Ace'],
+            'unknown' => ['ranking' => 1, 'expected' => 'Unknown'],
         ];
     }
 }

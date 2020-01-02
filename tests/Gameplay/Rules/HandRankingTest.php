@@ -6,6 +6,9 @@ use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 
 class HandRankingTest extends \Tests\BaseTestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function testGetName()
     {
         $expectedNames = [

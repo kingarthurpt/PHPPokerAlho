@@ -47,24 +47,15 @@ abstract class AbstractRanking
             ++$values[$card->getValue()];
         }
 
-        // Duplicates the Ace to the end of the array
-        $values[1] = $values[14];
+        // Sums all card's values which have at least one occurrence
+        $values = array_filter($values, function($element) {
+            return $element != 0;
+        });
+        $sum = array_sum(array_keys($values));
 
-        $hasStraight = false;
-        for ($i = 1; $i <= count($values) - 4; ++$i) {
-            if (0 == $values[$i]) {
-                continue;
-            }
+        $sumsOfCardsWithStraight = [20, 25, 28, 30, 35, 40, 45, 50, 55, 60];
 
-            if ($values[$i] && $values[$i + 1] && $values[$i + 2]
-                && $values[$i + 3] && $values[$i + 4]
-            ) {
-                $hasStraight = true;
-                break;
-            }
-        }
-
-        return $hasStraight;
+        return in_array($sum, $sumsOfCardsWithStraight);
     }
 
     /**
@@ -89,22 +80,27 @@ abstract class AbstractRanking
 
     protected function getStraightValue(CardCollection $cards)
     {
-        $occurrences = $this->getCardOccurrencesAddWheel($cards);
-        for ($i = count($occurrences); $i >= 5; --$i) {
-            if (0 == $occurrences[$i]) {
-                continue;
-            }
+        $straightSumCombinations = [
+            28 => [5, 4, 3, 2, 14],
+            20 => [6, 5, 4, 3, 2],
+            25 => [7, 6, 5, 4, 3],
+            30 => [8, 7, 6, 5, 4],
+            35 => [9, 8, 7, 6, 5],
+            40 => [10, 9, 8, 7, 6],
+            45 => [11, 10, 9, 8, 7],
+            50 => [12, 11, 10, 9, 8],
+            55 => [13, 12, 11, 10, 9],
+            60 => [14, 13, 12, 11, 10]
+        ];
+        $occurrences = $this->getOccurrences($cards);
 
-            if ($occurrences[$i] && $occurrences[$i - 1] && $occurrences[$i - 2]
-                && $occurrences[$i - 3] && $occurrences[$i - 4]
-            ) {
-                $rankCards = [$i--, $i--, $i--, $i--, $i--];
-                break;
-            }
-        }
-        $rankCards[4] = (1 === $rankCards[4]) ? 14 : $rankCards[4];
+        // Sums all card's values which have at least one occurrence
+        $occurrences = array_filter($occurrences, function($element) {
+            return $element != 0;
+        });
+        $sum = array_sum(array_keys($occurrences));
 
-        return $rankCards;
+        return $straightSumCombinations[$sum];
     }
 
     protected function getCardOccurrencesAddWheel(CardCollection $cards)

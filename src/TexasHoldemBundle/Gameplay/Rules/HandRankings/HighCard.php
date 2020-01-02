@@ -13,7 +13,7 @@ class HighCard extends AbstractRanking
      *
      * @return bool TRUE on success, FALSE on failure
      *
-     * @SuppressWarnings("unused")
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function hasRanking(CardCollection $cards): bool
     {

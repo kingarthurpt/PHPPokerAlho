@@ -9,6 +9,9 @@ use TexasHoldemBundle\Rules\HandRanking;
 
 class ThreeOfAKind extends AbstractRanking
 {
+    protected $cardCount = 3;
+    protected $kickersCount = 2;
+
     /**
      * Check if there is a Three of a kind in the CardCollection.
      *
@@ -20,7 +23,7 @@ class ThreeOfAKind extends AbstractRanking
     {
         $values = $this->countCardOccurrences($cards);
 
-        return 3 == $values[0];
+        return $this->cardCount == $values[0];
     }
 
     /**
@@ -51,7 +54,7 @@ class ThreeOfAKind extends AbstractRanking
         return array_slice(
             $this->getPossibleKickers($cards, $rankCards),
             0,
-            2
+            $this->kickersCount
         );
     }
 }

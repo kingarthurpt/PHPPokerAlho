@@ -86,6 +86,9 @@ class StandardCardTest extends \Tests\BaseTestCase
         $this->assertEquals('2', $card->getFaceValue());
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function testGetName()
     {
         $expectedValues = array(

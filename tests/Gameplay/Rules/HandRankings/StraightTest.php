@@ -6,15 +6,17 @@ use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
 use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 use TexasHoldemBundle\Gameplay\Rules\HandRankings\Straight;
 
-class StraightTest extends \Tests\BaseTestCase
+class StraightTest
 {
-    private $rank;
-    private $handStr;
+    protected $rank;
+    protected $handStr;
+    protected $rankCards;
 
     protected function setUp(): void
     {
         $this->rank = new Straight();
         $this->handStr = '3s 4c 6h 5c 7h';
+        $this->rankCards = [7, 6, 5, 4, 3];
     }
 
     public function testHasRanking()
@@ -31,7 +33,7 @@ class StraightTest extends \Tests\BaseTestCase
         $cards = $factory->makeFromString($this->handStr);
 
         $this->assertEquals(
-            [7, 6, 5, 4, 3],
+            $this->rankCards,
             $this->rank->getValue($cards)
         );
     }
@@ -43,7 +45,7 @@ class StraightTest extends \Tests\BaseTestCase
 
         $this->assertEquals(
             [],
-            $this->rank->getKickers($cards, [7, 6, 5, 4, 3])
+            $this->rank->getKickers($cards, $this->rankCards)
         );
     }
 }

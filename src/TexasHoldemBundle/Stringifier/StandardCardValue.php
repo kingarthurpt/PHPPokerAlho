@@ -18,11 +18,35 @@ class StandardCardValue extends Singleton
     public function stringify(int $value)
     {
         if ($value > 1 && $value < 11) {
-            $locale = "en";
-            $formatter = new \NumberFormatter($locale, \NumberFormatter::SPELLOUT);
-            return ucfirst($formatter->format($value));
+            return $this->stringifyNumber($value);
         }
 
+        return $this->stringifyFace($value);
+    }
+
+    /**
+     * Stringifies a numbered card
+     *
+     * @param int $value
+     *
+     * @return string
+     */
+    private function stringifyNumber($value)
+    {
+        $locale = "en";
+        $formatter = new \NumberFormatter($locale, \NumberFormatter::SPELLOUT);
+        return ucfirst($formatter->format($value));
+    }
+
+    /**
+     * Stringifies a faced card
+     *
+     * @param int $value
+     *
+     * @return string
+     */
+    private function stringifyFace($value)
+    {
         switch ($value) {
             case StandardCard::JACK:
                 $name = 'Jack';

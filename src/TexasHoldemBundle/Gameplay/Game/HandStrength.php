@@ -38,6 +38,8 @@ class HandStrength
      * @param int   $rank           The HandRanking
      * @param array $rankCardValues The Ranking Card's value
      * @param array $kickers        Array of kickers
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function __construct(int $rank, array $rankCardValues, array $kickers)
     {
@@ -52,13 +54,15 @@ class HandStrength
      * Returns a string representation of the HandStrength.
      *
      * @return string The HandStrength represented as a string
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function __toString()
     {
         $rankingCardValue = RankingCardValue::getInstance();
 
         return $this->handRanking->getName($this->ranking).': '
-            .$rankingCardValue->stringify($this->ranking, $this->rankCardValues).'. '
+            .$rankingCardValue->stringify($this->rankCardValues).'. '
             .'Kickers: '.$this->kickersToStr().'.';
     }
 
@@ -96,6 +100,8 @@ class HandStrength
      * Gets the name(s) of the HandStrength kicker(s).
      *
      * @return string the kickers names
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     private function kickersToStr()
     {
