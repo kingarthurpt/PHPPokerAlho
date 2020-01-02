@@ -4,11 +4,6 @@ namespace TexasHoldemBundle\Gameplay\Cards;
 
 use TexasHoldemBundle\DataStructures\Collection;
 
-/**
- * @since  {nextRelease}
- *
- * @author Artur Alves <artur.ze.alves@gmail.com>
- */
 class CardCollectionFactory extends Collection
 {
     /**
@@ -18,8 +13,6 @@ class CardCollectionFactory extends Collection
 
     /**
      * Constructor.
-     *
-     * @since  {nextRelease}
      */
     public function __construct()
     {
@@ -29,8 +22,6 @@ class CardCollectionFactory extends Collection
     /**
      * Create a CardCollection from StandardCard's string abbreviation
      * Use a space to separate each card.
-     *
-     * @since  {nextRelease}
      *
      * @param string $str The StandardCard's string abbreviation
      *

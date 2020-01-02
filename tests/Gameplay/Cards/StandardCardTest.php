@@ -4,6 +4,7 @@ namespace Tests\Gameplay\Cards;
 
 use TexasHoldemBundle\Gameplay\Cards\StandardCard;
 use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Stringifier\StandardCardValue;
 
 class StandardCardTest extends \Tests\BaseTestCase
 {
@@ -32,8 +33,8 @@ class StandardCardTest extends \Tests\BaseTestCase
     {
         $card = new StandardCard();
         $this->assertNull($card->setValue(0));
-        $this->assertNull($card->setValue(14));
-        $this->assertInstanceOf(StandardCard::class, $card->setValue(1));
+        $this->assertNull($card->setValue(15));
+        $this->assertInstanceOf(StandardCard::class, $card->setValue(2));
         $this->assertInstanceOf(StandardCard::class, $card->setValue(13));
 
         $this->assertEquals(
@@ -56,7 +57,7 @@ class StandardCardTest extends \Tests\BaseTestCase
         $card->setValue(13);
         $this->assertEquals('K', $card->getFaceValue());
 
-        $card->setValue(1);
+        $card->setValue(14);
         $this->assertEquals('A', $card->getFaceValue());
 
         $card->setValue(2);
@@ -83,5 +84,33 @@ class StandardCardTest extends \Tests\BaseTestCase
 
         $card->setFaceValue('2');
         $this->assertEquals('2', $card->getFaceValue());
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function testGetName()
+    {
+        $expectedValues = array(
+            1 => "Unknown",
+            2 => "Two",
+            3 => "Three",
+            4 => "Four",
+            5 => "Five",
+            6 => "Six",
+            7 => "Seven",
+            8 => "Eight",
+            9 => "Nine",
+            10 => "Ten",
+            11 => "Jack",
+            12 => "Queen",
+            13 => "King",
+            14 => "Ace",
+        );
+
+        for ($i = 1; $i < 15; $i++) {
+            $standardCardValue = StandardCardValue::getInstance();
+            $this->assertEquals($expectedValues[$i], $standardCardValue->stringify($i));
+        }
     }
 }

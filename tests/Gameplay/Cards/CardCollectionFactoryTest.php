@@ -19,7 +19,7 @@ class CardCollectionFactoryTest extends \Tests\BaseTestCase
     public function testMakeFromString()
     {
         $string = 'As Kh';
-        $aceSpaces = new StandardCard(1, new StandardSuit('Spades', '♠', 's'));
+        $aceSpaces = new StandardCard(14, new StandardSuit('Spades', '♠', 's'));
         $kingHearts = new StandardCard(13, new StandardSuit('Hearts', '♥', 'h'));
 
         $collection = new CardCollection([$aceSpaces, $kingHearts]);

@@ -15,7 +15,7 @@ class StandardCard extends Card
     /**
      * @var int
      */
-    const THREE = 2;
+    const THREE = 3;
 
     /**
      * @var int
@@ -76,11 +76,11 @@ class StandardCard extends Card
      * @var array
      */
     private $faceValues = [
-        1 => 'A',
         10 => 'T',
         11 => 'J',
         12 => 'Q',
         13 => 'K',
+        14 => 'A',
     ];
 
     /**
@@ -116,7 +116,7 @@ class StandardCard extends Card
 
     /**
      * Set the Card's value.
-     * The value must be between 1 and 13.
+     * The value must be between 2 and 14.
      *
      * @param int $value The card's value
      *
@@ -124,7 +124,7 @@ class StandardCard extends Card
      */
     public function setValue($value)
     {
-        if ($value < 1 || $value > 13) {
+        if ($value < 2 || $value > 14) {
             return null;
         }
 
