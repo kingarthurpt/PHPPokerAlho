@@ -48,14 +48,14 @@ abstract class AbstractRanking
         }
 
         // Sums all card's values which have at least one occurrence
-        $values = array_filter($values, function($element) {
-            return $element != 0;
+        $values = array_filter($values, function ($element) {
+            return 0 != $element;
         });
         $sum = array_sum(array_keys($values));
 
-        $sumsOfCardsWithStraight = [20, 25, 28, 30, 35, 40, 45, 50, 55, 60];
+        $straightSums = [20, 25, 28, 30, 35, 40, 45, 50, 55, 60];
 
-        return in_array($sum, $sumsOfCardsWithStraight);
+        return in_array($sum, $straightSums);
     }
 
     /**
@@ -80,7 +80,7 @@ abstract class AbstractRanking
 
     protected function getStraightValue(CardCollection $cards)
     {
-        $straightSumCombinations = [
+        $sumCombinations = [
             28 => [5, 4, 3, 2, 14],
             20 => [6, 5, 4, 3, 2],
             25 => [7, 6, 5, 4, 3],
@@ -90,17 +90,17 @@ abstract class AbstractRanking
             45 => [11, 10, 9, 8, 7],
             50 => [12, 11, 10, 9, 8],
             55 => [13, 12, 11, 10, 9],
-            60 => [14, 13, 12, 11, 10]
+            60 => [14, 13, 12, 11, 10],
         ];
         $occurrences = $this->getOccurrences($cards);
 
         // Sums all card's values which have at least one occurrence
-        $occurrences = array_filter($occurrences, function($element) {
-            return $element != 0;
+        $occurrences = array_filter($occurrences, function ($element) {
+            return 0 != $element;
         });
         $sum = array_sum(array_keys($occurrences));
 
-        return $straightSumCombinations[$sum];
+        return $sumCombinations[$sum];
     }
 
     protected function getCardOccurrencesAddWheel(CardCollection $cards)
@@ -121,7 +121,7 @@ abstract class AbstractRanking
         krsort($occurrences);
         // Remove keys with empty occurrences
         $occurrences = array_filter($occurrences, function ($element) {
-            return $element !== 0;
+            return 0 !== $element;
         });
         // Re sort occurrences by value
         arsort($occurrences);
