@@ -6,7 +6,7 @@ use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
 use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 use TexasHoldemBundle\Gameplay\Rules\HandRankings\Straight;
 
-class StraightTest
+class StraightTest extends \Tests\BaseTestCase
 {
     protected $rank;
     protected $handStr;
