@@ -2,6 +2,8 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
+
 /**
  * A TableObserver which is updated with TableEvents that happen on TableSubject.
  */

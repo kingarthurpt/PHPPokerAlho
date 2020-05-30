@@ -23,5 +23,6 @@ $application = new Application($kernel);
 $application->add(new \TexasHoldemBundle\Command\HandStrengthCommand());
 $application->add(new \TexasHoldemBundle\Command\HoleCardsCommand());
 $application->add(new \TexasHoldemBundle\Command\PlayHandCommand());
+$application->add(new \TexasHoldemBundle\Command\HandWinnerCommand());
 
 $application->run($input);

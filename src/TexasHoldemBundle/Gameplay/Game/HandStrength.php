@@ -96,6 +96,16 @@ class HandStrength
         return $this->kickers;
     }
 
+    public function getValue()
+    {
+        return (float) sprintf(
+            '%s%s.%s',
+            $this->getRanking(),
+            array_sum($this->getRankingCardValues()),
+            array_sum($this->getKickers())
+        );
+    }
+
     /**
      * Gets the name(s) of the HandStrength kicker(s).
      *

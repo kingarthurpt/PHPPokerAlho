@@ -3,8 +3,8 @@
 namespace TexasHoldemBundle\Controller;
 
 use Symfony\Component\Console\Command\Command;
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
 use TexasHoldemBundle\Gameplay\Game\Player;
-use TexasHoldemBundle\Gameplay\Game\TableEvent;
 
 class HumanPlayerConsoleController implements PlayerControllerInterface
 {
@@ -24,11 +24,11 @@ class HumanPlayerConsoleController implements PlayerControllerInterface
     protected $player;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param  Command $command
-     * @param  string $function
-     * @param  Player $player
+     * @param Command $command
+     * @param string  $function
+     * @param Player  $player
      */
     public function __construct(
         Command $command,
@@ -41,17 +41,25 @@ class HumanPlayerConsoleController implements PlayerControllerInterface
     }
 
     /**
-     * Handles the Player's behavior when receives a new TableEvent
+     * Handles the Player's behavior when receives a new TableEvent.
      *
-     * @param  TableEvent $event The event
+     * @param TableEvent $event The event
      */
     public function handleEvent(TableEvent $event)
     {
-        if ($event->getType() == TableEvent::PLAYER_RECEIVED_CARDS) {
-            $this->print($this->player->getHand()->toCliOutput());
-        }
-        if ($event->getType() == TableEvent::PLAYER_ACTION_NEEDED) {
-            $this->promptForAction();
+        switch ($event->getType()) {
+            case TableEvent::PLAYER_RECEIVED_CARDS:
+                $this->print($this->player->getHand()->toCliOutput());
+                break;
+            case TableEvent::PLAYER_ACTION_NEEDED:
+                $this->promptForAction();
+                break;
+            case TableEvent::ACTION_PLAYER_PAY_SMALL_BLIND:
+                $this->promptForAction();
+                break;
+            // default:
+
+                // $this->print($event->getMessage());
         }
     }
 
@@ -62,9 +70,9 @@ class HumanPlayerConsoleController implements PlayerControllerInterface
     }
 
     /**
-     * Prints text to the console
+     * Prints text to the console.
      *
-     * @param  string $text The message to be printed
+     * @param string $text The message to be printed
      */
     public function print(string $text)
     {

@@ -4,9 +4,9 @@ namespace TexasHoldemBundle\Gameplay\Rules;
 
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 use TexasHoldemBundle\Gameplay\Game\HandStrength;
+use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\Table;
 use TexasHoldemBundle\Gameplay\Rules\HandRankings\RankingMediator;
-use TexasHoldemBundle\Gameplay\Rules\HandRankings\RoyalFlush;
-use TexasHoldemBundle\Gameplay\Rules\HandRankings\StraightFlush;
 
 class HandEvaluator
 {
@@ -26,13 +26,30 @@ class HandEvaluator
     }
 
     /**
+     * Gets the strength of a Player playing at a Table.
+     *
+     * @param Player $player
+     * @param Table  $table
+     *
+     * @return HandStrength
+     */
+    public function getPlayerStrength(Player $player, Table $table): ?HandStrength
+    {
+        $cards = new CardCollection();
+        $cards->mergeCards($player->getHand());
+        $cards->mergeCards($table->getCommunityCards());
+
+        return $this->getStrength($cards);
+    }
+
+    /**
      * Gets the strength of a collection of cards.
      *
      * @param CardCollection $cards
      *
      * @return HandStrength|null
      */
-    public function getStrength(CardCollection $cards)
+    public function getStrength(CardCollection $cards): ?HandStrength
     {
         if ($cards->getSize() < 5 || $cards->getSize() > 7) {
             return null;

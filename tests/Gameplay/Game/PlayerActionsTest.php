@@ -2,16 +2,16 @@
 
 namespace Tests\Gameplay\Game;
 
-use TexasHoldemBundle\Gameplay\Game\Player;
-use TexasHoldemBundle\Gameplay\Game\Table;
-use TexasHoldemBundle\Gameplay\Game\TableEvent;
-use TexasHoldemBundle\Gameplay\Game\PlayerHand;
-use TexasHoldemBundle\Gameplay\Game\PlayerActions;
-use TexasHoldemBundle\Gameplay\Game\Stack;
 use TexasHoldemBundle\Gameplay\Cards\Card;
-use TexasHoldemBundle\Gameplay\Cards\Suit;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
+use TexasHoldemBundle\Gameplay\Cards\Suit;
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\PlayerActions;
+use TexasHoldemBundle\Gameplay\Game\PlayerHand;
+use TexasHoldemBundle\Gameplay\Game\Stack;
+use TexasHoldemBundle\Gameplay\Game\Table;
 
 class PlayerActionsTest extends \Tests\BaseTestCase
 {
@@ -29,8 +29,8 @@ class PlayerActionsTest extends \Tests\BaseTestCase
 
     public function testUpdate()
     {
-        $table = new Table("Table1", 10);
-        $event = new TableEvent(1, "message");
+        $table = new Table('Table1', 10);
+        $event = new TableEvent(1, 'message');
         $this->assertTrue($this->playerActions->update($table, $event));
     }
 
@@ -46,10 +46,10 @@ class PlayerActionsTest extends \Tests\BaseTestCase
 
     public function testReturnHand()
     {
-        $holeCards = array(
-            0 => new Card(1, new Suit("Diamonds")),
-            1 => new Card(1, new Suit("Hearts"))
-        );
+        $holeCards = [
+            0 => new Card(1, new Suit('Diamonds')),
+            1 => new Card(1, new Suit('Hearts')),
+        ];
         $hand = new CardCollection($holeCards, 2);
         $this->player->setHand($hand);
 

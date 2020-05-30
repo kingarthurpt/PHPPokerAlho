@@ -3,6 +3,7 @@
 namespace TexasHoldemBundle\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
 
 class PlayerActions extends TableObserver
 {

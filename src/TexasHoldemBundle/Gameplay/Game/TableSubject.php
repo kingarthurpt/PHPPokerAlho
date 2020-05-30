@@ -2,6 +2,8 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
+
 abstract class TableSubject
 {
     /**

@@ -6,11 +6,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
-use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
-use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Game\Player;
-use TexasHoldemBundle\Gameplay\Game\Table;
+use TexasHoldemBundle\Gameplay\Game\TableFactory;
 
 class HoleCardsCommand extends Command
 {
@@ -45,9 +42,10 @@ class HoleCardsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $table = new Table('Table1', 2);
-        $factory = new StandardSuitFactory();
-        $dealer = new Dealer(new StandardDeck($factory), $table);
+        $tableFactory = new TableFactory();
+        $table = $tableFactory->makeTableWithDealer('Table1', 2);
+        $dealer = $table->getDealer();
+
         $player = new Player('Player1');
         $table->addPlayer($player);
 
