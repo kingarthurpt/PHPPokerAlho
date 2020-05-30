@@ -31,34 +31,6 @@ class PlayHandCommand extends Command
         $this->output->writeln("Hand: $message");
     }
 
-    public function promptForBlind(Player $player)
-    {
-        $question = new ChoiceQuestion(
-            "$player it's your turn:",
-            ['f' => 'fold', 'c' => 'call', 'r' => 'raise', 'a' => 'all-in'],
-            1
-        );
-        $question->setErrorMessage('Your action %s is invalid.');
-
-        $helper = $this->getHelper('question');
-        $action = $helper->ask($this->input, $this->output, $question);
-
-        switch ($action) {
-            case 'f':
-                $player->getPlayerActions()->fold();
-                break;
-            case 'c':
-                // $hand = $this->table->getActiveHand();
-                $player->getPlayerActions()->call(10);
-                break;
-            case 'r':
-                $player->getPlayerActions()->raise(20);
-                break;
-            case 'a':
-                $player->getPlayerActions()->allin();
-        }
-    }
-
     public function promptForAction(Player $player)
     {
         $question = new ChoiceQuestion(

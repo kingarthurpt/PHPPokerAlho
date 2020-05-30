@@ -15,6 +15,8 @@ class HandWinnerCommand extends Command
     const NAME = 'pokeralho:hand-winner';
     const PLAYERS_COUNT = 'players';
 
+    private $output;
+
     /**
      * Configure the command.
      */
@@ -34,6 +36,8 @@ class HandWinnerCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->output = $output;
+
         $playerCount = $input->getOption(self::PLAYERS_COUNT);
         $tableFactory = new TableFactory();
         $table = $tableFactory->makeTableWithDealer('Table1', $playerCount);
@@ -48,25 +52,41 @@ class HandWinnerCommand extends Command
         $dealer->startNewHand();
         $dealer->dealRemaining();
 
-        foreach ($players as $key => $player) {
-            $hand = $players[$key]->getHand();
+        $this->showPlayersHands($players, $table);
 
-            $output->writeln(
+        $handValues = $this->showPlayersHandStrength($players, $table);
+        arsort($handValues);
+
+        $this->showWinner($handValues);
+
+        return 0;
+    }
+
+    private function showPlayersHands($players, $table)
+    {
+        foreach ($players as $key => $player) {
+            $hand = $player->getHand();
+
+            $this->output->writeln(
                 sprintf('Player %s: %s', $key + 1, $hand->toCliOutput())
             );
         }
 
-        $output->writeln(
+        $this->output->writeln(
             'Community cards: '
             .$table->getCommunityCards()->toCliOutput()
         );
+    }
 
-        $calculator = new HandEvaluator();
+    private function showPlayersHandStrength($players, $table): array
+    {
         $handValues = [];
+        $calculator = new HandEvaluator();
+
         foreach ($players as $key => $player) {
             $handStrength = $calculator->getPlayerStrength($player, $table);
 
-            $output->writeln(
+            $this->output->writeln(
                 sprintf(
                     'Player %s Hand Strength: %s %s %s, %s',
                     $key + 1,
@@ -80,15 +100,17 @@ class HandWinnerCommand extends Command
             $handValues[$player->getName()] = $handStrength->getValue();
         }
 
-        arsort($handValues);
+        return $handValues;
+    }
+
+    private function showWinner($handValues)
+    {
         $i = 1;
-        foreach ($handValues as $playerName => $player) {
-            $output->writeln(
-                sprintf('%s place %s', $i, $playerName)
+        foreach ($handValues as $playerName => $handStrengthValue) {
+            $this->output->writeln(
+                sprintf('%s place %s: %s', $i, $playerName, $handStrengthValue)
             );
             ++$i;
         }
-
-        return 0;
     }
 }
