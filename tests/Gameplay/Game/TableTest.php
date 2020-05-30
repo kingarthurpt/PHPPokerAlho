@@ -2,6 +2,8 @@
 
 namespace Tests\Gameplay\Game;
 
+use TexasHoldemBundle\Exception\PlayerAlreadySeatedException;
+use TexasHoldemBundle\Exception\TableFullException;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 use TexasHoldemBundle\Gameplay\Game\CommunityCards;
@@ -85,6 +87,10 @@ class TableTest extends \Tests\BaseTestCase
     {
         $player = new Player('Player1');
         $this->table->setSeatsCount(0);
+
+        $this->expectException(TableFullException::class);
+        $this->expectExceptionMessage('The table Table1 is full');
+
         $this->table->addPlayer($player);
         $this->assertNull($this->table->addPlayer($player));
         $this->table->setSeatsCount(10);
@@ -121,6 +127,10 @@ class TableTest extends \Tests\BaseTestCase
     {
         $this->table = new Table('Table1', 6);
         $player = new Player('Player1');
+
+        $this->expectException(PlayerAlreadySeatedException::class);
+        $this->expectExceptionMessage('The player Player1 is already seated at table Table1');
+
         $this->assertInstanceOf(Table::class, $this->table->addPlayer($player));
         $this->assertNull($this->table->addPlayer($player));
     }
