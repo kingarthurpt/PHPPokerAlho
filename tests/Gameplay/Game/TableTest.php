@@ -11,6 +11,7 @@ use TexasHoldemBundle\Gameplay\Game\Dealer;
 use TexasHoldemBundle\Gameplay\Game\Hand;
 use TexasHoldemBundle\Gameplay\Game\Muck;
 use TexasHoldemBundle\Gameplay\Game\Player;
+use TexasHoldemBundle\Gameplay\Game\Stack;
 use TexasHoldemBundle\Gameplay\Game\Table;
 
 class TableTest extends \Tests\BaseTestCase
@@ -196,6 +197,7 @@ class TableTest extends \Tests\BaseTestCase
         $player2 = new Player('Player2');
         $this->assertNull($this->table->getPlayerBets($player1));
 
+        $player1->setStack(new Stack(300));
         $this->table->addPlayer($player1);
         $player1->getPlayerActions()->paySmallBlind(10.0);
         $bets = $this->table->getPlayersBets();

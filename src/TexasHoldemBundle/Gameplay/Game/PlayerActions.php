@@ -2,7 +2,9 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
-use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Controller\PlayerControllerInterface;
+use TexasHoldemBundle\Exception\PlayerHandIsEmptyException;
+use TexasHoldemBundle\Exception\PlayerNotSeatedException;
 use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
 
 class PlayerActions extends TableObserver
@@ -29,7 +31,7 @@ class PlayerActions extends TableObserver
     /**
      * The Player's controller.
      *
-     * @var [type]
+     * @var PlayerControllerInterface
      */
     private $controller = null;
 
@@ -79,11 +81,10 @@ class PlayerActions extends TableObserver
     public function addToStack(Stack $stack)
     {
         if (empty($this->table)) {
-            return null;
+            throw new PlayerNotSeatedException($this->player);
         }
 
         $this->player->getStack()->add($stack->getSize());
-
         $this->table->notify(new TableEvent(
             TableEvent::PLAYER_ADD_CHIPS,
             $this->player->getName().' added '.$stack->getSize().' chips to his stack'
@@ -95,12 +96,12 @@ class PlayerActions extends TableObserver
     /**
      * Obtain the Player's hand.
      *
-     * @return PlayerHand The Player's hand
+     * @return PlayerHand|null The Player's hand or null
      */
-    public function returnHand()
+    public function returnHand(): ?PlayerHand
     {
         $hand = $this->player->getHand();
-        $this->player->setHand(new CardCollection());
+        $this->player->setHand(null);
 
         return $hand;
     }
@@ -112,11 +113,9 @@ class PlayerActions extends TableObserver
      */
     public function paySmallBlind(float $amount)
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
-        return $this->placeBet($amount, new TableEvent(
+        return $this->placeBlind($amount, new TableEvent(
             TableEvent::PLAYER_PAID_SMALL_BLIND,
             $this->player->getName()." placed the small blind ($amount)"
         ));
@@ -129,11 +128,9 @@ class PlayerActions extends TableObserver
      */
     public function payBigBlind(float $amount)
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
-        return $this->placeBet($amount, new TableEvent(
+        return $this->placeBlind($amount, new TableEvent(
             TableEvent::PLAYER_PAID_BIG_BLIND,
             $this->player->getName()." placed the big blind ($amount)"
         ));
@@ -146,13 +143,11 @@ class PlayerActions extends TableObserver
      */
     public function fold()
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
         $handCards = $this->returnHand();
         if (empty($handCards)) {
-            return null;
+            throw new PlayerHandIsEmptyException($this->player);
         }
 
         $this->table->notify(new TableEvent(
@@ -170,12 +165,10 @@ class PlayerActions extends TableObserver
      */
     public function check()
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
         if (empty($this->player->getHand())) {
-            return false;
+            throw new PlayerHandIsEmptyException($this->player);
         }
 
         $this->table->notify(new TableEvent(
@@ -191,9 +184,7 @@ class PlayerActions extends TableObserver
      */
     public function call(float $amount)
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
         $event = new TableEvent(
             TableEvent::PLAYER_ACTION_CALL,
@@ -212,9 +203,7 @@ class PlayerActions extends TableObserver
      */
     public function raise(float $amount)
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
         $event = new TableEvent(
             TableEvent::PLAYER_ACTION_RAISE,
@@ -233,9 +222,7 @@ class PlayerActions extends TableObserver
      */
     public function allIn()
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
         $amount = $this->player->getStack()->getSize();
         $event = new TableEvent(
@@ -251,15 +238,15 @@ class PlayerActions extends TableObserver
      */
     public function showHand()
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
-        $hand = $this->getHand();
+        $hand = $this->player->getHand();
         $this->table->notify(new TableEvent(
             TableEvent::PLAYER_ACTION_SHOW_HAND,
             $this->player->getName()." shows his hand $hand"
         ));
+
+        return $hand;
     }
 
     /**
@@ -267,9 +254,7 @@ class PlayerActions extends TableObserver
      */
     public function muckHand()
     {
-        if (empty($this->table)) {
-            return null;
-        }
+        $this->throwIfPlayerIsNotSeated();
 
         $this->table->notify(new TableEvent(
             TableEvent::PLAYER_ACTION_SHOW_HAND,
@@ -292,6 +277,29 @@ class PlayerActions extends TableObserver
     }
 
     /**
+     * Throws PlayerNotSeatedException if the player is not seated at the table.
+     *
+     * @throws PlayerNotSeatedException
+     */
+    private function throwIfPlayerIsNotSeated()
+    {
+        if (empty($this->table)) {
+            throw new PlayerNotSeatedException($this->player);
+        }
+    }
+
+    private function placeBlind(float $amount, TableEvent $event)
+    {
+        if (empty($this->table)
+            || !$this->player->getStack()->sub($amount)
+        ) {
+            return false;
+        }
+
+        return $this->doPlaceBet($amount, $event);
+    }
+
+    /**
      * Places a given amount of chips on the Table and notifies the Table.
      *
      * @param float      $amount The amount of chips to bet
@@ -302,12 +310,17 @@ class PlayerActions extends TableObserver
     private function placeBet(float $amount, TableEvent $event)
     {
         if (empty($this->table)
-            || empty($this->player->getHand()) // fails when paying for blinds
+            || empty($this->player->getHand())
             || !$this->player->getStack()->sub($amount)
         ) {
             return false;
         }
 
+        return $this->doPlaceBet($amount, $event);
+    }
+
+    private function doPlaceBet(float $amount, TableEvent $event)
+    {
         $bettingZone = $this->table->getPlayerBets($this->player);
         if (is_null($bettingZone)) {
             return false;

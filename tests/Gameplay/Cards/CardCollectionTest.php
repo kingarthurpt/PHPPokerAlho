@@ -148,7 +148,7 @@ class CardCollectionTest extends \Tests\BaseTestCase
         $cards = [
             new StandardCard(1, new Suit('Clubs', '♣')),
             new StandardCard(2, new Suit('Clubs', '♣')),
-            'invalidCard'
+            'invalidCard',
         ];
 
         $this->collection->addCards($cards);

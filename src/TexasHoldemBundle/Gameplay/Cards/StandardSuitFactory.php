@@ -3,12 +3,12 @@
 namespace TexasHoldemBundle\Gameplay\Cards;
 
 /**
- * A Suit with a name and a symbol
+ * A Suit with a name and a symbol.
  */
 class StandardSuitFactory
 {
     /**
-     * Make a StandardSuit
+     * Make a StandardSuit.
      *
      * @param array $suit The Suit's constant value
      *
@@ -37,9 +37,9 @@ class StandardSuitFactory
     }
 
     /**
-     * Make a StandardSuit from their name abbreviation
+     * Make a StandardSuit from their name abbreviation.
      *
-     * @param  string $abbr The Suit's name abbreviation
+     * @param string $abbr The Suit's name abbreviation
      *
      * @return StandardSuit
      */
@@ -66,7 +66,7 @@ class StandardSuitFactory
     }
 
     /**
-     * Creates an instance of StandardSuit
+     * Creates an instance of StandardSuit.
      *
      * @param array $suit The Suit's constant value
      *

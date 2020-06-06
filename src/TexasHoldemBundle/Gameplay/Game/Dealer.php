@@ -3,6 +3,7 @@
 namespace TexasHoldemBundle\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Cards\Deck;
+use TexasHoldemBundle\Gameplay\Game\Event\PaymentRequiredTableEvent;
 use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
 
 /**
@@ -99,17 +100,25 @@ class Dealer extends TableObserver
         return true;
     }
 
+    /**
+     * Starts a new hand for all players seated at the table.
+     *
+     * @return self
+     */
     public function startNewHand()
     {
         $table = $this->getTable();
         $players = $table->getPlayers();
 
+        $smallBlind = 10;
+        $bigBlind = 20;
+
         $hand = new Hand();
         $hand
             ->setTable($table)
             ->setPlayers($players)
-            ->setSmallBlind(10)
-            ->setBigBlind(20)
+            ->setSmallBlind($smallBlind)
+            ->setBigBlind($bigBlind)
             ->setPhase(HandPhase::PHASE_PRE_FLOP);
 
         $buttonSeat = $this->moveButton();
@@ -120,20 +129,21 @@ class Dealer extends TableObserver
         // Should be a player's decision
         $players[$smallBlindSeat]->getPlayerActions()->update(
             $this->getTable(),
-            new TableEvent(
+            new PaymentRequiredTableEvent(
                 TableEvent::ACTION_PLAYER_PAY_SMALL_BLIND,
+                $smallBlind,
                 sprintf('%s you need to pay the small blind', $players[$smallBlindSeat]->getName())
             )
         );
-        // ->paySmallBlind(10);
+
         $players[$bigBlindSeat]->getPlayerActions()->update(
             $this->getTable(),
-            new TableEvent(
+            new PaymentRequiredTableEvent(
                 TableEvent::ACTION_PLAYER_PAY_BIG_BLIND,
+                $bigBlind,
                 sprintf('%s you need to pay the big blind', $players[$bigBlindSeat]->getName())
             )
         );
-        // ->payBigBlind(20);
 
         $this->deal();
 
@@ -145,7 +155,7 @@ class Dealer extends TableObserver
             )
         );
 
-        return true;
+        return $this;
     }
 
     /**

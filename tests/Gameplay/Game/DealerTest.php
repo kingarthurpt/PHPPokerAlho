@@ -148,7 +148,7 @@ class DealerTest extends \Tests\BaseTestCase
         $player2 = new Player('Player2');
         $table->addPlayer($player1)->addPlayer($player2);
 
-        $this->assertTrue($this->dealer->startNewHand());
+        $this->assertInstanceOf(Dealer::class, $this->dealer->startNewHand());
     }
 
     /**

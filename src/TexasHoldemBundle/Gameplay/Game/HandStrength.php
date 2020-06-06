@@ -41,7 +41,7 @@ class HandStrength
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function __construct(int $rank, array $rankCardValues, array $kickers)
+    public function __construct(int $rank, array $rankCardValues, array $kickers = [])
     {
         $this->ranking = $rank;
         $this->rankCardValues = $rankCardValues;
@@ -98,12 +98,30 @@ class HandStrength
 
     public function getValue()
     {
-        return (float) sprintf(
-            '%s%s.%s',
-            $this->getRanking(),
-            array_sum($this->getRankingCardValues()),
-            array_sum($this->getKickers())
+        // var_dump($ranking, $rankingCardValues, $kickersValue);
+        // var_dump(dechex($ranking), dechex($rankingCardValues), dechex($kickersValue));
+        $value = sprintf(
+            '%s%s%s',
+            dechex($this->getRanking()),
+            dechex(array_sum($this->getRankingCardValues())),
+            dechex(array_sum($this->getKickers()))
         );
+        // var_dump($value, hexdec($value));
+
+        return hexdec($value);
+        // $kickersValue = count($this->getKickers()) > 0
+        //     ? array_sum($this->getKickers()) % (count($this->getRankingCardValues()) * 14)
+        //     : 0;
+
+        // // https://stackoverflow.com/questions/42380183/algorithm-to-give-a-value-to-a-5-card-poker-hand
+
+        // return (float) sprintf(
+        //     '%s.%s',
+        //     ($this->getRanking() * 100) + dechex(array_sum($this->getRankingCardValues())),
+        //     // $kickersValue
+        //     array_sum($this->getKickers())
+        //     // array_sum($this->getRankingCardValues()) / (count($this->getRankingCardValues()) * 14),
+        // );
     }
 
     /**
