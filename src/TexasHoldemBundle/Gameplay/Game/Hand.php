@@ -7,12 +7,6 @@ namespace TexasHoldemBundle\Gameplay\Game;
  */
 class Hand
 {
-    const PHASE_PRE_FLOP = 1;
-    const PHASE_FLOP = 2;
-    const PHASE_TURN = 3;
-    const PHASE_RIVER = 4;
-    const PHASE_SHOWDOWN = 5;
-
     protected $id;
     protected $datetime;
     protected $table;
@@ -25,6 +19,7 @@ class Hand
     {
         $this->id = time(); // temp
         $this->datetime = new \DateTime();
+        $this->phase = HandPhase::PHASE_PRE_FLOP;
     }
 
     public function getId()

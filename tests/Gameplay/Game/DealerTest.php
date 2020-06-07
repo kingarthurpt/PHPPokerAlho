@@ -2,14 +2,16 @@
 
 namespace Tests\Gameplay\Game;
 
+use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 use TexasHoldemBundle\Gameplay\Cards\Deck;
 use TexasHoldemBundle\Gameplay\Cards\StandardDeck;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
-use TexasHoldemBundle\Gameplay\Cards\CardCollection;
 use TexasHoldemBundle\Gameplay\Game\Dealer;
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\Hand;
+use TexasHoldemBundle\Gameplay\Game\HandPhase;
 use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Game\Table;
-use TexasHoldemBundle\Gameplay\Game\TableEvent;
 use TexasHoldemBundle\Gameplay\Game\TableFactory;
 
 class DealerTest extends \Tests\BaseTestCase
@@ -138,8 +140,19 @@ class DealerTest extends \Tests\BaseTestCase
         $this->assertTrue($player2->hasButton());
     }
 
+    public function testStartNewHand()
+    {
+        $table = $this->dealer->getTable();
+
+        $player1 = new Player('Player1');
+        $player2 = new Player('Player2');
+        $table->addPlayer($player1)->addPlayer($player2);
+
+        $this->assertInstanceOf(Dealer::class, $this->dealer->startNewHand());
+    }
+
     /**
-     * Tests the dealFlop, dealTurn and dealRiver functions
+     * Tests the dealFlop, dealTurn and dealRiver functions.
      *
      * @param string $dealerFunction
      * @param int    $cardSize
@@ -148,6 +161,14 @@ class DealerTest extends \Tests\BaseTestCase
     {
         $dealer = $this->getDealer();
         $table = $dealer->getTable();
+        // $dealer->startNewHand();
+        $hand = new Hand();
+        $hand
+            ->setTable($table)
+            // ->setSmallBlind(10)
+            // ->setBigBlind(20)
+            ->setPhase(HandPhase::PHASE_PRE_FLOP);
+        $table->setActiveHand($hand);
 
         $muckSize = $table->getMuck()->getSize();
         $communityCardsSize = $table->getCommunityCards()->getSize();
@@ -174,16 +195,5 @@ class DealerTest extends \Tests\BaseTestCase
         $table = $tableFactory->makeTableWithDealer('Table1', 6);
 
         return $table->getDealer();
-    }
-
-    public function testStartNewHand()
-    {
-        $table = $this->dealer->getTable();
-
-        $player1 = new Player('Player1');
-        $player2 = new Player('Player2');
-        $table->addPlayer($player1)->addPlayer($player2);
-
-        $this->assertTrue($this->dealer->startNewHand());
     }
 }

@@ -45,7 +45,7 @@ composer install
 ## Basic usage
 After installing all dependencies, you can start playing with the available CLI commands:
 ```
-php pokeralho-cli
+php bin/console
 ```
 
 ## Contributing

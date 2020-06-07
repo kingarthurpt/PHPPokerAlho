@@ -2,7 +2,7 @@
 
 namespace Tests\Gameplay\Game;
 
-use TexasHoldemBundle\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
 use TexasHoldemBundle\Gameplay\Game\TableEventLogger;
 use TexasHoldemBundle\Gameplay\Game\TableObserver;
 use TexasHoldemBundle\Gameplay\Game\TableSubject;
@@ -31,7 +31,7 @@ class TableSubjectTest extends \Tests\BaseTestCase
 
     public function testNotify()
     {
-        $logger = new \Symfony\Component\HttpKernel\Log\Logger;
+        $logger = new \Symfony\Component\HttpKernel\Log\Logger();
         $tableEventLogger = new TableEventLogger($logger);
         $subject = $this->getMockForAbstractClass(TableSubject::class);
         $subject->setLogger($tableEventLogger);

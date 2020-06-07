@@ -3,6 +3,7 @@
 namespace TexasHoldemBundle\Gameplay\Game;
 
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Rules\HandEvaluator;
 
 class Player
 {
@@ -49,6 +50,13 @@ class Player
     private $actions;
 
     /**
+     * The hand evaluator.
+     *
+     * @var HandEvaluator
+     */
+    private $handEvaluator;
+
+    /**
      * Constructor.
      *
      * @param string $name The Players's name
@@ -57,6 +65,7 @@ class Player
     {
         $this->setName($name);
         $this->actions = new PlayerActions($this);
+        $this->handEvaluator = new HandEvaluator();
     }
 
     /**
@@ -96,9 +105,9 @@ class Player
     /**
      * Get the Player's hand.
      *
-     * @return PlayerHand The Player's hand
+     * @return PlayerHand|null The Player's hand or null
      */
-    public function getHand()
+    public function getHand(): ?PlayerHand
     {
         return $this->hand;
     }
@@ -110,9 +119,16 @@ class Player
      *
      * @return Player
      */
-    public function setHand(CardCollection $hand)
+    public function setHand(CardCollection $hand = null)
     {
+        if (null === $hand) {
+            $this->hand = new PlayerHand([]);
+
+            return $this;
+        }
+
         $this->hand = new PlayerHand($hand->getCards());
+        $this->hand->setHandStrength($this->handEvaluator->getStartingHandStrength($hand));
 
         return $this;
     }

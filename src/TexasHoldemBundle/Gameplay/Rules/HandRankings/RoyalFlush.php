@@ -2,10 +2,7 @@
 
 namespace TexasHoldemBundle\Gameplay\Rules\HandRankings;
 
-use TexasHoldemBundle\Gameplay\Rules\HandRankings\AbstractRanking;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
-use TexasHoldemBundle\DesignPatterns\MediatorInterface;
-use TexasHoldemBundle\Rules\HandRanking;
 
 class RoyalFlush extends AbstractRanking
 {
@@ -39,7 +36,7 @@ class RoyalFlush extends AbstractRanking
     }
 
     /**
-     * Gets this ranking's card values
+     * Gets this ranking's card values.
      *
      * @param CardCollection $cards
      *
@@ -51,7 +48,7 @@ class RoyalFlush extends AbstractRanking
     }
 
     /**
-     * Gets the kickers
+     * Gets the kickers.
      *
      * @param CardCollection $cards
      * @param array          $rankCards

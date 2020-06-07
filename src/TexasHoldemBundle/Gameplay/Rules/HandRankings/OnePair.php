@@ -2,10 +2,7 @@
 
 namespace TexasHoldemBundle\Gameplay\Rules\HandRankings;
 
-use TexasHoldemBundle\Gameplay\Rules\HandRankings\AbstractRanking;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
-use TexasHoldemBundle\DesignPatterns\MediatorInterface;
-use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 
 class OnePair extends AbstractRanking
 {
@@ -20,11 +17,11 @@ class OnePair extends AbstractRanking
     {
         $values = $this->countCardOccurrences($cards);
 
-        return 2 == $values[0] && 1 == $values[1];
+        return 2 == $values[0];
     }
 
     /**
-     * Gets this ranking's card values
+     * Gets this ranking's card values.
      *
      * @param CardCollection $cards
      *
@@ -39,7 +36,7 @@ class OnePair extends AbstractRanking
     }
 
     /**
-     * Gets the kickers
+     * Gets the kickers.
      *
      * @param CardCollection $cards
      * @param array          $rankCards

@@ -27,7 +27,10 @@ class RankingMediator
 
     public function getRanking(CardCollection $cards): int
     {
-        $ranking = HandRanking::ROYAL_FLUSH;
+        $ranking = 2 == $cards->getSize()
+            ? HandRanking::ONE_PAIR
+            : HandRanking::ROYAL_FLUSH;
+
         while (!$this->combinations[$ranking]->hasRanking($cards)) {
             --$ranking;
         }

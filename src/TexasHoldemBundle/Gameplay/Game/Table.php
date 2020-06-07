@@ -2,6 +2,10 @@
 
 namespace TexasHoldemBundle\Gameplay\Game;
 
+use TexasHoldemBundle\Exception\PlayerAlreadySeatedException;
+use TexasHoldemBundle\Exception\TableFullException;
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
+
 class Table extends TableSubject
 {
     /**
@@ -172,12 +176,12 @@ class Table extends TableSubject
     {
         // Table is full
         if (count($this->getPlayers()) == $this->seats) {
-            return null;
+            throw new TableFullException($this);
         }
 
         // Player is already seated
         if (in_array($player, $this->players)) {
-            return null;
+            throw new PlayerAlreadySeatedException($player, $this);
         }
 
         // Sets the button to the first Player

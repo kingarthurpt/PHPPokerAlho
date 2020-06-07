@@ -2,12 +2,13 @@
 
 namespace Tests\Gameplay\Game;
 
-use TexasHoldemBundle\Gameplay\Cards\Card;
 use TexasHoldemBundle\Gameplay\Cards\CardCollection;
+use TexasHoldemBundle\Gameplay\Cards\StandardCard;
 use TexasHoldemBundle\Gameplay\Cards\Suit;
 use TexasHoldemBundle\Gameplay\Game\Player;
 use TexasHoldemBundle\Gameplay\Game\PlayerHand;
 use TexasHoldemBundle\Gameplay\Game\Stack;
+use TexasHoldemBundle\Gameplay\Game\Table;
 
 class PlayerTest extends \Tests\BaseTestCase
 {
@@ -59,8 +60,8 @@ class PlayerTest extends \Tests\BaseTestCase
     public function testSetHand()
     {
         $holeCards = [
-            0 => new Card(1, new Suit('Diamonds')),
-            1 => new Card(1, new Suit('Hearts')),
+            0 => new StandardCard(14, new Suit('Diamonds')),
+            1 => new StandardCard(14, new Suit('Hearts')),
         ];
         $hand = new CardCollection($holeCards, 2);
         $this->player->setHand($hand);
@@ -114,6 +115,8 @@ class PlayerTest extends \Tests\BaseTestCase
         $this->assertNull($this->player->doAction('invalidAction'));
 
         $action = 'showHand';
+        $table = new Table('test', 1);
+        $table->addPlayer($this->player);
         $this->assertSame(
             $this->player->getPlayerActions()->$action(),
             $this->player->doAction($action)

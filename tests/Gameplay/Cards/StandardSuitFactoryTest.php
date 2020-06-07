@@ -2,8 +2,8 @@
 
 namespace Tests\Gameplay\Cards;
 
-use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 use TexasHoldemBundle\Gameplay\Cards\StandardSuit;
+use TexasHoldemBundle\Gameplay\Cards\StandardSuitFactory;
 
 class StandardSuitFactoryTest extends \Tests\BaseTestCase
 {

@@ -3,7 +3,6 @@
 namespace Tests\Gameplay\Rules\HandRankings;
 
 use TexasHoldemBundle\Gameplay\Cards\CardCollectionFactory;
-use TexasHoldemBundle\Gameplay\Rules\HandRanking;
 use TexasHoldemBundle\Gameplay\Rules\HandRankings\OnePair;
 
 class OnePairTest extends \Tests\BaseTestCase

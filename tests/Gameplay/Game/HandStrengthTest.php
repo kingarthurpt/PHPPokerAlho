@@ -90,4 +90,35 @@ class HandStrengthTest extends \Tests\BaseTestCase
             $this->invokeMethod($handStrength2, 'kickersToStr')
         );
     }
+
+    public function testGetValue()
+    {
+        $twoPairAcesKings = new HandStrength(
+            HandRanking::TWO_PAIR,
+            [StandardCard::ACE, StandardCard::KING],
+            [StandardCard::NINE]
+        );
+        $this->assertEquals(12729, $twoPairAcesKings->getValue());
+
+        $pairAces = new HandStrength(
+            HandRanking::ONE_PAIR,
+            [StandardCard::ACE],
+            []
+        );
+        $this->assertEquals(736, $pairAces->getValue());
+
+        $threeTwosAcesKick = new HandStrength(
+            HandRanking::THREE_OF_A_KIND,
+            [StandardCard::TWO],
+            [StandardCard::ACE, StandardCard::TWO]
+        );
+        $this->assertTrue($threeTwosAcesKick->getValue() > $pairAces->getValue());
+
+        $threeTwosThreeKick = new HandStrength(
+            HandRanking::THREE_OF_A_KIND,
+            [StandardCard::TWO],
+            [StandardCard::THREE, StandardCard::FOUR]
+        );
+        $this->assertTrue($threeTwosAcesKick->getValue() > $threeTwosThreeKick->getValue());
+    }
 }

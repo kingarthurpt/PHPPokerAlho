@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Gameplay\Game;
+namespace Tests\Gameplay\Game\Event;
 
-use TexasHoldemBundle\Gameplay\Game\TableEvent;
+use TexasHoldemBundle\Gameplay\Game\Event\TableEvent;
 
 class TableEventTest extends \Tests\BaseTestCase
 {
